@@ -22,22 +22,11 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         myDbManager.openDb()
-        val dataList = myDbManager.readDbData()
-        for (item in dataList) {
-            binding.tvTest.append(item)
-            binding.tvTest.append("\n")
-        }
+
     }
 
-    fun onClickSave(view: View) {
-        binding.tvTest.text = ""
-        myDbManager.openDb()
-        myDbManager.insertToDb(binding.edTitle.text.toString(), binding.edContext.toString())
-        val dataList = myDbManager.readDbData()
-        for (item in dataList) {
-            binding.tvTest.append(item)
-            binding.tvTest.append("\n")
-        }
+    fun onClickNew(view: View) {
+
     }
 
     override fun onDestroy() {
