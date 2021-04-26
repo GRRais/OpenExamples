@@ -16,7 +16,7 @@ class EditActivity : AppCompatActivity() {
     private val myDbManager = MyDbManager(this)
 
 
-    val imageRequestCode = 10
+    private val imageRequestCode = 10
     var tempImageUri = "empty"
 
     override fun onCreate(savedInstanceState: Bundle?) {
