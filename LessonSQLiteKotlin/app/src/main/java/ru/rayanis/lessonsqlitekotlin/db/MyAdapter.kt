@@ -18,7 +18,7 @@ class MyAdapter (listMain: ArrayList<ListItem>, contextM: Context) : RecyclerVie
     class MyHolder(itemView: View, contextV: Context) : RecyclerView.ViewHolder(itemView) {
 
         val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
-        val context = contextV
+        private val context = contextV
 
         fun setData(item: ListItem) {
             tvTitle.text = item.title
@@ -51,6 +51,13 @@ class MyAdapter (listMain: ArrayList<ListItem>, contextM: Context) : RecyclerVie
         listArray.clear()
         listArray.addAll(listItems)
         notifyDataSetChanged()
+    }
+
+    fun removeItem(pos: Int, dbManager: MyDbManager) {
+        dbManager.removeItemFromDb(listArray[pos].id.toString())
+        listArray.removeAt(pos)
+        notifyItemRangeChanged(0, listArray.size)
+        notifyItemRemoved(pos)
     }
 
 }

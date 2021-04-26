@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ru.rayanis.lessonsqlitekotlin.databinding.ActivityMainBinding
 import ru.rayanis.lessonsqlitekotlin.db.MyAdapter
 import ru.rayanis.lessonsqlitekotlin.db.MyDbManager
@@ -43,6 +45,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
         b.rcView.layoutManager = LinearLayoutManager(this)
+        val swapHelper = getSwapMg()
+        swapHelper.attachToRecyclerView(b.rcView)
         b.rcView.adapter = myAdapter
     }
 
@@ -56,5 +60,23 @@ class MainActivity : AppCompatActivity() {
         } else {
             b.tvNoElements.visibility = View.VISIBLE
         }
+    }
+
+    private fun  getSwapMg():ItemTouchHelper {
+        return ItemTouchHelper(object: ItemTouchHelper.
+        SimpleCallback(0, ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                myAdapter.removeItem(viewHolder.adapterPosition, myDbManager)
+            }
+
+        } )
     }
 }

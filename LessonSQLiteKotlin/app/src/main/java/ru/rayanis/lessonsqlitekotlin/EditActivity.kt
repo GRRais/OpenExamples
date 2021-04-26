@@ -16,7 +16,7 @@ class EditActivity : AppCompatActivity() {
     private val myDbManager = MyDbManager(this)
 
 
-    val imageRequestCode = 10
+    private val imageRequestCode = 10
     var tempImageUri = "empty"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +43,7 @@ class EditActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK && requestCode == imageRequestCode) {
             b.imMainImage.setImageURI(data?.data)
             tempImageUri = data?.data.toString()
+            contentResolver.takePersistableUriPermission(data?.data!!, Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
     }
 
@@ -59,7 +60,6 @@ class EditActivity : AppCompatActivity() {
     fun onClickChooseImage(view: View) {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         intent.type = "image/*"
-        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
         startActivityForResult(intent, imageRequestCode)
     }
 
