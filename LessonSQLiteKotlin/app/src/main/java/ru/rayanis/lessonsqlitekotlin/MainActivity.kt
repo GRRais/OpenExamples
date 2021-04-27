@@ -3,7 +3,9 @@ package ru.rayanis.lessonsqlitekotlin
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.SearchView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -48,6 +50,19 @@ class MainActivity : AppCompatActivity() {
         val swapHelper = getSwapMg()
         swapHelper.attachToRecyclerView(b.rcView)
         b.rcView.adapter = myAdapter
+    }
+
+    fun initSearchView(){
+        b.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Log.d()
+                return true
+            }
+        })
     }
 
     private fun fillAdapter() {
