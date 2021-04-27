@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         init()
+        initSearchView()
     }
 
     override fun onResume() {
@@ -52,14 +53,15 @@ class MainActivity : AppCompatActivity() {
         b.rcView.adapter = myAdapter
     }
 
-    fun initSearchView(){
+    private fun initSearchView(){
         b.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 TODO("Not yet implemented")
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                Log.d()
+                val list = myDbManager.readDbData(newText!!)
+                myAdapter.updateAdapter(list)
                 return true
             }
         })
@@ -67,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun fillAdapter() {
 
-        val list = myDbManager.readDbData()
+        val list = myDbManager.readDbData("")
         myAdapter.updateAdapter(list)
 
         if (list.size > 0) {

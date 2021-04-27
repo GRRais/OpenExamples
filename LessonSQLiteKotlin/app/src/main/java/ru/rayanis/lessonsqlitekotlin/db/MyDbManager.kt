@@ -25,6 +25,16 @@ class MyDbManager(context: Context) {
         db?.insert(MyDbNameClass.TABLE_NAME, null, values)
     }
 
+    fun updateItem(title: String, content: String, uri: String, id: Int) {
+        val selection = BaseColumns._ID + "=$id"
+        val values = ContentValues().apply {
+            put(MyDbNameClass.COLUMN_NAME_TITLE, title)
+            put(MyDbNameClass.COLUMN_NAME_CONTENT, content)
+            put(MyDbNameClass.COLUMN_NAME_URI, uri)
+        }
+        db?.update(MyDbNameClass.TABLE_NAME, values, selection, null)
+    }
+
     //функция удаления из базы данных
     fun removeItemFromDb(id: String) {
         val selection = BaseColumns._ID + "=$id"
@@ -32,11 +42,12 @@ class MyDbManager(context: Context) {
     }
 
     //функция чтения базы данных
-    fun readDbData(): ArrayList<ListItem> {
+    fun readDbData(searchText: String): ArrayList<ListItem> {
         val dataList = ArrayList<ListItem>()
+        val selection = "${MyDbNameClass.COLUMN_NAME_TITLE} like ?"
         val cursor = db?.query(
-            MyDbNameClass.TABLE_NAME, null, null,
-            null, null, null, null
+            MyDbNameClass.TABLE_NAME, null, selection,
+            arrayOf("%$searchText%"), null, null, null
         )
 
         while (cursor?.moveToNext()!!) {
@@ -45,7 +56,7 @@ class MyDbManager(context: Context) {
                 cursor.getString(cursor.getColumnIndex(MyDbNameClass.COLUMN_NAME_CONTENT))
             val dataUri = cursor.getString(cursor.getColumnIndex(MyDbNameClass.COLUMN_NAME_URI))
             val dataId = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
-            var item = ListItem()
+            val item = ListItem()
             item.title = dataTitle
             item.desc = dataContent
             item.uri = dataUri

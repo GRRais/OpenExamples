@@ -11,4 +11,5 @@
     <color name="dark_bg">#807F7E</color>
     <color name="gray">#E2E2E2</color>
     <color name="blue_dark">#0B3C63</color>
+    <color name="edit_text_dark">#101010</color>
 </resources>
