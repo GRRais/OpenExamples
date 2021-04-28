@@ -16,11 +16,12 @@ class MyDbManager(context: Context) {
     }
 
     //функция добавления в базу данных
-    fun insertToDb(title: String, content: String, uri: String) {
+    fun insertToDb(title: String, content: String, uri: String, time: String) {
         val values = ContentValues().apply {
             put(MyDbNameClass.COLUMN_NAME_TITLE, title)
             put(MyDbNameClass.COLUMN_NAME_CONTENT, content)
             put(MyDbNameClass.COLUMN_NAME_URI, uri)
+            put(MyDbNameClass.COLUMN_NAME_TIME, uri)
         }
         db?.insert(MyDbNameClass.TABLE_NAME, null, values)
     }

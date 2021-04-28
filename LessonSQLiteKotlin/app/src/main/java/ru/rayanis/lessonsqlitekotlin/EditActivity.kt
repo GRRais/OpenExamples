@@ -26,6 +26,7 @@ class EditActivity : AppCompatActivity() {
     var tempImageUri = "empty"
     private val myDbManager = MyDbManager(this)
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         b = EditActivityBinding.inflate(layoutInflater)
@@ -83,7 +84,7 @@ class EditActivity : AppCompatActivity() {
             if (isEditState) {
                 myDbManager.updateItem(myTitle, myDesc, tempImageUri, id)
             } else {
-                myDbManager.insertToDb(myTitle, myDesc, tempImageUri)
+                myDbManager.insertToDb(myTitle, myDesc, tempImageUri, getCurrentTime())
             }
             finish()
         }
@@ -127,9 +128,8 @@ class EditActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.N)
     fun getCurrentTime(): String {
         val time = Calendar.getInstance().time
-        val formatter = SimpleDateFormat("dd-MM-yy hh:mm", Locale.getDefault())
-        val fTime = 
-        return  time.toString()
+        val formatter = SimpleDateFormat("dd-MM-yy kk:mm", Locale.getDefault())
+        return formatter.format(time)
     }
 
 }
