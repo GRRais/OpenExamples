@@ -9,6 +9,10 @@ import android.widget.SearchView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import ru.rayanis.lessonsqlitekotlin.databinding.ActivityMainBinding
 import ru.rayanis.lessonsqlitekotlin.db.MyAdapter
 import ru.rayanis.lessonsqlitekotlin.db.MyDbManager
@@ -17,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private val myDbManager = MyDbManager(this)
     private val myAdapter = MyAdapter(ArrayList(), this)
+    private var job: Job? = null
 
     private lateinit var b: ActivityMainBinding
 
@@ -33,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         myDbManager.openDb()
-        fillAdapter()
+        fillAdapter("")
     }
 
     override fun onDestroy() {
@@ -60,22 +65,24 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                val list = myDbManager.readDbData(newText!!)
-                myAdapter.updateAdapter(list)
+                fillAdapter(newText!!)
                 return true
             }
         })
     }
 
-    private fun fillAdapter() {
+    private fun fillAdapter(text: String) {
 
-        val list = myDbManager.readDbData("")
-        myAdapter.updateAdapter(list)
+        job?.cancel()
+        job = CoroutineScope(Dispatchers.Main).launch {
+            val list = myDbManager.readDbData(text)
+            myAdapter.updateAdapter(list)
 
-        if (list.size > 0) {
-            b.tvNoElements.visibility = View.GONE
-        } else {
-            b.tvNoElements.visibility = View.VISIBLE
+            if (list.size > 0) {
+                b.tvNoElements.visibility = View.GONE
+            } else {
+                b.tvNoElements.visibility = View.VISIBLE
+            }
         }
     }
 

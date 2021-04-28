@@ -10,6 +10,9 @@ import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import ru.rayanis.lessonsqlitekotlin.databinding.EditActivityBinding
 import ru.rayanis.lessonsqlitekotlin.db.MyDbManager
 import ru.rayanis.lessonsqlitekotlin.db.MyIntentConstants
@@ -76,17 +79,22 @@ class EditActivity : AppCompatActivity() {
         startActivityForResult(intent, imageRequestCode)
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     fun onClickSave(view: View) {
         val myTitle = b.edTitle.text.toString()
         val myDesc = b.edDesc.text.toString()
 
         if (myTitle != "" && myDesc != "") {
-            if (isEditState) {
-                myDbManager.updateItem(myTitle, myDesc, tempImageUri, id)
-            } else {
-                myDbManager.insertToDb(myTitle, myDesc, tempImageUri, getCurrentTime())
+
+            CoroutineScope(Dispatchers.Main).launch {
+                if (isEditState) {
+                    myDbManager.updateItem(myTitle, myDesc, tempImageUri, id, getCurrentTime())
+                } else {
+                    myDbManager.insertToDb(myTitle, myDesc, tempImageUri, getCurrentTime())
+                }
+                finish()
             }
-            finish()
+
         }
 
     }
