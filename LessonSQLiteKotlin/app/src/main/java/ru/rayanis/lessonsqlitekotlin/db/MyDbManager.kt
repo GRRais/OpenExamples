@@ -3,14 +3,13 @@ package ru.rayanis.lessonsqlitekotlin.db
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import android.icu.text.CaseMap
 import android.provider.BaseColumns
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class MyDbManager(context: Context) {
     private val myDbHelper = MyDbHelper(context)
-    var db: SQLiteDatabase? = null
+    private var db: SQLiteDatabase? = null
 
     //функция открытия базы данных
     fun openDb() {
@@ -18,7 +17,17 @@ class MyDbManager(context: Context) {
     }
 
     //функция добавления в базу данных
-    suspend fun insertToDb(title: String, content: String, uri: String, time: String)= withContext(Dispatchers.IO) {
+//    suspend fun insertToDb(title: String, content: String, uri: String, time: String)= withContext(Dispatchers.IO) {
+//        val values = ContentValues().apply {
+//            put(MyDbNameClass.COLUMN_NAME_TITLE, title)
+//            put(MyDbNameClass.COLUMN_NAME_CONTENT, content)
+//            put(MyDbNameClass.COLUMN_NAME_URI, uri)
+//            put(MyDbNameClass.COLUMN_NAME_TIME, time)
+//        }
+//        db?.insert(MyDbNameClass.TABLE_NAME, null, values)
+//    }
+
+    fun insertToDb(title: String, content: String, uri: String, time: String) {
         val values = ContentValues().apply {
             put(MyDbNameClass.COLUMN_NAME_TITLE, title)
             put(MyDbNameClass.COLUMN_NAME_CONTENT, content)
@@ -28,7 +37,18 @@ class MyDbManager(context: Context) {
         db?.insert(MyDbNameClass.TABLE_NAME, null, values)
     }
 
-    suspend fun updateItem(title: String, content: String, uri: String, id: Int, time: String) = withContext(Dispatchers.IO) {
+//    suspend fun updateItem(title: String, content: String, uri: String, id: Int, time: String) = withContext(Dispatchers.IO) {
+//        val selection = BaseColumns._ID + "=$id"
+//        val values = ContentValues().apply {
+//            put(MyDbNameClass.COLUMN_NAME_TITLE, title)
+//            put(MyDbNameClass.COLUMN_NAME_CONTENT, content)
+//            put(MyDbNameClass.COLUMN_NAME_URI, uri)
+//            put(MyDbNameClass.COLUMN_NAME_TIME, time)
+//        }
+//        db?.update(MyDbNameClass.TABLE_NAME, values, selection, null)
+//    }
+
+    fun updateItem(title: String, content: String, uri: String, id: Int, time: String) {
         val selection = BaseColumns._ID + "=$id"
         val values = ContentValues().apply {
             put(MyDbNameClass.COLUMN_NAME_TITLE, title)

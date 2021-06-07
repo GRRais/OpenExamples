@@ -79,6 +79,7 @@ class EditActivity : AppCompatActivity() {
         startActivityForResult(intent, imageRequestCode)
     }
 
+
     @RequiresApi(Build.VERSION_CODES.N)
     fun onClickSave(view: View) {
         val myTitle = b.edTitle.text.toString()
@@ -86,14 +87,20 @@ class EditActivity : AppCompatActivity() {
 
         if (myTitle != "" && myDesc != "") {
 
-            CoroutineScope(Dispatchers.Main).launch {
-                if (isEditState) {
-                    myDbManager.updateItem(myTitle, myDesc, tempImageUri, id, getCurrentTime())
-                } else {
-                    myDbManager.insertToDb(myTitle, myDesc, tempImageUri, getCurrentTime())
-                }
-                finish()
+            if (isEditState) {
+                myDbManager.updateItem(myTitle, myDesc, tempImageUri, id, getCurrentTime())
+            } else {
+                myDbManager.insertToDb(myTitle, myDesc, tempImageUri, getCurrentTime())
             }
+            finish()
+//            CoroutineScope(Dispatchers.Main).launch {
+//                if (isEditState) {
+//                    myDbManager.updateItem(myTitle, myDesc, tempImageUri, id, getCurrentTime())
+//                } else {
+//                    myDbManager.insertToDb(myTitle, myDesc, tempImageUri, getCurrentTime())
+//                }
+//                finish()
+//            }
 
         }
 
@@ -132,6 +139,7 @@ class EditActivity : AppCompatActivity() {
             }
         }
     }
+
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun getCurrentTime(): String {
