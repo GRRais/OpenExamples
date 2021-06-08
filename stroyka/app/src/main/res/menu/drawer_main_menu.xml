@@ -3,4 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
+    <item android:title="@string/stroyka">
+        <menu>
+            <item
+                android:title="@string/objects"
+                android:id="@+id/objects"
+                />
+            <item
+                android:title="@string/materials"
+                android:id="@+id/materials"
+                />
+        </menu>
+    </item>
+
+    <item android:title="@string/account_category">
+        <menu>
+            <item
+                android:title="@string/sign_up"
+                android:id="@+id/sign_up"
+                />
+            <item
+                android:title="@string/sign_in"
+                android:id="@+id/sign_in"
+                />
+            <item
+                android:title="@string/sign_out"
+                android:id="@+id/sign_out"
+                />
+        </menu>
+    </item>
+
 </menu>

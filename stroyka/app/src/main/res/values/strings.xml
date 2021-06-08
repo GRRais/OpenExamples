@@ -1,4 +1,12 @@
 <resources>
-    <string name="app_name">Stroyka</string>
+    <string name="app_name">Стройка</string>
+    <!-- Menu Drawing Strings-->
+    <string name="stroyka">Стройка</string>
+    <string name="objects">Объекты</string>
+    <string name="materials">Материалы</string>
+    <string name="account_category">Аккаунт</string>
+    <string name="sign_up">Регистрация</string>
+    <string name="sign_in">Вход</string>
+    <string name="sign_out">Выход</string>
 
 </resources>
