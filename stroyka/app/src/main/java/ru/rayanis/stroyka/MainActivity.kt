@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        var toggle = ActionBarDrawerToggle(this, b.drawerLayout, b.)
+        var toggle = ActionBarDrawerToggle(this, b.drawerLayout, b.mainContent.toolbar, R.string.open, R.string.close)
+        b.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
     }
 }
