@@ -2,10 +2,14 @@ package ru.rayanis.stroyka
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
+import com.google.android.material.navigation.NavigationView
 import ru.rayanis.stroyka.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var b: ActivityMainBinding
 
@@ -20,8 +24,37 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        var toggle = ActionBarDrawerToggle(this, b.drawerLayout, b.mainContent.toolbar, R.string.open, R.string.close)
+        var toggle = ActionBarDrawerToggle(
+            this,
+            b.drawerLayout,
+            b.mainContent.toolbar,
+            R.string.open,
+            R.string.close
+        )
         b.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+        b.navView.setNavigationItemSelectedListener(this)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.objects -> {
+                Toast.makeText(this, "Pressed objects", Toast.LENGTH_LONG).show()
+            }
+            R.id.materials -> {
+                Toast.makeText(this, "Pressed materials", Toast.LENGTH_LONG).show()
+            }
+            R.id.sign_in -> {
+                Toast.makeText(this, "Pressed sign_in", Toast.LENGTH_LONG).show()
+            }
+            R.id.sign_up -> {
+                Toast.makeText(this, "Pressed sign_up", Toast.LENGTH_LONG).show()
+            }
+            R.id.sign_out -> {
+                Toast.makeText(this, "Pressed sign_out", Toast.LENGTH_LONG).show()
+            }
+        }
+        b.drawerLayout.closeDrawer(GravityCompat.START)
+        return true
     }
 }
