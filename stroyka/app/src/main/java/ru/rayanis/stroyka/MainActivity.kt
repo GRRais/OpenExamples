@@ -3,15 +3,21 @@ package ru.rayanis.stroyka
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import ru.rayanis.stroyka.databinding.ActivityMainBinding
+import ru.rayanis.stroyka.dialoghelper.DialogConst
+import ru.rayanis.stroyka.dialoghelper.DialogHelper
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
+    private lateinit var tvAccount: TextView
     private lateinit var b: ActivityMainBinding
+    private val dialogHelper = DialogHelper(this)
+    val mAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +30,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun init() {
-        var toggle = ActionBarDrawerToggle(
+        val toggle = ActionBarDrawerToggle(
             this,
             b.drawerLayout,
             b.mainContent.toolbar,
@@ -45,10 +51,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Toast.makeText(this, "Pressed materials", Toast.LENGTH_LONG).show()
             }
             R.id.sign_in -> {
-                Toast.makeText(this, "Pressed sign_in", Toast.LENGTH_LONG).show()
+                dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
             }
             R.id.sign_up -> {
-                Toast.makeText(this, "Pressed sign_up", Toast.LENGTH_LONG).show()
+                dialogHelper.createSignDialog(DialogConst.SIGN_UP_STATE)
             }
             R.id.sign_out -> {
                 Toast.makeText(this, "Pressed sign_out", Toast.LENGTH_LONG).show()
