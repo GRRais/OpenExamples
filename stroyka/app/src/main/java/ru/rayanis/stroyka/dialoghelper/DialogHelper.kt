@@ -1,6 +1,7 @@
 package ru.rayanis.stroyka.dialoghelper
 
 import android.app.AlertDialog
+import android.view.View
 import ru.rayanis.stroyka.MainActivity
 import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.accounthelper.AccountHelper
@@ -16,13 +17,8 @@ class DialogHelper(act: MainActivity) {
         val view = b.root
         builder.setView(view)
 
-        if (index == DialogConst.SIGN_UP_STATE) {
-            b.tvSignTitle.text = act.resources.getString(R.string.sign_up)
-            b.btSignUpIn.text = act.resources.getString(R.string.sign_up_action)
-        } else {
-            b.tvSignTitle.text = act.resources.getString(R.string.sign_in)
-            b.btSignUpIn.text = act.resources.getString(R.string.sign_in_action)
-        }
+        setDialogState(state, b)
+
         val dialog = builder.create()
         b.btSignUpIn.setOnClickListener {
             dialog.dismiss()
