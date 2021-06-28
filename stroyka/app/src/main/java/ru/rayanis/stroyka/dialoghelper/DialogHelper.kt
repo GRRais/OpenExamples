@@ -17,19 +17,34 @@ class DialogHelper(act: MainActivity) {
         val view = b.root
         builder.setView(view)
 
-        setDialogState(state, b)
+        setDialogState(index, b)
 
         val dialog = builder.create()
         b.btSignUpIn.setOnClickListener {
-            dialog.dismiss()
-            if (index == DialogConst.SIGN_UP_STATE) {
-                accHelper.signUpWithEmail(b.edSignEmail.text.toString(),
-                    b.edSignPassword.text.toString())
-            } else {
-                accHelper.signInWithEmail(b.edSignEmail.text.toString(),
-                    b.edSignPassword.text.toString())
-            }
+            setOnClickSignUpIn(index, b, dialog)
         }
         dialog.show()
+    }
+
+    private fun setOnClickSignUpIn(index: Int, b: SignDialogBinding, dialog: AlertDialog?) {
+        dialog?.dismiss()
+        if (index == DialogConst.SIGN_UP_STATE) {
+            accHelper.signUpWithEmail(b.edSignEmail.text.toString(),
+                b.edSignPassword.text.toString())
+        } else {
+            accHelper.signInWithEmail(b.edSignEmail.text.toString(),
+                b.edSignPassword.text.toString())
+        }
+    }
+
+    private fun setDialogState(index: Int, b: SignDialogBinding) {
+        if (index == DialogConst.SIGN_UP_STATE) {
+            b.tvSignTitle.text = act.resources.getString(R.string.sign_up)
+            b.btSignUpIn.text = act.resources.getString(R.string.sign_up_action)
+        } else {
+            b.tvSignTitle.text = act.resources.getString(R.string.sign_in)
+            b.btSignUpIn.text = act.resources.getString(R.string.sign_in_action)
+            b.btForgetPassword.visibility = View.VISIBLE
+        }
     }
 }
