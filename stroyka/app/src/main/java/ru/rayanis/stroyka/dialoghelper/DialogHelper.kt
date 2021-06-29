@@ -23,7 +23,19 @@ class DialogHelper(act: MainActivity) {
         b.btSignUpIn.setOnClickListener {
             setOnClickSignUpIn(index, b, dialog)
         }
+        b.btSignUpIn.setOnClickListener {
+            setOnClickResetPassword(b, dialog)
+        }
+
         dialog.show()
+    }
+
+    private fun setOnClickResetPassword(b: SignDialogBinding, dialog: AlertDialog?) {
+        if (b.edSignEmail.text.isNotEmpty()) {
+            act.mAuth.sendPasswordResetEmail(b.edSignEmail.text.toString()).addOnCompleteListener {
+                task -> 
+            }
+        }
     }
 
     private fun setOnClickSignUpIn(index: Int, b: SignDialogBinding, dialog: AlertDialog?) {
