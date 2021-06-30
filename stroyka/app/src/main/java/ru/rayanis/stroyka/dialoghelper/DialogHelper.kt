@@ -2,6 +2,7 @@ package ru.rayanis.stroyka.dialoghelper
 
 import android.app.AlertDialog
 import android.view.View
+import android.widget.Toast
 import ru.rayanis.stroyka.MainActivity
 import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.accounthelper.AccountHelper
@@ -23,7 +24,7 @@ class DialogHelper(act: MainActivity) {
         b.btSignUpIn.setOnClickListener {
             setOnClickSignUpIn(index, b, dialog)
         }
-        b.btSignUpIn.setOnClickListener {
+        b.btForgetPassword.setOnClickListener {
             setOnClickResetPassword(b, dialog)
         }
 
@@ -33,8 +34,13 @@ class DialogHelper(act: MainActivity) {
     private fun setOnClickResetPassword(b: SignDialogBinding, dialog: AlertDialog?) {
         if (b.edSignEmail.text.isNotEmpty()) {
             act.mAuth.sendPasswordResetEmail(b.edSignEmail.text.toString()).addOnCompleteListener {
-                task -> 
+                task -> if (task.isSuccessful) {
+                    Toast.makeText(act, R.string.email_reset_password_was_sent, Toast.LENGTH_LONG).show()
+                }
             }
+            dialog?.dismiss()
+        } else {
+            b.tvDialogMessage.visibility = View.VISIBLE
         }
     }
 
