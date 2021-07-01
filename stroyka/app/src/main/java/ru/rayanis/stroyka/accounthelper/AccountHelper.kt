@@ -19,6 +19,9 @@ class AccountHelper(act: MainActivity) {
                 }
             }
         }
+    }
+
+    private fun getSignInClient() {
 
     }
 
