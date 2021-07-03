@@ -47,6 +47,7 @@
         android:id="@+id/btSignUpIn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:layout_marginBottom="16dp"
         android:text="@string/sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -76,4 +77,14 @@
         app:layout_constraintEnd_toEndOf="@+id/edSignEmail"
         app:layout_constraintStart_toStartOf="@+id/edSignEmail"
         app:layout_constraintTop_toBottomOf="@+id/tvSignTitle" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/btSignUpIn"
+        app:layout_constraintEnd_toEndOf="@+id/btSignUpIn"
+        app:layout_constraintStart_toStartOf="@+id/btSignUpIn"
+        app:layout_constraintTop_toBottomOf="@+id/edSignPassword" />
 </androidx.constraintlayout.widget.ConstraintLayout>

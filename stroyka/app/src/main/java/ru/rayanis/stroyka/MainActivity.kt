@@ -2,6 +2,7 @@ package ru.rayanis.stroyka
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
@@ -13,6 +14,7 @@ import com.google.firebase.auth.FirebaseUser
 import ru.rayanis.stroyka.databinding.ActivityMainBinding
 import ru.rayanis.stroyka.dialoghelper.DialogConst
 import ru.rayanis.stroyka.dialoghelper.DialogHelper
+import ru.rayanis.stroyka.dialoghelper.GoogleAccConst
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var tvAccount: TextView
@@ -28,6 +30,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         init()
 
+    }
+
+    override fun onActivityResult(
+        requestCode: kotlin.Int,
+        resultCode: kotlin.Int,
+        data: android.content.Intent?
+    ) {
+        if (requestCode == GoogleAccConst.GOOGLE_SIGN_IN_REQUEST_CODE) {
+            Log.d("MyLog", "Sign in result")
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onStart() {
