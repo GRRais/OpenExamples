@@ -24,9 +24,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
         android:ems="10"
         android:hint="@string/email_hint"
         android:inputType="textPersonName|textEmailAddress"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDialogMessage" />
@@ -36,14 +38,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
         android:ems="10"
         android:hint="@string/password_hint"
         android:inputType="textPassword"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="@+id/edSignEmail"
         app:layout_constraintStart_toStartOf="@+id/edSignEmail"
         app:layout_constraintTop_toBottomOf="@+id/edSignEmail" />
 
-    <Button
+    <com.google.android.gms.common.internal.SignInButtonImpl
         android:id="@+id/btSignUpIn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -78,11 +82,12 @@
         app:layout_constraintStart_toStartOf="@+id/edSignEmail"
         app:layout_constraintTop_toBottomOf="@+id/tvSignTitle" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btGoogleSignIn"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Button"
+        app:buttonSize="standard"
         app:layout_constraintBottom_toTopOf="@+id/btSignUpIn"
         app:layout_constraintEnd_toEndOf="@+id/btSignUpIn"
         app:layout_constraintStart_toStartOf="@+id/btSignUpIn"

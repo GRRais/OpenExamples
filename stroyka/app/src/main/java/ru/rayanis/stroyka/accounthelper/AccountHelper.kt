@@ -5,6 +5,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import ru.rayanis.stroyka.MainActivity
 import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.dialoghelper.GoogleAccConst
@@ -37,6 +38,15 @@ class AccountHelper(act: MainActivity) {
         signInClient = getSignInClient()
         val intent = signInClient.signInIntent
         activity.startActivityForResult(intent, GoogleAccConst.GOOGLE_SIGN_IN_REQUEST_CODE)
+    }
+
+    fun signInFirebaseWithGoogle(token: String) {
+        val credential = GoogleAuthProvider.getCredential(token, null)
+        activity.mAuth.signInWithCredential(credential).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(activity, "Sign in done", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     //функция регистрации по email

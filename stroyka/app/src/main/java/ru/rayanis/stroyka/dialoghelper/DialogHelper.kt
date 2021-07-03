@@ -10,7 +10,7 @@ import ru.rayanis.stroyka.databinding.SignDialogBinding
 
 class DialogHelper(act: MainActivity) {
     private val act = act
-    private val accHelper = AccountHelper(act)
+    val accHelper = AccountHelper(act)
 
     fun createSignDialog(index: Int){
         val builder = AlertDialog.Builder(act)
@@ -24,8 +24,13 @@ class DialogHelper(act: MainActivity) {
         b.btSignUpIn.setOnClickListener {
             setOnClickSignUpIn(index, b, dialog)
         }
+
         b.btForgetPassword.setOnClickListener {
             setOnClickResetPassword(b, dialog)
+        }
+
+        b.btGoogleSignIn.setOnClickListener {
+            accHelper.signInWithGoogle()
         }
 
         dialog.show()
