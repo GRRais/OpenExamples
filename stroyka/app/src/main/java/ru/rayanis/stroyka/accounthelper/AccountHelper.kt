@@ -5,10 +5,7 @@ import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.*
 import ru.rayanis.stroyka.MainActivity
 import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.constants.FirebaseAuthConstants
@@ -29,7 +26,7 @@ class AccountHelper(act: MainActivity) {
                     } else {
                         //Toast.makeText(activity, activity.resources.getString(R.string.sign_up_error), Toast.LENGTH_LONG).show()
                         //Log.d("MyLog", "Exception: ${exception.errorCode}")
-                        //Log.d("MyLog", "Exception: ${task.exception}")
+                        Log.d("MyLog", "Exception: ${task.exception}")
                         if (task.exception is FirebaseAuthUserCollisionException) {
                             val exception = task.exception as FirebaseAuthUserCollisionException
                             if (exception.errorCode == FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE) {
@@ -54,6 +51,15 @@ class AccountHelper(act: MainActivity) {
                                 Toast.makeText(activity, FirebaseAuthConstants.ERROR_INVALID_EMAIL, Toast.LENGTH_LONG).show()
                             }
                         }
+                        if (task.exception is FirebaseAuthWeakPasswordException) {
+                            val exception =
+                                task.exception as FirebaseAuthWeakPasswordException
+                            if (exception.errorCode == FirebaseAuthConstants.ERROR_INVALID_EMAIL) {
+                                Log.d("MyLog", "Exception: ${exception.errorCode}")
+                                Toast.makeText(activity, FirebaseAuthConstants.ERROR_INVALID_EMAIL, Toast.LENGTH_LONG).show()
+                            }
+                        }
+                        //
                     }
                 }
         }
