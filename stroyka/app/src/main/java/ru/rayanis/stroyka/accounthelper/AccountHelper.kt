@@ -30,18 +30,12 @@ class AccountHelper(act: MainActivity) {
                         if (task.exception is FirebaseAuthUserCollisionException) {
                             val exception = task.exception as FirebaseAuthUserCollisionException
                             if (exception.errorCode == FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE) {
-                                Toast.makeText(
-                                    activity,
-                                    FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE,
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                        } else if (task.exception is FirebaseAuthInvalidCredentialsException) {
-                            val exception =
-                                task.exception as FirebaseAuthInvalidCredentialsException
-                            if (exception.errorCode == FirebaseAuthConstants.ERROR_INVALID_EMAIL) {
-                                Log.d("MyLog", "Exception: ${exception.errorCode}")
-                                Toast.makeText(activity, FirebaseAuthConstants.ERROR_INVALID_EMAIL, Toast.LENGTH_LONG).show()
+//                                Toast.makeText(
+//                                    activity,
+//                                    FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE,
+//                                    Toast.LENGTH_LONG
+//                                ).show()
+                                linkEmailToG(email, password)
                             }
                         } else if (task.exception is FirebaseAuthInvalidCredentialsException) {
                             val exception =
@@ -54,14 +48,36 @@ class AccountHelper(act: MainActivity) {
                         if (task.exception is FirebaseAuthWeakPasswordException) {
                             val exception = task.exception as FirebaseAuthWeakPasswordException
                             Log.d("MyLog", "Exception: ${exception.errorCode}")
-                            if (exception.errorCode == FirebaseAuthConstants.ERROR_INVALID_EMAIL) {
+                            if (exception.errorCode == FirebaseAuthConstants.ERROR_WEAK_PASSWORD) {
 
-                                Toast.makeText(activity, FirebaseAuthConstants.ERROR_INVALID_EMAIL, Toast.LENGTH_LONG).show()
+                                Toast.makeText(activity, FirebaseAuthConstants.ERROR_WEAK_PASSWORD, Toast.LENGTH_LONG).show()
                             }
                         }
                         //
                     }
                 }
+        }
+    }
+
+    private fun linkEmailToG(email: String, password: String) {
+        val credential = EmailAuthProvider.getCredential(email, password)
+        if (activity.mAuth.currentUser != null) {
+            activity.mAuth.currentUser?.linkWithCredential(credential)
+                ?.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(
+                            activity,
+                            activity.resources.getString(R.string.link_done),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+        } else {
+            Toast.makeText(
+                activity,
+                activity.resources.getString(R.string.enter_to_g),
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 

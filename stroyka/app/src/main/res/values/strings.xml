@@ -23,6 +23,9 @@
     <string name="sign_in_error">Не удалось войти</string>
     <string name="send_verification_error">Не удалось отправить email для подтверждения!</string>
     <string name="send_verification_done">На вашу почту была отправлена ссылка для подтверждения вашего аккаунта!</string>
+    <!-- Sign Dialog-->
+    <string name="link_done">Email успешно соединен с Google аккаунтом</string>
+    <string name="enter_to_g">У вас уже есть аккаунт с этим Email адресом, войдите по нему.</string>
 
 
 </resources>
