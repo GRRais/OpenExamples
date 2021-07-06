@@ -52,10 +52,10 @@ class AccountHelper(act: MainActivity) {
                             }
                         }
                         if (task.exception is FirebaseAuthWeakPasswordException) {
-                            val exception =
-                                task.exception as FirebaseAuthWeakPasswordException
+                            val exception = task.exception as FirebaseAuthWeakPasswordException
+                            Log.d("MyLog", "Exception: ${exception.errorCode}")
                             if (exception.errorCode == FirebaseAuthConstants.ERROR_INVALID_EMAIL) {
-                                Log.d("MyLog", "Exception: ${exception.errorCode}")
+
                                 Toast.makeText(activity, FirebaseAuthConstants.ERROR_INVALID_EMAIL, Toast.LENGTH_LONG).show()
                             }
                         }
