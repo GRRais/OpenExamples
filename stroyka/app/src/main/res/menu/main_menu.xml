@@ -3,7 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:title="Новый объект"
-        android:id="@+id/id_new_object"
+        android:id="@+id/id_new_material"
+        android:icon="@drawable/ic_new_objects"
+        app:showAsAction="ifRoom"/>
+    <item android:title="Новый материал"
+        android:id="@+id/id_new_objects"
         android:icon="@drawable/ic_new_object"
         app:showAsAction="ifRoom"/>
 </menu>

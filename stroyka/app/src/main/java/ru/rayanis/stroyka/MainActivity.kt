@@ -3,6 +3,7 @@ package ru.rayanis.stroyka
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
@@ -34,6 +35,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onActivityResult(
         requestCode: kotlin.Int,
         resultCode: kotlin.Int,
@@ -60,6 +66,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun init() {
+        setSupportActionBar(b.mainContent.toolbar)
         val toggle = ActionBarDrawerToggle(
             this,
             b.drawerLayout,
