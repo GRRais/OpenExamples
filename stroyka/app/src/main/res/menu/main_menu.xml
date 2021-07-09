@@ -4,7 +4,7 @@
 
     <item android:title="Новый объект"
         android:id="@+id/id_new_material"
-        android:icon="@drawable/ic_new_objects"
+        android:icon="@drawable/ic_new_material"
         app:showAsAction="ifRoom"/>
     <item android:title="Новый материал"
         android:id="@+id/id_new_objects"

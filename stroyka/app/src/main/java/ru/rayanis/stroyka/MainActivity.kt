@@ -1,5 +1,6 @@
 package ru.rayanis.stroyka
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import ru.rayanis.stroyka.act.EditObjectsAct
 import ru.rayanis.stroyka.databinding.ActivityMainBinding
 import ru.rayanis.stroyka.dialoghelper.DialogConst
 import ru.rayanis.stroyka.dialoghelper.DialogHelper
@@ -33,6 +35,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         init()
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.id_new_objects) {
+            val i = Intent(this,EditObjectsAct::class.java)
+            startActivity(i)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
