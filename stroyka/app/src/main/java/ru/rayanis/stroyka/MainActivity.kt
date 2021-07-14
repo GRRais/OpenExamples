@@ -15,6 +15,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import ru.rayanis.stroyka.act.CreateEditMaterialAct
 import ru.rayanis.stroyka.act.EditObjectsAct
 import ru.rayanis.stroyka.databinding.ActivityMainBinding
 import ru.rayanis.stroyka.dialoghelper.DialogConst
@@ -34,12 +35,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(view)
 
         init()
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.id_new_objects) {
             val i = Intent(this,EditObjectsAct::class.java)
+            startActivity(i)
+        }
+        if (item.itemId == R.id.id_new_edit_material) {
+            val i = Intent(this,CreateEditMaterialAct::class.java)
             startActivity(i)
         }
         return super.onOptionsItemSelected(item)
@@ -51,9 +55,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onActivityResult(
-        requestCode: kotlin.Int,
-        resultCode: kotlin.Int,
-        data: android.content.Intent?
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
     ) {
         if (requestCode == GoogleAccConst.GOOGLE_SIGN_IN_REQUEST_CODE) {
            // Log.d("MyLog", "Sign in result")
