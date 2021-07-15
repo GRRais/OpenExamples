@@ -32,7 +32,7 @@
                 android:layout_marginEnd="5dp" />
 
             <SearchView
-                android:id="@+id/countrySearch"
+                android:id="@+id/areasSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
@@ -40,7 +40,7 @@
                 android:layout_marginEnd="5dp" />
 
             <Spinner
-                android:id="@+id/spCountry"
+                android:id="@+id/spArea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
