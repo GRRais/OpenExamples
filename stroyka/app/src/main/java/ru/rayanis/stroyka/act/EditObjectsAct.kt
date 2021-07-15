@@ -12,5 +12,7 @@ class EditObjectsAct : AppCompatActivity() {
         setContentView(R.layout.activity_edit_objects)
         b = ActivityEditObjectsBinding.inflate(layoutInflater)
         setContentView(b.root)
+
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, CityHelper.getAllC)
     }
 }
