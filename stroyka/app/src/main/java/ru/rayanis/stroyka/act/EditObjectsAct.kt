@@ -14,15 +14,11 @@ class EditObjectsAct : AppCompatActivity() {
         setContentView(R.layout.activity_edit_objects)
         b = ActivityEditObjectsBinding.inflate(layoutInflater)
         setContentView(b.root)
-<<<<<<< HEAD
         val listAreas = VillageHelper.getAllAreas(this)
         val adapter = ArrayAdapter(this,
             android.R.layout.simple_spinner_item, VillageHelper.getAllAreas(this))
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         b.spArea.adapter = adapter
-=======
-
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, CityHelper.getAllC)
->>>>>>> dae160107bceb7e3a4345053dfda170eefd8f9e2
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, Area)
     }
 }
