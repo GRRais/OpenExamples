@@ -26,6 +26,10 @@
     <!-- Sign Dialog-->
     <string name="link_done">Email успешно соединен с Google аккаунтом</string>
     <string name="enter_to_g">У вас уже есть аккаунт с этим Email адресом, войдите по нему.</string>
+    <!-- Edit Activity-->
+    <string name="select_area">*Выберите район</string>
+    <string name="select_village">*Выберите деревню</string>
+
 
 
 </resources>

@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.rayanis.stroyka.R
 
-class RcViewDialogSpinner: RecyclerView.Adapter<RcViewDialogSpinner.SpViewHolder>() {
+class RcViewDialogSpinnerAdapter(context): RecyclerView.Adapter<RcViewDialogSpinnerAdapter.SpViewHolder>() {
     private val mainList = ArrayList<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpViewHolder {
