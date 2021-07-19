@@ -10,7 +10,7 @@ import ru.rayanis.stroyka.utils.VillageHelper
 
 class EditObjectsAct : AppCompatActivity() {
 
-    private lateinit var b : ActivityEditObjectsBinding
+    lateinit var b : ActivityEditObjectsBinding
     private var dialog = DialogSpinnerHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
