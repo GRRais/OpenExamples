@@ -43,6 +43,18 @@
                 android:text="@string/select_area"
                 android:textColor="@color/black" />
 
+            <TextView
+                android:id="@+id/tvVillage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:gravity="center"
+                android:onClick="onClickSelectVillage"
+                android:padding="10dp"
+                android:text="@string/select_village"
+                android:textColor="@color/black" />
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

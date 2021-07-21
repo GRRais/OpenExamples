@@ -28,6 +28,29 @@ object VillageHelper {
         return tempArray
     }
 
+    fun getAllVillages(area: String, context: Context): ArrayList<String> {
+        var tempArray = ArrayList<String>()
+        try {
+
+            val inputStream = context.assets.open("areasToVillages.json")
+            val size: Int = inputStream.available()
+            val bytesArray = ByteArray(size)
+            inputStream.read(bytesArray)
+            val jsonFile = String(bytesArray)
+            val jsonObject = JSONObject(jsonFile)
+            val villageNames = jsonObject.getJSONArray(area)
+
+                for (n in 0 until villageNames.length()) {
+                    tempArray.add(villageNames.getString(n))
+                }
+
+
+        } catch (e: IOException) {
+
+        }
+        return tempArray
+    }
+
     fun filterListData(list: ArrayList<String>, searchText: String?): ArrayList<String>{
         val tempList = ArrayList<String>()
         tempList.clear()
