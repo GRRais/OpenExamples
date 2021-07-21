@@ -24,9 +24,12 @@ class EditObjectsAct : AppCompatActivity() {
     private fun init(){
     }
     //OnClicks
-    fun onClickSelectArea(view: View){
+    fun onClickSelectArea(view: View) {
         val listAreas = VillageHelper.getAllAreas(this)
         dialog.showSpinnerDialog(this, listAreas, b.tvArea)
+        if (b.tvVillage.text.toString() != getString(R.string.select_village)) {
+            b.tvVillage.text = getString(R.string.select_village)
+        }
     }
 
     fun onClickSelectVillage(view: View){
