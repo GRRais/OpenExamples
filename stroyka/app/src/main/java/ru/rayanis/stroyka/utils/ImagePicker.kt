@@ -1,18 +1,18 @@
 package ru.rayanis.stroyka.utils
 
+import androidx.appcompat.app.AppCompatActivity
+
 object ImagePicker {
-    const val MAX_IMAGE_COUNT = 3
-    getImages() {
-        val options = Options().apply{
-            ratio = Ratio.RATIO_AUTO                                    //Image/video capture ratio
-            count = 1                                                   //Number of images to restrict selection count
-            spanCount = 4                                               //Number for columns in grid
-            path = "Pix/Camera"                                         //Custom Path For media Storage
-            isFrontFacing = false                                       //Front Facing camera on start
-            videoDurationLimitInSeconds = 10                            //Duration for video recording
-            mode = Mode.All                                             //Option to select only pictures or videos or both
-            flash = Flash.Auto                                          //Option to select flash type
-            preSelectedUrls = ArrayList<Uri>()                          //Pre selected Image Urls
-        }
+    const val REQUEST_CODE_GET_IMAGES = 999
+    fun getImages(context: AppCompatActivity, imageCounter: Int) {
+        val options = Options.init()
+            .setRequestCode(REQUEST_CODE_GET_IMAGES)                                           //Request code for activity results
+            .setCount(imageCounter)                                                   //Number of images to restict selection count
+            .setFrontfacing(false)                                          //Span count for gallery min 1 & max 5
+            .setMode(Options.Mode.Picture)                                     //Option to select only pictures or videos or both
+            .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)     //Orientaion
+            .setPath("/pix/images")                                       //Custom Path For media Storage
+
+        Pix.start(context, options)
     }
 }
