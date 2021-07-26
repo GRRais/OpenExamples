@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.fxn.utility.PermUtil
 import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.databinding.ActivityEditObjectsBinding
 import ru.rayanis.stroyka.dialogs.DialogSpinnerHelper
+import ru.rayanis.stroyka.frag.ImageListFrag
 import ru.rayanis.stroyka.utils.ImagePicker
 import ru.rayanis.stroyka.utils.VillageHelper
 
@@ -35,7 +37,6 @@ class EditObjectsAct : AppCompatActivity() {
 
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    isImagesPermissionGranted = true
                     ImagePicker.getImages(this, 3)
                 } else {
                     isImagesPermissionGranted = false
@@ -73,6 +74,9 @@ class EditObjectsAct : AppCompatActivity() {
     }
 
     fun onClickGetImages(view: View) {
-     ImagePicker.getImages(this)
+        b.scrollViewMain.visibility = View.GONE
+     val fm = supportFragmentManager.beginTransaction()
+        fm.replace(R.id.place_holder, ImageListFrag())
+        fm.commit()
     }
 }

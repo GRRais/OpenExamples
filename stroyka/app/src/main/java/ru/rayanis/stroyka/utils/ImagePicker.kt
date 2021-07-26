@@ -1,7 +1,8 @@
 package ru.rayanis.stroyka.utils
 
-import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
+import com.fxn.pix.Options
+import com.fxn.pix.Pix
 
 object ImagePicker {
     const val REQUEST_CODE_GET_IMAGES = 999
