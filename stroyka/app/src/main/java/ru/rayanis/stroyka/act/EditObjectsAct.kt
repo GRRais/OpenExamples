@@ -15,7 +15,7 @@ class EditObjectsAct : AppCompatActivity() {
 
     lateinit var b : ActivityEditObjectsBinding
     private var dialog = DialogSpinnerHelper()
-    private var isImagesPermissionGranted = false
+    var isImagesPermissionGranted = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +35,7 @@ class EditObjectsAct : AppCompatActivity() {
 
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    isImagesPermissionGranted = true
                     ImagePicker.getImages(this, 3)
                 } else {
                     isImagesPermissionGranted = false
@@ -69,5 +70,9 @@ class EditObjectsAct : AppCompatActivity() {
         } else {
             Toast.makeText(this, "No area selected", Toast.LENGTH_LONG).show()
         }
+    }
+
+    fun onClickGetImages(view: View) {
+     ImagePicker.getImages(this)
     }
 }

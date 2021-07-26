@@ -1,5 +1,6 @@
 package ru.rayanis.stroyka.utils
 
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 
 object ImagePicker {
