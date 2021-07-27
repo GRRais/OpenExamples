@@ -8,7 +8,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import ru.rayanis.stroyka.R
 
-class ImageListFrag(val fragCloseInterface: FragmentCloseInterface): Fragment() {
+class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface): Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
