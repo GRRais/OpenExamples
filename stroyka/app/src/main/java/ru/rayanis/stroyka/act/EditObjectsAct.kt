@@ -9,11 +9,12 @@ import com.fxn.utility.PermUtil
 import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.databinding.ActivityEditObjectsBinding
 import ru.rayanis.stroyka.dialogs.DialogSpinnerHelper
+import ru.rayanis.stroyka.frag.FragmentCloseInterface
 import ru.rayanis.stroyka.frag.ImageListFrag
 import ru.rayanis.stroyka.utils.ImagePicker
 import ru.rayanis.stroyka.utils.VillageHelper
 
-class EditObjectsAct : AppCompatActivity() {
+class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
 
     lateinit var b : ActivityEditObjectsBinding
     private var dialog = DialogSpinnerHelper()
@@ -76,7 +77,11 @@ class EditObjectsAct : AppCompatActivity() {
     fun onClickGetImages(view: View) {
         b.scrollViewMain.visibility = View.GONE
      val fm = supportFragmentManager.beginTransaction()
-        fm.replace(R.id.place_holder, ImageListFrag())
+        fm.replace(R.id.place_holder, ImageListFrag(this))
         fm.commit()
+    }
+
+    override fun onFragClose() {
+        b.scrollViewMain.visibility = View.VISIBLE
     }
 }
