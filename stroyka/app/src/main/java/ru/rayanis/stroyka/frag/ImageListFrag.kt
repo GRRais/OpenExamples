@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import ru.rayanis.stroyka.R
 
-class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface): Fragment() {
+class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface, newList: ArrayList<String>): Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -20,6 +21,7 @@ class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface): Fra
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val bBack = view.findViewById<Button>(R.id.bBack)
+        val rcView = view.findViewById<RecyclerView>(R.id.bBack)
         bBack.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
         }

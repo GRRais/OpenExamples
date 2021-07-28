@@ -1,10 +1,13 @@
 package ru.rayanis.stroyka.act
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
 import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.databinding.ActivityEditObjectsBinding
@@ -26,6 +29,18 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
         b = ActivityEditObjectsBinding.inflate(layoutInflater)
         setContentView(b.root)
         init()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_GET_IMAGES){
+            if (data != null) {
+                val values = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
+                Log.d("MyLog", "Image :${values?.get(0)}")
+                Log.d("MyLog", "Image :${values?.get(1)}")
+                Log.d("MyLog", "Image :${values?.get(2)}")
+            }
+        }
     }
 
     override fun onRequestPermissionsResult(
