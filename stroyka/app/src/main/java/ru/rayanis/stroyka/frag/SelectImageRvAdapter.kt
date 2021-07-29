@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.rayanis.stroyka.R
-import ru.rayanis.stroyka.SelectImageItem
 
 class SelectImageRvAdapter: RecyclerView.Adapter<SelectImageRvAdapter.ImageHolder>() {
 
@@ -41,9 +40,9 @@ class SelectImageRvAdapter: RecyclerView.Adapter<SelectImageRvAdapter.ImageHolde
         }
     }
 
-    fun updateAdapter(newList: List<SelectImageItem>{
+    fun updateAdapter(newList: List<SelectImageItem>){
         mainArray.clear()
         mainArray.addAll(newList)
         notifyDataSetChanged()
-    })
+    }
 }

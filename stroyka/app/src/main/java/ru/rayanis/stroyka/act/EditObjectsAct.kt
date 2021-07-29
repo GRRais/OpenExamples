@@ -35,10 +35,13 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_GET_IMAGES){
             if (data != null) {
-                val values = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-                Log.d("MyLog", "Image :${values?.get(0)}")
-                Log.d("MyLog", "Image :${values?.get(1)}")
-                Log.d("MyLog", "Image :${values?.get(2)}")
+                val returnValues = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
+                if (returnValues?.size!! > 1) {
+                    b.scrollViewMain.visibility = View.GONE
+                    val fm = supportFragmentManager.beginTransaction()
+                    fm.replace(R.id.place_holder, ImageListFrag(this, returnValues))
+                    fm.commit()
+                }
             }
         }
     }
@@ -90,10 +93,7 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickGetImages(view: View) {
-        b.scrollViewMain.visibility = View.GONE
-     val fm = supportFragmentManager.beginTransaction()
-        fm.replace(R.id.place_holder, ImageListFrag(this))
-        fm.commit()
+
     }
 
     override fun onFragClose() {
