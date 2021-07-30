@@ -93,7 +93,7 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickGetImages(view: View) {
-
+        ImagePicker.getImages(this, 3)
     }
 
     override fun onFragClose() {
