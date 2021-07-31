@@ -47,7 +47,7 @@
         app:layout_constraintStart_toStartOf="@+id/edSignEmail"
         app:layout_constraintTop_toBottomOf="@+id/edSignEmail" />
 
-    <com.google.android.gms.common.internal.SignInButtonImpl
+    <Button
         android:id="@+id/btSignUpIn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
