@@ -10,10 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
 import ru.rayanis.stroyka.R
+import ru.rayanis.stroyka.adapters.ImageAdapter
 import ru.rayanis.stroyka.databinding.ActivityEditObjectsBinding
 import ru.rayanis.stroyka.dialogs.DialogSpinnerHelper
 import ru.rayanis.stroyka.frag.FragmentCloseInterface
 import ru.rayanis.stroyka.frag.ImageListFrag
+import ru.rayanis.stroyka.frag.SelectImageItem
 import ru.rayanis.stroyka.utils.ImagePicker
 import ru.rayanis.stroyka.utils.VillageHelper
 
@@ -21,6 +23,7 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
 
     lateinit var b : ActivityEditObjectsBinding
     private var dialog = DialogSpinnerHelper()
+    private lateinit var imageAdapter: ImageAdapter
     var isImagesPermissionGranted = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +75,10 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     private fun init(){
+        imageAdapter = ImageAdapter()
+        b.vpImages.adapter = imageAdapter
     }
+
     //OnClicks
     fun onClickSelectArea(view: View) {
         val listAreas = VillageHelper.getAllAreas(this)
@@ -96,7 +102,8 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
         ImagePicker.getImages(this, 3)
     }
 
-    override fun onFragClose() {
+    override fun onFragClose(list: ArrayList<SelectImageItem>) {
         b.scrollViewMain.visibility = View.VISIBLE
+        imageAdapter.update(list)
     }
 }

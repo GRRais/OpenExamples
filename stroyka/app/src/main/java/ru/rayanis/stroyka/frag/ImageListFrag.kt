@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -46,7 +47,7 @@ class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface, priv
 
     override fun onDetach() {
         super.onDetach()
-        fragCloseInterface.onFragClose()
+        fragCloseInterface.onFragClose(adapter.mainArray)
         Log.d("MyLog", "Title 0: ${adapter.mainArray[0].title}")
         Log.d("MyLog", "Title 1: ${adapter.mainArray[1].title}")
         Log.d("MyLog", "Title 2: ${adapter.mainArray[2].title}")
