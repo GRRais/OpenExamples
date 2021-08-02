@@ -17,12 +17,12 @@ class SelectImageRvAdapter: RecyclerView.Adapter<SelectImageRvAdapter.ImageHolde
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): SelectImageRvAdapter.ImageHolder {
+    ): ImageHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.select_image_frag_item, parent, false)
         return ImageHolder(view)
     }
 
-    override fun onBindViewHolder(holder: SelectImageRvAdapter.ImageHolder, position: Int) {
+    override fun onBindViewHolder(holder: ImageHolder, position: Int) {
         holder.setData(mainArray[position])
     }
 

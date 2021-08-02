@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.rayanis.stroyka.R
+import ru.rayanis.stroyka.databinding.ListImageFragBinding
 import ru.rayanis.stroyka.utils.ItemTouchMoveCallback
 
 class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface, private val newList: ArrayList<String>): Fragment() {
 
+    lateinit var b: ListImageFragBinding
     val adapter = SelectImageRvAdapter()
     val dragCallback = ItemTouchMoveCallback(adapter)
     val touchHelper = ItemTouchHelper(dragCallback)
@@ -25,31 +27,32 @@ class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface, priv
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.list_image_frag, container, false)
+        b = ListImageFragBinding.inflate(inflater)
+        return b.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bBack = view.findViewById<Button>(R.id.bBack)
-        val rcView = view.findViewById<RecyclerView>(R.id.rcViewSelectImage)
-        touchHelper.attachToRecyclerView(rcView)
-        rcView.layoutManager = LinearLayoutManager(activity)
-        rcView.adapter = adapter
+        setUpToolbar()
+        touchHelper.attachToRecyclerView(b.rcViewSelectImage)
+        b.rcViewSelectImage.layoutManager = LinearLayoutManager(activity)
+        b.rcViewSelectImage.adapter = adapter
         val updateList = ArrayList<SelectImageItem>()
         for (n in 0 until newList.size) {
             updateList.add(SelectImageItem(n.toString(), newList[n]))
         }
         adapter.updateAdapter(updateList)
-        bBack.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
-        }
+           // activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+
     }
 
     override fun onDetach() {
         super.onDetach()
         fragCloseInterface.onFragClose(adapter.mainArray)
-        Log.d("MyLog", "Title 0: ${adapter.mainArray[0].title}")
-        Log.d("MyLog", "Title 1: ${adapter.mainArray[1].title}")
-        Log.d("MyLog", "Title 2: ${adapter.mainArray[2].title}")
+    }
+
+    private fun setUpToolbar(){
+        b.tb.inflateMenu(R.menu.menu_choose_image)
+        val deleteItem = b.tb.menu.findItem(R.id.id_delete_image)
     }
 }
