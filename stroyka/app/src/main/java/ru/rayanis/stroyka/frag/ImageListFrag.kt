@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.databinding.ListImageFragBinding
+import ru.rayanis.stroyka.utils.ImagePicker
 import ru.rayanis.stroyka.utils.ItemTouchMoveCallback
 
 class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface, private val newList: ArrayList<String>): Fragment() {
@@ -41,9 +43,7 @@ class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface, priv
         for (n in 0 until newList.size) {
             updateList.add(SelectImageItem(n.toString(), newList[n]))
         }
-        adapter.updateAdapter(updateList)
-           // activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
-
+        adapter.updateAdapter(updateList, true)
     }
 
     override fun onDetach() {
@@ -54,5 +54,29 @@ class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface, priv
     private fun setUpToolbar(){
         b.tb.inflateMenu(R.menu.menu_choose_image)
         val deleteItem = b.tb.menu.findItem(R.id.id_delete_image)
+        val addImageItem = b.tb.menu.findItem(R.id.id_add_image)
+
+        b.tb.setNavigationOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+        }
+
+        deleteItem.setOnMenuItemClickListener {
+            adapter.updateAdapter(ArrayList(), true)
+            true
+        }
+
+        addImageItem.setOnMenuItemClickListener {
+            val imageCount = ImagePicker.MAX_IMAGE_COUNT - adapter.mainArray.size
+            ImagePicker.getImages(activity as AppCompatActivity, imageCount)
+            true
+        }
     }
+
+     fun updateAdapter(newList: ArrayList<String>) {
+         val updateList = ArrayList<SelectImageItem>()
+         for (n in adapter.mainArray.size until newList.size + adapter.mainArray.size) {
+             updateList.add(SelectImageItem(n.toString(), newList[n - adapter.mainArray.size]))
+         }
+         adapter.updateAdapter(updateList, false)
+     }
 }
