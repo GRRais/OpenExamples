@@ -12,7 +12,7 @@ import ru.rayanis.stroyka.utils.ItemTouchMoveCallback
 
 class SelectImageRvAdapter: RecyclerView.Adapter<SelectImageRvAdapter.ImageHolder>(), ItemTouchMoveCallback.ItemTouchAdapter {
 
-    val mainArray = ArrayList<SelectImageItem>()
+    val mainArray = ArrayList<String>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -33,10 +33,10 @@ class SelectImageRvAdapter: RecyclerView.Adapter<SelectImageRvAdapter.ImageHolde
     override fun onMove(startPos: Int, targetPos: Int) {
         val targetItem = mainArray[targetPos]
         mainArray[targetPos] = mainArray[startPos]
-        val titleStart =  mainArray[targetPos].title
-        mainArray[targetPos].title = targetItem.title
+        //val titleStart =  mainArray[targetPos].title
+        //mainArray[targetPos].title = targetItem.title
         mainArray[startPos] = targetItem
-        mainArray[startPos].title = titleStart
+        //mainArray[startPos].title = titleStart
         notifyItemMoved(startPos, targetPos)
     }
 
@@ -47,15 +47,15 @@ class SelectImageRvAdapter: RecyclerView.Adapter<SelectImageRvAdapter.ImageHolde
     class ImageHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         lateinit var tvTitle: TextView
         lateinit var image: ImageView
-        fun setData(item: SelectImageItem){
+        fun setData(item: String){
             tvTitle = itemView.findViewById(R.id.tvTitle)
             image = itemView.findViewById(R.id.imageContent)
-            tvTitle.text = item.title
-            image.setImageURI(Uri.parse(item.imageUri))
+           // tvTitle.text =
+            image.setImageURI(Uri.parse(item))
         }
     }
 
-    fun updateAdapter(newList: List<SelectImageItem>, needClear: Boolean){
+    fun updateAdapter(newList: List<String>, needClear: Boolean){
         if (needClear == true) mainArray.clear()
         mainArray.addAll(newList)
         notifyDataSetChanged()

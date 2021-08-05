@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import ru.rayanis.stroyka.R
-import ru.rayanis.stroyka.frag.SelectImageItem
 
 class ImageAdapter: RecyclerView.Adapter<ImageAdapter.ImageHolder>() {
     val mainArray = ArrayList<SelectImageItem>()
