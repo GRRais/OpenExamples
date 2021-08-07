@@ -3,6 +3,7 @@ package ru.rayanis.stroyka.act
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import ru.rayanis.stroyka.databinding.ActivityEditObjectsBinding
 import ru.rayanis.stroyka.dialogs.DialogSpinnerHelper
 import ru.rayanis.stroyka.frag.FragmentCloseInterface
 import ru.rayanis.stroyka.frag.ImageListFrag
+import ru.rayanis.stroyka.utils.ImageManager
 import ru.rayanis.stroyka.utils.ImagePicker
 import ru.rayanis.stroyka.utils.VillageHelper
 
@@ -23,6 +25,8 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
     lateinit var b : ActivityEditObjectsBinding
     private var dialog = DialogSpinnerHelper()
     private lateinit var imageAdapter: ImageAdapter
+    var editImagePos = 0
+
     var isImagesPermissionGranted = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,9 +44,19 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
                 val returnValues = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
                 if (returnValues?.size!! > 1 && chooseImageFrag == null) {
                     openChooseImageFrag(returnValues)
+                } else if (returnValues.size == 1 && chooseImageFrag == null) {
+                    //imageAdapter.update(returnValues)
+                    val tempList = ImageManager.getImageSize(returnValues[0])
+                    Log.d("MyLog", "Image width : ${tempList[0]}")
+                    Log.d("MyLog", "Image height : ${tempList[1]}")
                 } else if (chooseImageFrag != null) {
                     chooseImageFrag?.updateAdapter(returnValues)
                 }
+            }
+        } else if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_GET_SINGLE_IMAGE) {
+            if (data != null) {
+                val uris = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
+                chooseImageFrag?.setSingleImage(uris?.get(0)!!, editImagePos)
             }
         }
     }
@@ -57,7 +71,7 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
 
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    ImagePicker.getImages(this, 3)
+                    ImagePicker.getImages(this, 3, ImagePicker.REQUEST_CODE_GET_IMAGES)
                 } else {
                     isImagesPermissionGranted = false
                     Toast.makeText(
@@ -98,7 +112,7 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
 
     fun onClickGetImages(view: View) {
         if (imageAdapter.mainArray.size == 0) {
-            ImagePicker.getImages(this, 3)
+            ImagePicker.getImages(this, 3, ImagePicker.REQUEST_CODE_GET_IMAGES)
         } else {
             openChooseImageFrag(imageAdapter.mainArray)
         }
