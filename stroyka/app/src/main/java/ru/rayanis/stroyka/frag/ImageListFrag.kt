@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.databinding.ListImageFragBinding
+import ru.rayanis.stroyka.utils.ImageManager
 import ru.rayanis.stroyka.utils.ImagePicker
 import ru.rayanis.stroyka.utils.ItemTouchMoveCallback
 
@@ -39,7 +40,8 @@ class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface, priv
         touchHelper.attachToRecyclerView(b.rcViewSelectImage)
         b.rcViewSelectImage.layoutManager = LinearLayoutManager(activity)
         b.rcViewSelectImage.adapter = adapter
-        adapter.updateAdapter(newList, true)
+        ImageManager.imageResize(newList)
+        //adapter.updateAdapter(newList, true)
     }
 
     override fun onDetach() {
