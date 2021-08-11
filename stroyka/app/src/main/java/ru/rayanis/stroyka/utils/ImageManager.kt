@@ -38,8 +38,6 @@ object ImageManager {
         val tempList = ArrayList<List<Int>>()
         for (n in uris.indices){
             val size = getImageSize(uris[n])
-            Log.d("MyLog", "Width: ${size[WIDTH]} Height: ${size[HEIGHT]}")
-
             val imageRatio = size[WIDTH].toFloat() / size[HEIGHT].toFloat()
 
             if (imageRatio > 1){
@@ -55,10 +53,6 @@ object ImageManager {
                     tempList.add(listOf(size[WIDTH], size[HEIGHT]))
                 }
             }
-
-            Log.d("MyLog", "Width: ${tempList[n][WIDTH]} Height: ${tempList[n][HEIGHT]}")
-
         }
     }
-
 }
