@@ -45,10 +45,9 @@ class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface, priv
         b.rcViewSelectImage.layoutManager = LinearLayoutManager(activity)
         b.rcViewSelectImage.adapter = adapter
         job = CoroutineScope(Dispatchers.Main).launch {
-            val text = ImageManager.imageResize(newList)
-            Log.d("MyLog", "Result: $text")
+            val bitmapList = ImageManager.imageResize(newList)
+            adapter.updateAdapter(newList, true)
         }
-        //adapter.updateAdapter(newList, true)
     }
 
     override fun onDetach() {
@@ -79,11 +78,19 @@ class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface, priv
     }
 
      fun updateAdapter(newList: ArrayList<String>) {
-         adapter.updateAdapter(newList, false)
+         job = CoroutineScope(Dispatchers.Main).launch {
+             val bitmapList = ImageManager.imageResize(newList)
+             adapter.updateAdapter(bitmapList, false)
+         }
      }
 
     fun setSingleImage(uri: String, pos: Int) {
-        adapter.mainArray[pos] = uri
-        adapter.notifyDataSetChanged()
+
+        job = CoroutineScope(Dispatchers.Main).launch {
+            val bitmapList = ImageManager.imageResize(listOf(uri))
+            adapter.mainArray[pos] = bitmapList[0]
+            adapter.notifyDataSetChanged()
+        }
+
     }
 }
