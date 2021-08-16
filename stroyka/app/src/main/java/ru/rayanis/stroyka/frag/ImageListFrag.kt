@@ -1,34 +1,36 @@
 package ru.rayanis.stroyka.frag
 
+import android.app.Activity
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.Button
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.databinding.ListImageFragBinding
+import ru.rayanis.stroyka.dialoghelper.ProgressDialog
 import ru.rayanis.stroyka.utils.ImageManager
 import ru.rayanis.stroyka.utils.ImagePicker
 import ru.rayanis.stroyka.utils.ItemTouchMoveCallback
 
-class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface, private val newList: ArrayList<String>): Fragment() {
+class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface, private val newList: ArrayList<String>? ): Fragment() {
 
     lateinit var b: ListImageFragBinding
-    val adapter = SelectImageRvAdapter()
-    val dragCallback = ItemTouchMoveCallback(adapter)
-    val touchHelper = ItemTouchHelper(dragCallback)
-    private lateinit var job: Job
+    private val adapter = SelectImageRvAdapter()
+    private val dragCallback = ItemTouchMoveCallback(adapter)
+    private val touchHelper = ItemTouchHelper(dragCallback)
+    private var job: Job? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,16 +46,25 @@ class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface, priv
         touchHelper.attachToRecyclerView(b.rcViewSelectImage)
         b.rcViewSelectImage.layoutManager = LinearLayoutManager(activity)
         b.rcViewSelectImage.adapter = adapter
-        job = CoroutineScope(Dispatchers.Main).launch {
-            val bitmapList = ImageManager.imageResize(newList)
-            adapter.updateAdapter(newList, true)
-        }
+        if (newList != null) { resizeSelectedImages(newList, true) }
+    }
+    fun updateAdapterFromEdit(bitmapList: List<Bitmap>){
+        adapter.updateAdapter(bitmapList, true)
     }
 
     override fun onDetach() {
         super.onDetach()
         fragCloseInterface.onFragClose(adapter.mainArray)
-        job.cancel()
+        job?.cancel()
+    }
+
+    fun resizeSelectedImages(newList: ArrayList<String>, needClear: Boolean) {
+        job = CoroutineScope(Dispatchers.Main).launch {
+            val dialog = ProgressDialog.createProgressDialog(activity as Activity)
+            val bitmapList = ImageManager.imageResize(newList)
+            dialog.dismiss()
+            adapter.updateAdapter(bitmapList, needClear)
+        }
     }
 
     private fun setUpToolbar(){
@@ -77,19 +88,16 @@ class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface, priv
         }
     }
 
-     fun updateAdapter(newList: ArrayList<String>) {
-         job = CoroutineScope(Dispatchers.Main).launch {
-             val bitmapList = ImageManager.imageResize(newList)
-             adapter.updateAdapter(bitmapList, false)
-         }
-     }
+     fun updateAdapter(newList: ArrayList<String>) { resizeSelectedImages(newList, false) }
 
     fun setSingleImage(uri: String, pos: Int) {
-
+        val pBar = b.rcViewSelectImage[pos].findViewById<ProgressBar>(R.id.pBar)
         job = CoroutineScope(Dispatchers.Main).launch {
+            pBar.visibility = View.VISIBLE
             val bitmapList = ImageManager.imageResize(listOf(uri))
+            pBar.visibility = View.GONE
             adapter.mainArray[pos] = bitmapList[0]
-            adapter.notifyDataSetChanged()
+            adapter.notifyItemChanged(pos)
         }
 
     }

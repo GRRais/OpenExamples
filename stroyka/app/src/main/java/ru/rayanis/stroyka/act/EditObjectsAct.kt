@@ -2,6 +2,7 @@ package ru.rayanis.stroyka.act
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -114,17 +115,18 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
         if (imageAdapter.mainArray.size == 0) {
             ImagePicker.getImages(this, 3, ImagePicker.REQUEST_CODE_GET_IMAGES)
         } else {
-            openChooseImageFrag(imageAdapter.mainArray)
+            openChooseImageFrag(null)
+            chooseImageFrag?.updateAdapterFromEdit(imageAdapter.mainArray)
         }
     }
 
-    override fun onFragClose(list: ArrayList<String>) {
+    override fun onFragClose(list: ArrayList<Bitmap>) {
         b.scrollViewMain.visibility = View.VISIBLE
         imageAdapter.update(list)
         chooseImageFrag = null
     }
 
-    private fun openChooseImageFrag(newList: ArrayList<String>) {
+    private fun openChooseImageFrag(newList: ArrayList<String>?) {
         chooseImageFrag = ImageListFrag(this, newList)
         b.scrollViewMain.visibility = View.GONE
         val fm = supportFragmentManager.beginTransaction()
