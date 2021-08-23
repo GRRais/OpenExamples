@@ -2,21 +2,22 @@ package ru.rayanis.stroyka.frag
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.act.EditObjectsAct
+import ru.rayanis.stroyka.databinding.SelectImageFragItemBinding
+import ru.rayanis.stroyka.utils.AdapterCallback
+import ru.rayanis.stroyka.utils.ImageManager
 import ru.rayanis.stroyka.utils.ImagePicker
 import ru.rayanis.stroyka.utils.ItemTouchMoveCallback
 
-class SelectImageRvAdapter: RecyclerView.Adapter<SelectImageRvAdapter.ImageHolder>(), ItemTouchMoveCallback.ItemTouchAdapter {
+class SelectImageRvAdapter(val adapterCallback: AdapterCallback): RecyclerView.Adapter<SelectImageRvAdapter.ImageHolder>(), ItemTouchMoveCallback.ItemTouchAdapter {
 
     val mainArray = ArrayList<Bitmap>()
 
@@ -24,8 +25,8 @@ class SelectImageRvAdapter: RecyclerView.Adapter<SelectImageRvAdapter.ImageHolde
         parent: ViewGroup,
         viewType: Int
     ): ImageHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.select_image_frag_item, parent, false)
-        return ImageHolder(view, parent.context, this)
+        val b = SelectImageFragItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ImageHolder(b, parent.context, this)
     }
 
     override fun onBindViewHolder(holder: ImageHolder, position: Int) {
@@ -47,32 +48,25 @@ class SelectImageRvAdapter: RecyclerView.Adapter<SelectImageRvAdapter.ImageHolde
         notifyDataSetChanged()
     }
 
-    class ImageHolder(itemView: View, val context: Context, val adapter: SelectImageRvAdapter) : RecyclerView.ViewHolder(itemView) {
-        lateinit var tvTitle: TextView
-        lateinit var image: ImageView
-        lateinit var imEditImage: ImageButton
-        lateinit var imDeleteImage: ImageButton
-
+    class ImageHolder(val b: SelectImageFragItemBinding, val context: Context, val adapter: SelectImageRvAdapter) : RecyclerView.ViewHolder(b.root) {
 
         fun setData(bitmap: Bitmap){
-            tvTitle = itemView.findViewById(R.id.tvTitle)
-            image = itemView.findViewById(R.id.imageContent)
-            imEditImage = itemView.findViewById(R.id.imEditImage)
-            imDeleteImage = itemView.findViewById(R.id.imDelete)
 
-            imEditImage.setOnClickListener {
+            b.imEditImage.setOnClickListener {
                 ImagePicker.getImages(context as EditObjectsAct, 1, ImagePicker.REQUEST_CODE_GET_SINGLE_IMAGE)
                 context.editImagePos = adapterPosition
             }
 
-            imDeleteImage.setOnClickListener {
+            b.imDelete.setOnClickListener {
                 adapter.mainArray.removeAt(adapterPosition)
                 adapter.notifyItemRemoved(adapterPosition)
                 for (n in 0 until adapter.mainArray.size) adapter.notifyItemChanged(n)
+                adapter.adapterCallback.onItemDelete()
             }
 
-            tvTitle.text = context.resources.getStringArray(R.array.title_array)[adapterPosition]
-            image.setImageBitmap(bitmap)
+            b.tvTitle.text = context.resources.getStringArray(R.array.title_array)[adapterPosition]
+            ImageManager.chooseScaleType(b.imageContent, bitmap)
+            b.imageContent.setImageBitmap(bitmap)
         }
     }
 

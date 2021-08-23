@@ -22,10 +22,10 @@ import ru.rayanis.stroyka.utils.VillageHelper
 
 class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
 
-    private var chooseImageFrag: ImageListFrag? = null
+    var chooseImageFrag: ImageListFrag? = null
     lateinit var b : ActivityEditObjectsBinding
     private var dialog = DialogSpinnerHelper()
-    private lateinit var imageAdapter: ImageAdapter
+    lateinit var imageAdapter: ImageAdapter
     var editImagePos = 0
 
     var isImagesPermissionGranted = false
@@ -40,26 +40,7 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_GET_IMAGES) {
-            if (data != null) {
-                val returnValues = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-                if (returnValues?.size!! > 1 && chooseImageFrag == null) {
-                    openChooseImageFrag(returnValues)
-                } else if (returnValues.size == 1 && chooseImageFrag == null) {
-                    //imageAdapter.update(returnValues)
-                    val tempList = ImageManager.getImageSize(returnValues[0])
-                    Log.d("MyLog", "Image width : ${tempList[0]}")
-                    Log.d("MyLog", "Image height : ${tempList[1]}")
-                } else if (chooseImageFrag != null) {
-                    chooseImageFrag?.updateAdapter(returnValues)
-                }
-            }
-        } else if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_GET_SINGLE_IMAGE) {
-            if (data != null) {
-                val uris = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-                chooseImageFrag?.setSingleImage(uris?.get(0)!!, editImagePos)
-            }
-        }
+        ImagePicker.showSelectedImages(resultCode, requestCode, data, this)
     }
 
     override fun onRequestPermissionsResult(
@@ -126,7 +107,7 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
         chooseImageFrag = null
     }
 
-    private fun openChooseImageFrag(newList: ArrayList<String>?) {
+    fun openChooseImageFrag(newList: ArrayList<String>?) {
         chooseImageFrag = ImageListFrag(this, newList)
         b.scrollViewMain.visibility = View.GONE
         val fm = supportFragmentManager.beginTransaction()
