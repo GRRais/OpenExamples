@@ -12,4 +12,7 @@
     <color name="light_green">#25D500</color>
     <color name="green_ok">#188A00</color>
     <color name="color_red">#FD2111</color>
+    <color name="green_main">#188A00</color>
+    <color name="grey">#e6e6e6</color>
+    <color name="grey_dark">#cdcdcd</color>
 </resources>
