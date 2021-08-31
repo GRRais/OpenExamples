@@ -12,6 +12,7 @@ import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
 import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.adapters.ImageAdapter
+import ru.rayanis.stroyka.database.DbManager
 import ru.rayanis.stroyka.databinding.ActivityEditObjectsBinding
 import ru.rayanis.stroyka.dialogs.DialogSpinnerHelper
 import ru.rayanis.stroyka.frag.FragmentCloseInterface
@@ -99,6 +100,11 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
             openChooseImageFrag(null)
             chooseImageFrag?.updateAdapterFromEdit(imageAdapter.mainArray)
         }
+    }
+
+    fun onClickPublish(view: View) {
+        val dbManager = DbManager()
+        dbManager.publishAd()
     }
 
     override fun onFragClose(list: ArrayList<Bitmap>) {

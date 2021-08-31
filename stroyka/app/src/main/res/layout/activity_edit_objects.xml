@@ -99,6 +99,13 @@
                 android:text="@string/select_village"
                 android:textColor="@color/black" />
 
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClickPublish"
+                android:text="Button" />
+
         </LinearLayout>
     </ScrollView>
 </FrameLayout>
