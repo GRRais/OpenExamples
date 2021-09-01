@@ -4,20 +4,18 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
 import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.adapters.ImageAdapter
+import ru.rayanis.stroyka.data.ObjectStroy
 import ru.rayanis.stroyka.database.DbManager
 import ru.rayanis.stroyka.databinding.ActivityEditObjectsBinding
 import ru.rayanis.stroyka.dialogs.DialogSpinnerHelper
 import ru.rayanis.stroyka.frag.FragmentCloseInterface
 import ru.rayanis.stroyka.frag.ImageListFrag
-import ru.rayanis.stroyka.utils.ImageManager
 import ru.rayanis.stroyka.utils.ImagePicker
 import ru.rayanis.stroyka.utils.VillageHelper
 
@@ -27,6 +25,7 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
     lateinit var b : ActivityEditObjectsBinding
     private var dialog = DialogSpinnerHelper()
     lateinit var imageAdapter: ImageAdapter
+    private val dbManager = DbManager()
     var editImagePos = 0
 
     var isImagesPermissionGranted = false
@@ -103,8 +102,20 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickPublish(view: View) {
-        val dbManager = DbManager()
-        dbManager.publishAd()
+        dbManager.publishObjectStroy(fillObjectStroy())
+    }
+
+    private fun fillObjectStroy(): ObjectStroy {
+        val objectStroy: ObjectStroy
+        b.apply {
+            objectStroy = ObjectStroy(
+                tvArea.text.toString(),
+                tvVillage.text.toString(),
+                tvOrganization.text.toString(),
+                edDescription.text.toString(),
+                dbManager.db.push().key)
+        }
+        return objectStroy
     }
 
     override fun onFragClose(list: ArrayList<Bitmap>) {

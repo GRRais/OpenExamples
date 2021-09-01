@@ -29,7 +29,9 @@
     <!-- Edit Activity-->
     <string name="select_area">*Выберите район</string>
     <string name="select_village">*Выберите деревню</string>
-
-
+    <string name="select_organization">*Выберите организацию</string>
+    <string name="description">Описание</string>
+    <string name="description_hint">*Описание</string>
+    <string name="create">Создать</string>
 
 </resources>
