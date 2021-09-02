@@ -21,7 +21,10 @@ class DbManager {
     fun readDataFromDb() {
         db.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                Log.d("MyLog", "Data $snapshot")
+                for (item in snapshot.children) {
+                    val objectStroy = item.children.iterator().next().child("object").getValue(ObjectStroy::class.java)
+                    Log.d("MyLog", "Data ${objectStroy?.area}")
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {}
