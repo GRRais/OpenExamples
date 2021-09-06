@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "325940949135",
+    "firebase_url": "https://rrchat-334c4-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "rrchat-334c4",
+    "storage_bucket": "rrchat-334c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325940949135:android:303d8983316e915541c0fa",
+        "android_client_info": {
+          "package_name": "ru.rayanis.rrchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325940949135-446akb08kjhhdqp498bpp39jlce0c4vt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA02D4zMHTtKJQI9ZwIyz5h7d0d6KwVS-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "325940949135-446akb08kjhhdqp498bpp39jlce0c4vt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
