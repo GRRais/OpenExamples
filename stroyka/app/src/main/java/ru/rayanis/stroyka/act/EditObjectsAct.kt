@@ -25,7 +25,7 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
     lateinit var b : ActivityEditObjectsBinding
     private var dialog = DialogSpinnerHelper()
     lateinit var imageAdapter: ImageAdapter
-    private val dbManager = DbManager()
+    private val dbManager = DbManager(null)
     var editImagePos = 0
 
     var isImagesPermissionGranted = false

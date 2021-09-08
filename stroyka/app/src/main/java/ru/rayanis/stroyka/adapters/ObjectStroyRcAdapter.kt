@@ -10,7 +10,7 @@ class ObjectStroyRcAdapter: RecyclerView.Adapter<ObjectStroyRcAdapter.ObjectHold
     val objectArray = ArrayList<ObjectStroy>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ObjectHolder {
-        val b = ObjectListItemBinding.inflate(LayoutInflater.from(parent.context))
+        val b = ObjectListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ObjectHolder(b)
     }
 
