@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import com.fxn.utility.PermUtil
 import ru.rayanis.stroyka.R
@@ -27,6 +28,7 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
     lateinit var imageAdapter: ImageAdapter
     private val dbManager = DbManager(null)
     var editImagePos = 0
+    var launcherMultiSelectImage: ActivityResultLauncher<Intent>? = null
 
     var isImagesPermissionGranted = false
 
@@ -36,11 +38,6 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
         b = ActivityEditObjectsBinding.inflate(layoutInflater)
         setContentView(b.root)
         init()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        ImagePicker.showSelectedImages(resultCode, requestCode, data, this)
     }
 
     override fun onRequestPermissionsResult(
@@ -53,7 +50,7 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
 
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    ImagePicker.getImages(this, 3, ImagePicker.REQUEST_CODE_GET_IMAGES)
+                    //ImagePicker.getImages(this, 3, ImagePicker.REQUEST_CODE_GET_IMAGES)
                 } else {
                     isImagesPermissionGranted = false
                     Toast.makeText(
@@ -71,6 +68,7 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
     private fun init(){
         imageAdapter = ImageAdapter()
         b.vpImages.adapter = imageAdapter
+        launcherMultiSelectImage = ImagePicker.getLauncherForMultiSelectImages(this)
     }
 
     //OnClicks
@@ -94,7 +92,7 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
 
     fun onClickGetImages(view: View) {
         if (imageAdapter.mainArray.size == 0) {
-            ImagePicker.getImages(this, 3, ImagePicker.REQUEST_CODE_GET_IMAGES)
+            ImagePicker.launchMultiSelectImages(this, launcherMultiSelectImage)
         } else {
             openChooseImageFrag(null)
             chooseImageFrag?.updateAdapterFromEdit(imageAdapter.mainArray)

@@ -29,6 +29,7 @@
         android:hint="@string/email_hint"
         android:inputType="textPersonName|textEmailAddress"
         android:padding="10dp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDialogMessage" />
