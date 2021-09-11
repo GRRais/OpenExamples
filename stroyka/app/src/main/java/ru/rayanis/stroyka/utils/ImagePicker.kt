@@ -29,10 +29,10 @@ object ImagePicker {
         return options
     }
 
-    fun launchMultiSelectImages(edAct: EditObjectsAct, launcher: ActivityResultLauncher<Intent>?) {
+    fun launcher(edAct: EditObjectsAct, launcher: ActivityResultLauncher<Intent>?, imageCounter: Int) {
         PermUtil.checkForCamaraWritePermissions(edAct) {
             val intent = Intent(edAct, Pix::class.java).apply {
-                putExtra("options", getOptions(3))
+                putExtra("options", getOptions(imageCounter))
             }
             launcher?.launch(intent)
         }
@@ -61,11 +61,13 @@ object ImagePicker {
         }
     }
 
-    fun showSelectedImages(resultCode: Int, requestCode: Int, data: Intent?, edAct: EditObjectsAct) {
-        if (resultCode == AppCompatActivity.RESULT_OK && requestCode == REQUEST_CODE_GET_SINGLE_IMAGE) {
-            if (data != null) {
-                val uris = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-                edAct.chooseImageFrag?.setSingleImage(uris?.get(0)!!, edAct.editImagePos)
+    fun getLauncherForSingleImage(edAct: EditObjectsAct): ActivityResultLauncher<Intent> {
+        return edAct.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == AppCompatActivity.RESULT_OK) {
+                if (result.data != null) {
+                    val uris = result.data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)
+                    edAct.chooseImageFrag?.setSingleImage(uris?.get(0)!!, edAct.editImagePos)
+                }
             }
         }
     }

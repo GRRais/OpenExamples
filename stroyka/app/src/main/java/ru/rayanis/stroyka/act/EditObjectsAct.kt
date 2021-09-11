@@ -29,6 +29,7 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
     private val dbManager = DbManager(null)
     var editImagePos = 0
     var launcherMultiSelectImage: ActivityResultLauncher<Intent>? = null
+    var launcherSingleSelectImage: ActivityResultLauncher<Intent>? = null
 
     var isImagesPermissionGranted = false
 
@@ -69,6 +70,7 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
         imageAdapter = ImageAdapter()
         b.vpImages.adapter = imageAdapter
         launcherMultiSelectImage = ImagePicker.getLauncherForMultiSelectImages(this)
+        launcherSingleSelectImage = ImagePicker.getLauncherForSingleImage(this)
     }
 
     //OnClicks
@@ -92,7 +94,7 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
 
     fun onClickGetImages(view: View) {
         if (imageAdapter.mainArray.size == 0) {
-            ImagePicker.launchMultiSelectImages(this, launcherMultiSelectImage)
+            ImagePicker.launcher(this, launcherMultiSelectImage, 3)
         } else {
             openChooseImageFrag(null)
             chooseImageFrag?.updateAdapterFromEdit(imageAdapter.mainArray)
