@@ -10,7 +10,7 @@ import ru.rayanis.stroyka.data.ObjectStroy
 
 class DbManager(val readDataCallback: ReadDataCallback?) {
     val db = Firebase.database.getReference("main")
-    private val auth = Firebase.auth
+    val auth = Firebase.auth
 
     fun publishObjectStroy(objectStroy: ObjectStroy) {
         if (auth.uid != null) db.child(objectStroy.key ?: "empty").child(auth.uid!!)

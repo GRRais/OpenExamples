@@ -113,7 +113,8 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
                 tvVillage.text.toString(),
                 tvOrganization.text.toString(),
                 edDescription.text.toString(),
-                dbManager.db.push().key)
+                dbManager.db.push().key,
+            dbManager.auth.uid)
         }
         return objectStroy
     }

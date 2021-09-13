@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "394627424121-2huf4eda5lkl913o0o08cvksdsnnkbrj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.rayanis.stroyka",
+            "certificate_hash": "4f16d1e015535766bce8b1fc06e71f664b513403"
+          }
+        },
+        {
           "client_id": "394627424121-vbrsolbp0uhsblfp24fh5c0o2mmhvegc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
