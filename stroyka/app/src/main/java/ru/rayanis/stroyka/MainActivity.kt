@@ -28,12 +28,11 @@ import ru.rayanis.stroyka.dialoghelper.DialogConst
 import ru.rayanis.stroyka.dialoghelper.DialogHelper
 import ru.rayanis.stroyka.dialoghelper.GoogleAccConst
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ReadDataCallback {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var tvAccount: TextView
     private lateinit var b: ActivityMainBinding
     private val dialogHelper = DialogHelper(this)
     val mAuth = Firebase.auth
-    val dbManager = DbManager(this)
     val adapter = ObjectStroyRcAdapter(mAuth)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +42,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(view)
         init()
         initRecyclerView()
-        dbManager.readDataFromDb()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
