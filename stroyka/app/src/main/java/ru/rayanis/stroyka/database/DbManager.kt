@@ -8,7 +8,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import ru.rayanis.stroyka.data.ObjectStroy
 
-class DbManager(val readDataCallback: ReadDataCallback?) {
+class DbManager {
     val db = Firebase.database.getReference("main")
     val auth = Firebase.auth
 
@@ -17,7 +17,7 @@ class DbManager(val readDataCallback: ReadDataCallback?) {
             .child("object").setValue(objectStroy)
     }
 
-    fun readDataFromDb() {
+    fun readDataFromDb(readDataCallback: ReadDataCallback?) {
         db.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val objectStroyArray = ArrayList<ObjectStroy>()

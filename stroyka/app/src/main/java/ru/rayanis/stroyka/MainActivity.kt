@@ -138,8 +138,4 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             user.email
         }
     }
-
-    override fun readData(list: List<ObjectStroy>) {
-        adapter.updateAdapter(list)
-    }
 }
