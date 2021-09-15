@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -20,13 +21,11 @@ import com.google.firebase.ktx.Firebase
 import ru.rayanis.stroyka.act.CreateEditMaterialAct
 import ru.rayanis.stroyka.act.EditObjectsAct
 import ru.rayanis.stroyka.adapters.ObjectStroyRcAdapter
-import ru.rayanis.stroyka.data.ObjectStroy
-import ru.rayanis.stroyka.database.DbManager
-import ru.rayanis.stroyka.database.ReadDataCallback
 import ru.rayanis.stroyka.databinding.ActivityMainBinding
 import ru.rayanis.stroyka.dialoghelper.DialogConst
 import ru.rayanis.stroyka.dialoghelper.DialogHelper
 import ru.rayanis.stroyka.dialoghelper.GoogleAccConst
+import ru.rayanis.stroyka.viewmodel.FirebaseViewModel
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var tvAccount: TextView
@@ -34,6 +33,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val dialogHelper = DialogHelper(this)
     val mAuth = Firebase.auth
     val adapter = ObjectStroyRcAdapter(mAuth)
+    private val firebaseViewModel: FirebaseViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(view)
         init()
         initRecyclerView()
+        initViewModel()
+        firebaseViewModel.loadAllObjectStroy()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -84,6 +86,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onStart() {
         super.onStart()
         uiUpdate(mAuth.currentUser)
+    }
+
+    private fun initViewModel() {
+        firebaseViewModel.liveObjectStroyData.observe(this, {
+            adapter.updateAdapter(it)
+        })
     }
 
     private fun init() {

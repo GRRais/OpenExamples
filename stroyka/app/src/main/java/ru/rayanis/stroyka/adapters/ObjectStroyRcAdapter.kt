@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import ru.rayanis.stroyka.data.ObjectStroy
+import ru.rayanis.stroyka.model.ObjectStroy
 import ru.rayanis.stroyka.databinding.ObjectListItemBinding
 
 class ObjectStroyRcAdapter(val auth: FirebaseAuth): RecyclerView.Adapter<ObjectStroyRcAdapter.ObjectHolder>() {

@@ -1,4 +1,4 @@
-package ru.rayanis.stroyka.data
+package ru.rayanis.stroyka.model
 
 data class ObjectStroy (
     val area: String? = null,

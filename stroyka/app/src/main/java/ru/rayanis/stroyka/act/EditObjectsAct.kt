@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.fxn.utility.PermUtil
 import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.adapters.ImageAdapter
-import ru.rayanis.stroyka.data.ObjectStroy
-import ru.rayanis.stroyka.database.DbManager
+import ru.rayanis.stroyka.model.ObjectStroy
+import ru.rayanis.stroyka.model.DbManager
 import ru.rayanis.stroyka.databinding.ActivityEditObjectsBinding
 import ru.rayanis.stroyka.dialogs.DialogSpinnerHelper
 import ru.rayanis.stroyka.frag.FragmentCloseInterface
