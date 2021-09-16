@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Материал"
-        android:id="@+id/id_materials"
-        android:icon="@drawable/ic_material"
-        android:orderInCategory="500"
+    <item android:title="Отгрузки"
+        android:id="@+id/id_shipments"
+        android:icon="@drawable/ic_shipments"
+        android:orderInCategory="100"
         />
     <item android:title="Объекты"
         android:id="@+id/id_objects"
         android:icon="@drawable/ic_objects"
-        android:orderInCategory="300"
-        />
-    <item android:title="Отгрузки"
-        android:id="@+id/id_shipments"
-        android:icon="@drawable/ic_shipments"
         android:orderInCategory="200"
         />
-    <item android:title="Home"
-        android:id="@+id/id_home"
-        android:icon="@drawable/ic_home"
-        android:orderInCategory="100"
+    <item android:title="Материалы"
+        android:id="@+id/id_materials"
+        android:icon="@drawable/ic_material"
+        android:orderInCategory="300"
+        />
+    <item android:title="Инструменты"
+        android:id="@+id/id_instruments"
+        android:icon="@drawable/ic_instruments"
+        android:orderInCategory="400"
         />
 </menu>

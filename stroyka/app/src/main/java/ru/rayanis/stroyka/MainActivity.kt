@@ -44,6 +44,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         initRecyclerView()
         initViewModel()
         firebaseViewModel.loadAllObjectStroy()
+        bottomMenuOnClick()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        b.mainContent.bNavView.selectedItemId = R.id.id_shipments
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -110,12 +116,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun bottomMenuOnClick() = with(b) {
-        mainContent.bNavView.setOnNavigationItemSelectedListener { item ->
+        mainContent.bNavView.setOnItemSelectedListener { item ->
             when(item.itemId) {
-                R.id.id_home -> {}
-                R.id.id_home -> {}
-                R.id.id_home -> {}
-                R.id.id_home -> {}
+                R.id.id_shipments -> {
+                    Toast.makeText(this@MainActivity, "Отгрузки", Toast.LENGTH_LONG).show()
+                }
+                R.id.id_objects -> {
+                    Toast.makeText(this@MainActivity, "Объекты", Toast.LENGTH_LONG).show()
+                }
+                R.id.id_materials -> {
+                    Toast.makeText(this@MainActivity, "Материалы", Toast.LENGTH_LONG).show()
+                }
+                R.id.id_instruments -> {
+                    Toast.makeText(this@MainActivity, "Инструменты", Toast.LENGTH_LONG).show()
+                }
             }
             true
         }
