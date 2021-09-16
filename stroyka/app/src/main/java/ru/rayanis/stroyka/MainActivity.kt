@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.id_new_objects) {
+        if (item.itemId == R.id.id_new_object) {
             val i = Intent(this,EditObjectsAct::class.java)
             startActivity(i)
         }
@@ -107,6 +107,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         b.navView.setNavigationItemSelectedListener(this)
         tvAccount = b.navView.getHeaderView(0).findViewById(R.id.tvAccountEmail)
+    }
+
+    private fun bottomMenuOnClick() = with(b) {
+        mainContent.bNavView.setOnNavigationItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.id_home -> {}
+                R.id.id_home -> {}
+                R.id.id_home -> {}
+                R.id.id_home -> {}
+            }
+            true
+        }
     }
 
     private fun initRecyclerView() {

@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_new_edit_material"
         app:showAsAction="ifRoom"/>
     <item android:title="Новый материал"
-        android:id="@+id/id_new_objects"
+        android:id="@+id/id_new_object"
         android:icon="@drawable/ic_new_object"
         app:showAsAction="ifRoom"/>
 </menu>
