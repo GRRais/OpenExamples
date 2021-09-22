@@ -3,14 +3,10 @@ package ru.rayanis.stroyka.frag
 import android.content.Context
 import android.graphics.Bitmap
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.rayanis.stroyka.R
-import ru.rayanis.stroyka.act.EditObjectsAct
+import ru.rayanis.stroyka.act.EditObjectStroyAct
 import ru.rayanis.stroyka.databinding.SelectImageFragItemBinding
 import ru.rayanis.stroyka.utils.AdapterCallback
 import ru.rayanis.stroyka.utils.ImageManager
@@ -53,7 +49,7 @@ class SelectImageRvAdapter(val adapterCallback: AdapterCallback): RecyclerView.A
         fun setData(bitmap: Bitmap){
 
             b.imEditImage.setOnClickListener {
-                ImagePicker.launcher(context as EditObjectsAct, context.launcherSingleSelectImage, 1)
+                ImagePicker.launcher(context as EditObjectStroyAct, context.launcherSingleSelectImage, 1)
                 context.editImagePos = adapterPosition
             }
 

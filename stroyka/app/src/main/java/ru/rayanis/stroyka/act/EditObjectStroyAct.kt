@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import com.fxn.utility.PermUtil
+import ru.rayanis.stroyka.MainActivity
 import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.adapters.ImageAdapter
 import ru.rayanis.stroyka.model.ObjectStroy
@@ -20,7 +21,7 @@ import ru.rayanis.stroyka.frag.ImageListFrag
 import ru.rayanis.stroyka.utils.ImagePicker
 import ru.rayanis.stroyka.utils.VillageHelper
 
-class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
+class EditObjectStroyAct : AppCompatActivity(), FragmentCloseInterface {
 
     var chooseImageFrag: ImageListFrag? = null
     lateinit var b : ActivityEditObjectsBinding
@@ -39,6 +40,24 @@ class EditObjectsAct : AppCompatActivity(), FragmentCloseInterface {
         b = ActivityEditObjectsBinding.inflate(layoutInflater)
         setContentView(b.root)
         init()
+        checkEditState()
+    }
+
+    private fun checkEditState() {
+        if (isEditState()) {
+            fillViews(intent.getSerializableExtra(MainActivity.ADS_DATA) as ObjectStroy)
+        }
+    }
+
+    private fun isEditState(): Boolean {
+        return intent.getBooleanExtra(MainActivity.EDIT_STATE, false)
+    }
+
+    private fun fillViews(objectStroy: ObjectStroy) = with(b) {
+        tvArea.text = objectStroy.area
+        tvVillage.text = objectStroy.village
+        tvOrganization.text = objectStroy.organization
+        edDescription.setText(objectStroy.description)
     }
 
     override fun onRequestPermissionsResult(

@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import ru.rayanis.stroyka.act.CreateEditMaterialAct
-import ru.rayanis.stroyka.act.EditObjectsAct
+import ru.rayanis.stroyka.act.EditObjectStroyAct
 import ru.rayanis.stroyka.adapters.ObjectStroyRcAdapter
 import ru.rayanis.stroyka.databinding.ActivityMainBinding
 import ru.rayanis.stroyka.dialoghelper.DialogConst
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var b: ActivityMainBinding
     private val dialogHelper = DialogHelper(this)
     val mAuth = Firebase.auth
-    val adapter = ObjectStroyRcAdapter(mAuth)
+    val adapter = ObjectStroyRcAdapter(this)
     private val firebaseViewModel: FirebaseViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.id_new_object) {
-            val i = Intent(this,EditObjectsAct::class.java)
+            val i = Intent(this,EditObjectStroyAct::class.java)
             startActivity(i)
         }
         if (item.itemId == R.id.id_new_edit_material) {
@@ -171,5 +171,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else {
             user.email
         }
+    }
+
+    companion object {
+        const val EDIT_STATE = "edit_state"
+        const val ADS_DATA = "ads_data"
     }
 }

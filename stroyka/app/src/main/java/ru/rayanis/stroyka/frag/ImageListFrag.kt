@@ -17,7 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.rayanis.stroyka.R
-import ru.rayanis.stroyka.act.EditObjectsAct
+import ru.rayanis.stroyka.act.EditObjectStroyAct
 import ru.rayanis.stroyka.databinding.ListImageFragBinding
 import ru.rayanis.stroyka.dialoghelper.ProgressDialog
 import ru.rayanis.stroyka.utils.AdapterCallback
@@ -93,7 +93,7 @@ class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface, priv
 
         addImageItem?.setOnMenuItemClickListener {
             val imageCount = ImagePicker.MAX_IMAGE_COUNT - adapter.mainArray.size
-            ImagePicker.launcher(activity as EditObjectsAct, (activity as EditObjectsAct).launcherMultiSelectImage, imageCount)
+            ImagePicker.launcher(activity as EditObjectStroyAct, (activity as EditObjectStroyAct).launcherMultiSelectImage, imageCount)
             true
         }
     }

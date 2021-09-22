@@ -92,7 +92,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
                 android:gravity="end"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="visible">
 
                 <ImageButton
                     android:id="@+id/ibEditObject"
