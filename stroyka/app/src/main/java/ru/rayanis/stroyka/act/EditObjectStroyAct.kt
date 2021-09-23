@@ -28,9 +28,11 @@ class EditObjectStroyAct : AppCompatActivity(), FragmentCloseInterface {
     private var dialog = DialogSpinnerHelper()
     lateinit var imageAdapter: ImageAdapter
     private val dbManager = DbManager()
-    var editImagePos = 0
     var launcherMultiSelectImage: ActivityResultLauncher<Intent>? = null
     var launcherSingleSelectImage: ActivityResultLauncher<Intent>? = null
+    var editImagePos = 0
+    private var isEditState = false
+    private  var objectStroy: ObjectStroy? = null
 
     var isImagesPermissionGranted = false
 
@@ -44,8 +46,10 @@ class EditObjectStroyAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     private fun checkEditState() {
-        if (isEditState()) {
-            fillViews(intent.getSerializableExtra(MainActivity.ADS_DATA) as ObjectStroy)
+        isEditState = isEditState()
+        if (isEditState) {
+            objectStroy = intent.getSerializableExtra(MainActivity.ADS_DATA) as ObjectStroy
+            if (objectStroy != null) fillViews(objectStroy!!)
         }
     }
 
@@ -121,7 +125,12 @@ class EditObjectStroyAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickPublish(view: View) {
-        dbManager.publishObjectStroy(fillObjectStroy())
+        val objectStroyTemp = fillObjectStroy()
+        if (isEditState) {
+            dbManager.publishObjectStroy(objectStroyTemp.copy(key = objectStroy?.key))
+        } else {
+            dbManager.publishObjectStroy(objectStroyTemp)
+        }
     }
 
     private fun fillObjectStroy(): ObjectStroy {
