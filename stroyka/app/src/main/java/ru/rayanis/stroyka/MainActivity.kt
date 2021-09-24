@@ -120,15 +120,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             when(item.itemId) {
                 R.id.id_shipments -> {
                     Toast.makeText(this@MainActivity, "Отгрузки", Toast.LENGTH_LONG).show()
+                    mainContent.toolbar.title = getString(R.string.shipments)
                 }
                 R.id.id_objects -> {
-                    Toast.makeText(this@MainActivity, "Объекты", Toast.LENGTH_LONG).show()
+                    firebaseViewModel.loadAllObjectStroy()
+                    mainContent.toolbar.title = getString(R.string.objects)
                 }
                 R.id.id_materials -> {
-                    Toast.makeText(this@MainActivity, "Материалы", Toast.LENGTH_LONG).show()
+                    firebaseViewModel.loadMyObjectStroy()
+                    mainContent.toolbar.title = getString(R.string.materials)
                 }
                 R.id.id_instruments -> {
                     Toast.makeText(this@MainActivity, "Инструменты", Toast.LENGTH_LONG).show()
+                    mainContent.toolbar.title = getString(R.string.instruments)
+
                 }
             }
             true

@@ -8,8 +8,16 @@ import ru.rayanis.stroyka.model.ObjectStroy
 class FirebaseViewModel: ViewModel() {
     private val dbManager = DbManager()
     val liveObjectStroyData = MutableLiveData<ArrayList<ObjectStroy>>()
-    public fun loadAllObjectStroy() {
-        dbManager.readDataFromDb(object: DbManager.ReadDataCallback {
+    fun loadAllObjectStroy() {
+        dbManager.getAllObjectStroy(object: DbManager.ReadDataCallback {
+            override fun readData(list: ArrayList<ObjectStroy>) {
+                liveObjectStroyData.value = list
+            }
+        })
+    }
+
+    fun loadMyObjectStroy() {
+        dbManager.getMyObjectStroy(object: DbManager.ReadDataCallback {
             override fun readData(list: ArrayList<ObjectStroy>) {
                 liveObjectStroyData.value = list
             }

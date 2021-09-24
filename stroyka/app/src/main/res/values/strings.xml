@@ -4,6 +4,9 @@
     <string name="stroyka">Стройка</string>
     <string name="objects">Объекты</string>
     <string name="materials">Материалы</string>
+    <string name="shipments">Отгрузки</string>
+    <string name="requests">Заявки</string>
+    <string name="instruments">Инструменты</string>
     <string name="account_category">Аккаунт</string>
     <string name="sign_up">Регистрация</string>
     <string name="sign_in">Вход</string>
