@@ -35,13 +35,14 @@ class SignInAct : AppCompatActivity() {
                     firebaseAuthWithGoogle(account.idToken!!)
                 }
             } catch (e: ApiException) {
-                Log.d("MyLog", "ApiException")
+                Log.d("MyLog", "ApiException: ${e.message}")
             }
         }
 
         b.bSignIn.setOnClickListener {
             signInWithGoogle()
         }
+        checkAuthState()
     }
 
     private fun getClient(): GoogleSignInClient{
@@ -63,10 +64,17 @@ class SignInAct : AppCompatActivity() {
         auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
                 Log.d("MyLog", "Google signIn done")
+                checkAuthState()
             } else {
                 Log.d("MyLog", "Google signIn error")
-
             }
+        }
+    }
+
+    fun checkAuthState() {
+        if (auth.currentUser != null) {
+            val i = Intent(this, MainActivity::class.java)
+            startActivity(i)
         }
     }
 }

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "325940949135-108i04qghcgnkroavpao4gcbi76bvj0c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.rayanis.rrchat",
+            "certificate_hash": "4f16d1e015535766bce8b1fc06e71f664b513403"
+          }
+        },
+        {
           "client_id": "325940949135-dmn2apqae991thbqubmhaomfoinen1se.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
