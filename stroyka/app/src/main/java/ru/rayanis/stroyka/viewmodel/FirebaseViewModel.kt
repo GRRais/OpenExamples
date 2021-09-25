@@ -23,4 +23,14 @@ class FirebaseViewModel: ViewModel() {
             }
         })
     }
+
+    fun deleteItem(objectStroy: ObjectStroy) {
+        dbManager.deleteObjectStroy(objectStroy, object: DbManager.FinishWorkListener {
+            override fun onFinish() {
+                val updatedList = liveObjectStroyData.value
+                updatedList?.remove(objectStroy)
+                liveObjectStroyData.postValue(updatedList)
+            }
+        })
+    }
 }

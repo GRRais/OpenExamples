@@ -12,19 +12,33 @@ class DbManager {
     val db = Firebase.database.getReference("main")
     val auth = Firebase.auth
 
-    fun publishObjectStroy(objectStroy: ObjectStroy) {
-        if (auth.uid != null) db.child(objectStroy.key ?: "empty").child(auth.uid!!)
-            .child("object").setValue(objectStroy)
+    fun publishObjectStroy(objectStroy: ObjectStroy, finishListener: FinishWorkListener) {
+        if (auth.uid != null) db.child(objectStroy
+            .key ?: "empty")
+            .child(auth.uid!!)
+            .child("object")
+            .setValue(objectStroy)
+            .addOnCompleteListener {
+                finishListener.onFinish()
+            }
     }
 
     fun getMyObjectStroy(readDataCallback: ReadDataCallback?) {
-        val query = db.orderByChild(auth.uid + "/ad/uid").equalTo(auth.uid)
+        val query = db.orderByChild(auth.uid + "/ad/uid")
+            .equalTo(auth.uid)
         readDataFromDb(query, readDataCallback)
     }
 
     fun getAllObjectStroy(readDataCallback: ReadDataCallback?) {
         val query = db.orderByChild(auth.uid + "/ad/area")
         readDataFromDb(query, readDataCallback)
+    }
+
+    fun deleteObjectStroy(objectStroy: ObjectStroy, listener: FinishWorkListener) {
+        if (objectStroy.key == null || objectStroy.uid == null) return
+        db.child(objectStroy.key).child(objectStroy.uid).removeValue().addOnCompleteListener {
+            if (it.isSuccessful) listener.onFinish()
+        }
     }
 
     private fun readDataFromDb(query: Query, readDataCallback: ReadDataCallback?) {
@@ -45,5 +59,9 @@ class DbManager {
 
     interface ReadDataCallback {
         fun readData(list: ArrayList<ObjectStroy>)
+    }
+
+    interface FinishWorkListener{
+        fun onFinish()
     }
 }

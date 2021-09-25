@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -25,9 +26,10 @@ import ru.rayanis.stroyka.databinding.ActivityMainBinding
 import ru.rayanis.stroyka.dialoghelper.DialogConst
 import ru.rayanis.stroyka.dialoghelper.DialogHelper
 import ru.rayanis.stroyka.dialoghelper.GoogleAccConst
+import ru.rayanis.stroyka.model.ObjectStroy
 import ru.rayanis.stroyka.viewmodel.FirebaseViewModel
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ObjectStroyRcAdapter.DeleteItemListener {
     private lateinit var tvAccount: TextView
     private lateinit var b: ActivityMainBinding
     private val dialogHelper = DialogHelper(this)
@@ -181,5 +183,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     companion object {
         const val EDIT_STATE = "edit_state"
         const val ADS_DATA = "ads_data"
+    }
+
+    override fun onDeleteItem(objectStroy: ObjectStroy) {
+        firebaseViewModel.deleteItem(objectStroy)
     }
 }

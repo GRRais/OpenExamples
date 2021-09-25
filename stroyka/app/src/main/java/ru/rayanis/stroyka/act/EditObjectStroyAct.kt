@@ -25,20 +25,19 @@ class EditObjectStroyAct : AppCompatActivity(), FragmentCloseInterface {
 
     var chooseImageFrag: ImageListFrag? = null
     lateinit var b : ActivityEditObjectsBinding
-    private var dialog = DialogSpinnerHelper()
+    private val dialog = DialogSpinnerHelper()
     lateinit var imageAdapter: ImageAdapter
     private val dbManager = DbManager()
     var launcherMultiSelectImage: ActivityResultLauncher<Intent>? = null
     var launcherSingleSelectImage: ActivityResultLauncher<Intent>? = null
     var editImagePos = 0
     private var isEditState = false
-    private  var objectStroy: ObjectStroy? = null
+    private var objectStroy: ObjectStroy? = null
 
     var isImagesPermissionGranted = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_objects)
         b = ActivityEditObjectsBinding.inflate(layoutInflater)
         setContentView(b.root)
         init()
@@ -127,9 +126,17 @@ class EditObjectStroyAct : AppCompatActivity(), FragmentCloseInterface {
     fun onClickPublish(view: View) {
         val objectStroyTemp = fillObjectStroy()
         if (isEditState) {
-            dbManager.publishObjectStroy(objectStroyTemp.copy(key = objectStroy?.key))
+            dbManager.publishObjectStroy(objectStroyTemp.copy(key = objectStroy?.key), onPublishFinish())
         } else {
-            dbManager.publishObjectStroy(objectStroyTemp)
+            dbManager.publishObjectStroy(objectStroyTemp, onPublishFinish())
+        }
+    }
+
+    private fun onPublishFinish(): DbManager.FinishWorkListener {
+        return  object: DbManager.FinishWorkListener {
+            override fun onFinish() {
+                finish()
+            }
         }
     }
 
@@ -142,9 +149,10 @@ class EditObjectStroyAct : AppCompatActivity(), FragmentCloseInterface {
                 tvOrganization.text.toString(),
                 edDescription.text.toString(),
                 dbManager.db.push().key,
-            dbManager.auth.uid)
+                dbManager.auth.uid
+            )
+            return objectStroy
         }
-        return objectStroy
     }
 
     override fun onFragClose(list: ArrayList<Bitmap>) {

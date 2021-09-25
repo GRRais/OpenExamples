@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.rayanis.stroyka.MainActivity
 import ru.rayanis.stroyka.act.EditObjectStroyAct
@@ -11,7 +12,7 @@ import ru.rayanis.stroyka.model.ObjectStroy
 import ru.rayanis.stroyka.databinding.ObjectListItemBinding
 
 class ObjectStroyRcAdapter(val act: MainActivity): RecyclerView.Adapter<ObjectStroyRcAdapter.ObjectHolder>() {
-    val objectArray = ArrayList<ObjectStroy>()
+    val objectStroyArray = ArrayList<ObjectStroy>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ObjectHolder {
         val b = ObjectListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,17 +20,18 @@ class ObjectStroyRcAdapter(val act: MainActivity): RecyclerView.Adapter<ObjectSt
     }
 
     override fun onBindViewHolder(holder: ObjectHolder, position: Int) {
-        holder.setData(objectArray[position])
+        holder.setData(objectStroyArray[position])
     }
 
     override fun getItemCount(): Int {
-        return objectArray.size
+        return objectStroyArray.size
     }
 
     fun updateAdapter(newList: List<ObjectStroy>) {
-        objectArray.clear()
-        objectArray.addAll(newList)
-        notifyDataSetChanged()
+        val diffResult = DiffUtil.calculateDiff(DiffUtilHelper(objectStroyArray, newList))
+        diffResult.dispatchUpdatesTo(this)
+        objectStroyArray.clear()
+        objectStroyArray.addAll(newList)
     }
 
     class ObjectHolder(val b: ObjectListItemBinding, val act: MainActivity): RecyclerView.ViewHolder(b.root) {
@@ -41,6 +43,9 @@ class ObjectStroyRcAdapter(val act: MainActivity): RecyclerView.Adapter<ObjectSt
             tvDescription.text = objectStroy.description
             showEditPanel(isOwner(objectStroy))
             ibEditObject.setOnClickListener(onClickEdit(objectStroy))
+            ibDeleteObject.setOnClickListener{
+                act.onDeleteItem(objectStroy)
+            }
         }
 
         private fun onClickEdit(objectStroy: ObjectStroy): View.OnClickListener {
@@ -64,5 +69,9 @@ class ObjectStroyRcAdapter(val act: MainActivity): RecyclerView.Adapter<ObjectSt
                 b.editPanel.visibility = View.GONE
             }
         }
+    }
+
+    interface  DeleteItemListener {
+        fun onDeleteItem(objectStroy: ObjectStroy)
     }
 }
