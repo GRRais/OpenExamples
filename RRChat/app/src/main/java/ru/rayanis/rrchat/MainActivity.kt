@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.LinearLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var b: ActivityMainBinding
     lateinit var auth: FirebaseAuth
+    lateinit var adapter: UserAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +33,17 @@ class MainActivity : AppCompatActivity() {
         val database = Firebase.database
         val myRef = database.getReference("message")
         b.bSend.setOnClickListener {
-            myRef.setValue(b.edMessage.text.toString())
+            myRef.child(myRef.push().key ?: "blabla").setValue(User(auth.currentUser?.displayName, b.edMessage.text.toString()))
         }
         onChangeListener(myRef)
+
+        initRcView()
+    }
+
+    private fun initRcView() = with(b) {
+        adapter = UserAdapter()
+        rcView.layoutManager = LinearLayoutManager(this@MainActivity)
+        rcView.adapter = adapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -51,10 +62,12 @@ class MainActivity : AppCompatActivity() {
     private fun onChangeListener(dRef: DatabaseReference) {
         dRef.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                b.apply {
-                    rcView.append("\n")
-                    rcView.append(snapshot.value.toString())
-                }
+                val list = arrayListOf<User>()
+               for (s in snapshot.children) {
+                   val user = s.getValue(User::class.java)
+                   if (user != null) list.add(user)
+               }
+                adapter.submitList(list)
             }
 
             override fun onCancelled(error: DatabaseError) {

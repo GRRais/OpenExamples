@@ -5,6 +5,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('D:\\Key_RRChat\\RRChat_key.jks')
+            storePassword 'G_Rais'
+            keyAlias 'RRChat'
+            keyPassword 'G_Rais'
+        }
+    }
     compileSdk 31
 
     defaultConfig {
@@ -21,6 +29,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {

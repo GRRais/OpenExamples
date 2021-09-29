@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "325940949135-6vagikdftdatj6eau7adg3kop974eje8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.rayanis.rrchat",
+            "certificate_hash": "8489ed27dca86f12a1c5c9919d9080c9255c0e5b"
+          }
+        },
+        {
           "client_id": "325940949135-dmn2apqae991thbqubmhaomfoinen1se.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
