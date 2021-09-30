@@ -59,7 +59,12 @@
 
     <!-- Ad List Item -->
     <string name="price_desc">Цена:</string>
-
+    <string name="tel_d">Телефон:</string>
+    <string name="email_d">Email:</string>
+    <string name="country_d">Страна:</string>
+    <string name="tvCityD">Город:</string>
+    <string name="tvIndexD">Индекс:</string>
+    <string name="tvWithSendD">С отправкой:</string>
 
 
 </resources>

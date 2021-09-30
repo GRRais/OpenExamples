@@ -13,4 +13,7 @@
     <color name="grey">#e6e6e6</color>
     <color name="grey_dark">#cdcdcd</color>
     <color name="yellow">#FFEB3B</color>
+    <color name="Sky">#C8F2FF</color>
+    <color name="yello_bird">#FFF98F</color>
+    <color name="dark_red">#DB2113</color>
 </resources>
