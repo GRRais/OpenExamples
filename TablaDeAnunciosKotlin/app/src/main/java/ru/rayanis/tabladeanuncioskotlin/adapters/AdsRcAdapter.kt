@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ru.rayanis.tabladeanuncioskotlin.MainActivity
 import ru.rayanis.tabladeanuncioskotlin.R
+import ru.rayanis.tabladeanuncioskotlin.act.DescriptionActivity
 import ru.rayanis.tabladeanuncioskotlin.act.EditAdsAct
 import ru.rayanis.tabladeanuncioskotlin.model.Ad
 import ru.rayanis.tabladeanuncioskotlin.databinding.AdListItemBinding
@@ -62,6 +63,11 @@ class AdsRcAdapter(val act: MainActivity): RecyclerView.Adapter<AdsRcAdapter.AdH
             ibEditAd.setOnClickListener(onClickEdit(ad))
             ibDeleteAd.setOnClickListener{
                 act.onDeleteItem(ad)
+            }
+            itemView.setOnClickListener {
+                val i = Intent(b.root.context, DescriptionActivity::class.java)
+                i.putExtra("AD", ad)
+                b.root.context.startActivity(i)
             }
         }
 
