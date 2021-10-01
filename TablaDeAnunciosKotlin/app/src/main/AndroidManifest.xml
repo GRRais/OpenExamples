@@ -15,7 +15,9 @@
         <activity
             android:name=".act.DescriptionActivity"
             android:exported="true" />
-        <activity android:name=".act.EditAdsAct"></activity>
+        <activity
+            android:name=".act.EditAdsAct"
+            android:exported="true"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
