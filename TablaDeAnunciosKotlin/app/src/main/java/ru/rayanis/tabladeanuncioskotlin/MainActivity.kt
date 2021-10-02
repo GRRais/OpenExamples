@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun init() {
         setSupportActionBar(b.mainContent.toolbar)
-        //onActivityResult()
+        onActivityResult()
         val toggle =
             ActionBarDrawerToggle(
                 this,
