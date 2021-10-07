@@ -9,6 +9,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,6 +34,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun TabloCalc(name: String) {
+    Box
     Text(
         text = "Hello $name!",
         modifier = Modifier.padding(start = 10.dp, top = 10.dp),
