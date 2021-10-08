@@ -9,7 +9,7 @@ import kotlin.collections.ArrayList
 
 object CityHelper {
     fun getAllCountries(context: Context): ArrayList<String> {
-        var tempArray = ArrayList<String>()
+        val tempArray = ArrayList<String>()
         try {
             val inputStream: InputStream = context.assets.open("countriesToCities.json")
             val size = inputStream.available()
@@ -23,7 +23,6 @@ object CityHelper {
                     tempArray.add(countryNames.getString(n))
                 }
             }
-
         } catch (e: IOException) {
 
         }
@@ -31,7 +30,7 @@ object CityHelper {
     }
 
     fun getAllCities(country: String, context: Context): ArrayList<String> {
-        var tempArray = ArrayList<String>()
+        val tempArray = ArrayList<String>()
         try {
             val inputStream: InputStream = context.assets.open("countriesToCities.json")
             val size = inputStream.available()

@@ -3,7 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Github/OpenExamples/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_description.xml" value="0.20520833333333333" />
         <entry key="..\:/Github/OpenExamples/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_edit_ads.xml" value="0.36102564102564105" />
+        <entry key="..\:/Github/OpenExamples/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Github/OpenExamples/TablaDeAnunciosKotlin/app/src/main/res/layout/ad_list_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Github/OpenExamples/TablaDeAnunciosKotlin/app/src/main/res/layout/image_adapter_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Github/OpenExamples/TablaDeAnunciosKotlin/app/src/main/res/layout/list_image_frag.xml" value="0.36666666666666664" />
+        <entry key="..\:/Github/OpenExamples/TablaDeAnunciosKotlin/app/src/main/res/layout/main_content.xml" value="0.36666666666666664" />
+        <entry key="..\:/Github/OpenExamples/TablaDeAnunciosKotlin/app/src/main/res/layout/nav_header_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Github/OpenExamples/TablaDeAnunciosKotlin/app/src/main/res/layout/progress_dialog_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Github/OpenExamples/TablaDeAnunciosKotlin/app/src/main/res/layout/select_image_frag_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Github/OpenExamples/TablaDeAnunciosKotlin/app/src/main/res/layout/sign_dialog.xml" value="0.36666666666666664" />
+        <entry key="..\:/Github/OpenExamples/TablaDeAnunciosKotlin/app/src/main/res/layout/sp_list_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Zulfat/Documents/GitHub/OpenExamples/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_description.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Zulfat/Documents/GitHub/OpenExamples/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_edit_ads.xml" value="0.4053156146179402" />
         <entry key="..\:/Users/Zulfat/Documents/GitHub/OpenExamples/TablaDeAnunciosKotlin/app/src/main/res/layout/image_adapter_item.xml" value="0.25416666666666665" />

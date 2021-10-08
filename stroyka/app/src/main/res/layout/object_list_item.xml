@@ -84,34 +84,62 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:background="@color/grey_dark"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical">
+
+            </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/editPanel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:gravity="end"
-                android:orientation="horizontal"
-                android:visibility="visible">
+                android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/ibEditObject"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/ic_edit" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/ibDeleteObject"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/ic_delete_image" />
+                    <ImageButton
+                        android:id="@+id/imageButton2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/editPanel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <ImageButton
+                        android:id="@+id/ibEditObject"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/ic_edit" />
+
+                    <ImageButton
+                        android:id="@+id/ibDeleteObject"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/ic_delete_image" />
+                </LinearLayout>
+
             </LinearLayout>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

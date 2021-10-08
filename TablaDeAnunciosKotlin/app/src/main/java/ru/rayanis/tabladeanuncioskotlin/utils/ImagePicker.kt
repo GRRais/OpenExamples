@@ -3,7 +3,6 @@ package ru.rayanis.tabladeanuncioskotlin.utils
 import android.graphics.Bitmap
 import android.net.Uri
 import android.view.View
-import androidx.fragment.app.Fragment
 import io.ak1.pix.helpers.PixEventCallback
 import io.ak1.pix.helpers.addPixToActivity
 import io.ak1.pix.models.Mode

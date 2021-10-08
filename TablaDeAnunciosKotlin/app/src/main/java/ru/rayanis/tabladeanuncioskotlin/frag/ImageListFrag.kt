@@ -48,7 +48,7 @@ class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface): Bas
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         b = ListImageFragBinding.inflate(layoutInflater)
         adView  = b.adView
         return b.root
@@ -116,6 +116,5 @@ class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface): Bas
             adapter.mainArray[pos] = bitmapList[0]
             adapter.notifyItemChanged(pos)
         }
-
     }
 }

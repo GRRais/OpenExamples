@@ -91,10 +91,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickSelectCat(view: View) {
-
         val listCity = resources.getStringArray(R.array.category).toMutableList() as ArrayList
             dialog.showSpinnerDialog(this, listCity, b.tvCat)
-
     }
 
     fun onClickGetImages(view: View) {
@@ -107,11 +105,10 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickPublish(view: View) {
-        val ad = fillAd()
+        ad = fillAd()
         if (isEditState) {
-            dbManager.publishAd(ad?.copy(key = ad?.key), onPublishFinish())
+            ad?.copy(key = ad?.key)?.let { dbManager.publishAd(it, onPublishFinish()) }
         } else {
-            //dbManager.publishAd(adTemp, onPublishFinish())
             uploadImages()
         }
     }
@@ -169,18 +166,18 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         }
         val byteArray = prepareImageByteArray(imageAdapter.mainArray[imageIndex])
         uploadImage(byteArray) {
-            //dbManager.publishAd(ad, onPublishFinish())
+            //dbManager.publishAd(ad!!, onPublishFinish())
             nextImage(it.result.toString())
         }
     }
 
     private fun nextImage(uri: String) {
-        setImageUriAd(uri)
+        setImageUriToAd(uri)
         imageIndex++
         uploadImages()
     }
 
-    private fun setImageUriAd(uri: String) {
+    private fun setImageUriToAd(uri: String) {
         when(imageIndex) {
             0 -> ad = ad?.copy(mainImage = uri)
             1 -> ad = ad?.copy(image2 = uri)
@@ -199,8 +196,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
             .child(dbManager.auth.uid!!)
             .child("image_${System.currentTimeMillis()}")
         val upTask = imStorageRef.putBytes(byteArray)
-        upTask.continueWithTask{
-            task -> imStorageRef.downloadUrl
+        upTask.continueWithTask {
+            imStorageRef.downloadUrl
         }.addOnCompleteListener(listener)
     }
 }
