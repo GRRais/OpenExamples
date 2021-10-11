@@ -44,6 +44,7 @@
         android:hint="@string/password_hint"
         android:inputType="textPassword"
         android:padding="10dp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/edSignEmail"
         app:layout_constraintStart_toStartOf="@+id/edSignEmail"
         app:layout_constraintTop_toBottomOf="@+id/edSignEmail" />
