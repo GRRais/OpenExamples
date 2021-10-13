@@ -12,9 +12,9 @@ class DbManager {
     val db = Firebase.database.getReference(MAIN_NODE)
     val auth = Firebase.auth
 
+    //добавление объекта в БД
     fun publishObjectStroy(objectStroy: ObjectStroy, finishListener: FinishWorkListener) {
-        if (auth.uid != null) db.child(objectStroy
-            .key ?: "empty")
+        if (auth.uid != null) db.child(objectStroy.key ?: "empty")
             .child(auth.uid!!)
             .child(OBJSTROY_NODE)
             .setValue(objectStroy)
@@ -23,32 +23,58 @@ class DbManager {
             }
     }
 
-    //функция добавления в избранное
-    fun addToFavs(objectStroy: ObjectStroy, listener: FinishWorkListener) {
-        objectStroy.key?.let {
-            db.child(it).child(FAVS_NODE)
+    //удаление объекта из БД
+    fun deleteObjectStroy(objectStroy: ObjectStroy, listener: FinishWorkListener) {
+        if (objectStroy.key == null || objectStroy.uid == null) return
+        db.child(objectStroy.key).child(objectStroy.uid).removeValue().addOnCompleteListener {
+            if (it.isSuccessful) listener.onFinish()
         }
     }
 
-    //Чтение избранных объявлений с БД
+    fun onActiveClick(objectStroy: ObjectStroy, listener: FinishWorkListener) {
+        if (objectStroy.isActive) {
+            removeFromActive(objectStroy, listener)
+        } else {
+            addToActive(objectStroy, listener)
+        }
+    }
+
+    //добавление объекта в активные
+    private fun addToActive(objectStroy: ObjectStroy, listener: FinishWorkListener) {
+        objectStroy.key?.let {
+            db.child(it)
+                .child(FAVS_NODE)
+                .setValue(true)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) listener.onFinish()
+                }
+        }
+    }
+
+    //удаление объекта из активных
+    private fun removeFromActive(objectStroy: ObjectStroy, listener: FinishWorkListener) {
+        objectStroy.key?.let {
+            db.child(it)
+                .child(FAVS_NODE)
+                .child("active")
+                .removeValue()
+                .addOnCompleteListener {
+                    if (it.isSuccessful) listener.onFinish()
+                }
+        }
+    }
+
+    //Чтение активных объявлений с БД
     fun getMyObjectStroy(readDataCallback: ReadDataCallback?) {
         val query = db.orderByChild(auth.uid + "/ad/uid")
             .equalTo(auth.uid)
         readDataFromDb(query, readDataCallback)
     }
 
-    //получение всех объявлений с БД
+    //чтение всех объявлений с БД
     fun getAllObjectStroy(readDataCallback: ReadDataCallback?) {
         val query = db.orderByChild(auth.uid + "/ad/area")
         readDataFromDb(query, readDataCallback)
-    }
-
-
-    fun deleteObjectStroy(objectStroy: ObjectStroy, listener: FinishWorkListener) {
-        if (objectStroy.key == null || objectStroy.uid == null) return
-        db.child(objectStroy.key).child(objectStroy.uid).removeValue().addOnCompleteListener {
-            if (it.isSuccessful) listener.onFinish()
-        }
     }
 
     //чтение данных с БД
@@ -78,7 +104,7 @@ class DbManager {
 
     companion object {
         const val OBJSTROY_NODE = "ad"
-        const val FAVS_NODE = "favs"
+        const val FAVS_NODE = "active"
         const val MAIN_NODE = "main"
     }
 }

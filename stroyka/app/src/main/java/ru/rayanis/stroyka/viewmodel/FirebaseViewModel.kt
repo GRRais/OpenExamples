@@ -16,6 +16,14 @@ class FirebaseViewModel: ViewModel() {
         })
     }
 
+    fun onActiveClick(objectStroy: ObjectStroy) {
+        dbManager.onActiveClick(objectStroy, object: DbManager.FinishWorkListener {
+            override fun onFinish() {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
     fun loadMyObjectStroy() {
         dbManager.getMyObjectStroy(object: DbManager.ReadDataCallback {
             override fun readData(list: ArrayList<ObjectStroy>) {
