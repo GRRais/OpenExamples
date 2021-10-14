@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.rayanis.stroyka.MainActivity
+import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.act.EditObjectStroyAct
 import ru.rayanis.stroyka.model.ObjectStroy
 import ru.rayanis.stroyka.databinding.ObjectListItemBinding
 
-class ObjectStroyRcAdapter(val act: MainActivity): RecyclerView.Adapter<ObjectStroyRcAdapter.ObjectHolder>() {
+class ObjStroyRcAdapter(val act: MainActivity): RecyclerView.Adapter<ObjStroyRcAdapter.ObjectHolder>() {
     val objectStroyArray = ArrayList<ObjectStroy>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ObjectHolder {
@@ -35,16 +36,24 @@ class ObjectStroyRcAdapter(val act: MainActivity): RecyclerView.Adapter<ObjectSt
     }
 
     class ObjectHolder(val b: ObjectListItemBinding, val act: MainActivity): RecyclerView.ViewHolder(b.root) {
-        fun setData(objectStroy: ObjectStroy) = with(b) {
+        fun setData(objStroy: ObjectStroy) = with(b) {
             //tvTitle.text = objectStroy
-            tvArea.text = objectStroy.area
-            tvVillage.text = objectStroy.village
-            tvOrganization.text = objectStroy.organization
-            tvDescription.text = objectStroy.description
-            showEditPanel(isOwner(objectStroy))
-            ibEditObject.setOnClickListener(onClickEdit(objectStroy))
+            tvArea.text = objStroy.area
+            tvVillage.text = objStroy.village
+            tvOrganization.text = objStroy.organization
+            tvDescription.text = objStroy.description
+            if (objStroy.isActive) {
+                ibActive.setImageResource(R.drawable.ic_active_pressed)
+            } else {
+                ibActive.setImageResource(R.drawable.ic_active_normal)
+            }
+            showEditPanel(isOwner(objStroy))
+            ibActive.setOnClickListener {
+                act.onActiveClicked(objStroy)
+            }
+            ibEditObject.setOnClickListener(onClickEdit(objStroy))
             ibDeleteObject.setOnClickListener{
-                act.onDeleteItem(objectStroy)
+                act.onDeleteItem(objStroy)
             }
         }
 
@@ -71,7 +80,8 @@ class ObjectStroyRcAdapter(val act: MainActivity): RecyclerView.Adapter<ObjectSt
         }
     }
 
-    interface  DeleteItemListener {
+    interface  Listener {
         fun onDeleteItem(objectStroy: ObjectStroy)
+        fun onActiveClicked(objectStroy: ObjectStroy)
     }
 }

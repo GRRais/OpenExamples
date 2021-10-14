@@ -7,11 +7,11 @@ import ru.rayanis.stroyka.model.ObjectStroy
 
 class FirebaseViewModel: ViewModel() {
     private val dbManager = DbManager()
-    val liveObjectStroyData = MutableLiveData<ArrayList<ObjectStroy>>()
+    val liveObjStroyData = MutableLiveData<ArrayList<ObjectStroy>>()
     fun loadAllObjectStroy() {
         dbManager.getAllObjectStroy(object: DbManager.ReadDataCallback {
             override fun readData(list: ArrayList<ObjectStroy>) {
-                liveObjectStroyData.value = list
+                liveObjStroyData.value = list
             }
         })
     }
@@ -19,7 +19,15 @@ class FirebaseViewModel: ViewModel() {
     fun onActiveClick(objectStroy: ObjectStroy) {
         dbManager.onActiveClick(objectStroy, object: DbManager.FinishWorkListener {
             override fun onFinish() {
-                TODO("Not yet implemented")
+                val updatedList = liveObjStroyData.value
+                val pos = updatedList?.indexOf(objectStroy)
+                if (pos != -1) {
+                    pos?.let{
+                        updatedList[pos] = updatedList[pos].copy(isActive = !objectStroy.isActive)
+                    }
+                }
+                updatedList?.remove(objectStroy)
+                liveObjStroyData.postValue(updatedList)
             }
         })
     }
@@ -27,17 +35,17 @@ class FirebaseViewModel: ViewModel() {
     fun loadMyObjectStroy() {
         dbManager.getMyObjectStroy(object: DbManager.ReadDataCallback {
             override fun readData(list: ArrayList<ObjectStroy>) {
-                liveObjectStroyData.value = list
+                liveObjStroyData.value = list
             }
         })
     }
 
-    fun deleteItem(objectStroy: ObjectStroy) {
-        dbManager.deleteObjectStroy(objectStroy, object: DbManager.FinishWorkListener {
+    fun deleteItem(objStroy: ObjectStroy) {
+        dbManager.deleteObjStroy(objStroy, object: DbManager.FinishWorkListener {
             override fun onFinish() {
-                val updatedList = liveObjectStroyData.value
-                updatedList?.remove(objectStroy)
-                liveObjectStroyData.postValue(updatedList)
+                val updatedList = liveObjStroyData.value
+                updatedList?.remove(objStroy)
+                liveObjStroyData.postValue(updatedList)
             }
         })
     }

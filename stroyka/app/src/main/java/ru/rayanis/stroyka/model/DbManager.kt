@@ -24,7 +24,7 @@ class DbManager {
     }
 
     //удаление объекта из БД
-    fun deleteObjectStroy(objectStroy: ObjectStroy, listener: FinishWorkListener) {
+    fun deleteObjStroy(objectStroy: ObjectStroy, listener: FinishWorkListener) {
         if (objectStroy.key == null || objectStroy.uid == null) return
         db.child(objectStroy.key).child(objectStroy.uid).removeValue().addOnCompleteListener {
             if (it.isSuccessful) listener.onFinish()

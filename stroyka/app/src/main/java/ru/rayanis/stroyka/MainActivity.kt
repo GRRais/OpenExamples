@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +20,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import ru.rayanis.stroyka.act.CreateEditMaterialAct
 import ru.rayanis.stroyka.act.EditObjectStroyAct
-import ru.rayanis.stroyka.adapters.ObjectStroyRcAdapter
+import ru.rayanis.stroyka.adapters.ObjStroyRcAdapter
 import ru.rayanis.stroyka.databinding.ActivityMainBinding
 import ru.rayanis.stroyka.dialoghelper.DialogConst
 import ru.rayanis.stroyka.dialoghelper.DialogHelper
@@ -29,12 +28,12 @@ import ru.rayanis.stroyka.dialoghelper.GoogleAccConst
 import ru.rayanis.stroyka.model.ObjectStroy
 import ru.rayanis.stroyka.viewmodel.FirebaseViewModel
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ObjectStroyRcAdapter.DeleteItemListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ObjStroyRcAdapter.Listener {
     private lateinit var tvAccount: TextView
     private lateinit var b: ActivityMainBinding
     private val dialogHelper = DialogHelper(this)
     val mAuth = Firebase.auth
-    val adapter = ObjectStroyRcAdapter(this)
+    val adapter = ObjStroyRcAdapter(this)
     private val firebaseViewModel: FirebaseViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,7 +96,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun initViewModel() {
-        firebaseViewModel.liveObjectStroyData.observe(this, {
+        firebaseViewModel.liveObjStroyData.observe(this, {
             adapter.updateAdapter(it)
         })
     }
@@ -187,5 +186,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onDeleteItem(objectStroy: ObjectStroy) {
         firebaseViewModel.deleteItem(objectStroy)
+    }
+
+    override fun onActiveClicked(objectStroy: ObjectStroy) {
+        firebaseViewModel.onActiveClick(objectStroy)
     }
 }
