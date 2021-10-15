@@ -23,6 +23,9 @@ class DbManager {
             }
     }
 
+    //получить активные объекты
+    fun getActiveObjects
+
     //удаление объекта из БД
     fun deleteObjStroy(objectStroy: ObjectStroy, listener: FinishWorkListener) {
         if (objectStroy.key == null || objectStroy.uid == null) return
@@ -85,12 +88,11 @@ class DbManager {
                 for (item in snapshot.children) {
                     val objectStroy = item.children.iterator().next().child(OBJSTROY_NODE).getValue(ObjectStroy::class.java)
                     if (objectStroy != null) objectStroyArray.add(objectStroy)
+
                 }
                 readDataCallback?.readData(objectStroyArray)
             }
-
             override fun onCancelled(error: DatabaseError) {}
-
         })
     }
 
