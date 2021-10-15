@@ -31,7 +31,7 @@ class DbManager {
             .setValue(InfoItem(counter.toString(), ad.emailsCounter, ad.callsCounter))
     }
 
-    //функция проверки нажато ли сердечко на объявлении
+    //проверяем нажато ли сердечко на объявлении
     fun onFavClick(ad: Ad, listener: FinishWorkListener) {
         if (ad.isFav) {
             removeFromFavs(ad, listener)

@@ -23,9 +23,6 @@ class DbManager {
             }
     }
 
-    //получить активные объекты
-    fun getActiveObjects
-
     //удаление объекта из БД
     fun deleteObjStroy(objectStroy: ObjectStroy, listener: FinishWorkListener) {
         if (objectStroy.key == null || objectStroy.uid == null) return
@@ -67,30 +64,30 @@ class DbManager {
         }
     }
 
-    //Чтение активных объявлений с БД
-    fun getMyObjectStroy(readDataCallback: ReadDataCallback?) {
-        val query = db.orderByChild(auth.uid + "/ad/uid")
+    //получить активные объекты с БД
+    fun getActiveObjStroy(readDataCallback: ReadDataCallback?) {
+        val query = db.orderByChild(auth.uid + "/isactive").equalTo(true)
             .equalTo(auth.uid)
         readDataFromDb(query, readDataCallback)
     }
 
     //чтение всех объявлений с БД
     fun getAllObjectStroy(readDataCallback: ReadDataCallback?) {
-        val query = db.orderByChild(auth.uid + "/ad/area")
+        val query = db.orderByChild(auth.uid + "/objstroy/area")
         readDataFromDb(query, readDataCallback)
     }
 
-    //чтение данных с БД
+    //чтение объектов с БД
     private fun readDataFromDb(query: Query, readDataCallback: ReadDataCallback?) {
         query.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                val objectStroyArray = ArrayList<ObjectStroy>()
+                val objStroyArray = ArrayList<ObjectStroy>()
                 for (item in snapshot.children) {
-                    val objectStroy = item.children.iterator().next().child(OBJSTROY_NODE).getValue(ObjectStroy::class.java)
-                    if (objectStroy != null) objectStroyArray.add(objectStroy)
+                    val objStroy = item.children.iterator().next().child(OBJSTROY_NODE).getValue(ObjectStroy::class.java)
+                    if (objStroy != null) objStroyArray.add(objStroy)
 
                 }
-                readDataCallback?.readData(objectStroyArray)
+                readDataCallback?.readData(objStroyArray)
             }
             override fun onCancelled(error: DatabaseError) {}
         })
@@ -105,8 +102,8 @@ class DbManager {
     }
 
     companion object {
-        const val OBJSTROY_NODE = "ad"
-        const val FAVS_NODE = "active"
+        const val OBJSTROY_NODE = "objstroy"
+        const val FAVS_NODE = "isactive"
         const val MAIN_NODE = "main"
     }
 }

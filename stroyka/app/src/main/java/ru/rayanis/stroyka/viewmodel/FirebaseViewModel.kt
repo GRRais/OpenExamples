@@ -33,7 +33,7 @@ class FirebaseViewModel: ViewModel() {
     }
 
     fun loadMyObjectStroy() {
-        dbManager.getMyObjectStroy(object: DbManager.ReadDataCallback {
+        dbManager.getActiveObjStroy(object: DbManager.ReadDataCallback {
             override fun readData(list: ArrayList<ObjectStroy>) {
                 liveObjStroyData.value = list
             }

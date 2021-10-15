@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         b.mainContent.bNavView.selectedItemId = R.id.id_shipments
     }
 
+    //открытие
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.id_new_object) {
             val i = Intent(this,EditObjectStroyAct::class.java)
@@ -184,11 +185,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         const val ADS_DATA = "ads_data"
     }
 
-    override fun onDeleteItem(objectStroy: ObjectStroy) {
-        firebaseViewModel.deleteItem(objectStroy)
+    override fun onDeleteItem(objStroy: ObjectStroy) {
+        firebaseViewModel.deleteItem(objStroy)
     }
 
-    override fun onActiveClicked(objectStroy: ObjectStroy) {
-        firebaseViewModel.onActiveClick(objectStroy)
+    override fun onActiveClicked(objStroy: ObjectStroy) {
+        firebaseViewModel.onActiveClick(objStroy)
     }
 }
