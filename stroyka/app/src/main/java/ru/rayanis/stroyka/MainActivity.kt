@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         init()
         initRecyclerView()
         initViewModel()
-        firebaseViewModel.loadAllObjectStroy()
+        firebaseViewModel.loadAllObjStroy()
         bottomMenuOnClick()
     }
 
@@ -117,25 +117,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         tvAccount = b.navView.getHeaderView(0).findViewById(R.id.tvAccountEmail)
     }
 
+    //обработка нажатий на кнопки нижнего меню
     private fun bottomMenuOnClick() = with(b) {
         mainContent.bNavView.setOnItemSelectedListener { item ->
             when(item.itemId) {
                 R.id.id_shipments -> {
-                    Toast.makeText(this@MainActivity, "Отгрузки", Toast.LENGTH_LONG).show()
                     mainContent.toolbar.title = getString(R.string.shipments)
+                    Toast.makeText(this@MainActivity, R.string.shipments, Toast.LENGTH_SHORT).show()
+                }
+                R.id.id_requests -> {
+                    mainContent.toolbar.title = getString(R.string.requests)
+                    Toast.makeText(this@MainActivity, R.string.requests, Toast.LENGTH_SHORT).show()
                 }
                 R.id.id_objects -> {
-                    firebaseViewModel.loadAllObjectStroy()
+                    firebaseViewModel.loadAllObjStroy()
                     mainContent.toolbar.title = getString(R.string.objects)
+                    Toast.makeText(this@MainActivity, R.string.objects, Toast.LENGTH_SHORT).show()
+                }
+                R.id.id_active_objects -> {
+                    firebaseViewModel.loadActiveObjStroy()
+                    mainContent.toolbar.title = getString(R.string.active_objects)
+                    Toast.makeText(this@MainActivity, R.string.active_objects, Toast.LENGTH_SHORT).show()
                 }
                 R.id.id_materials -> {
-                    firebaseViewModel.loadMyObjectStroy()
                     mainContent.toolbar.title = getString(R.string.materials)
-                }
-                R.id.id_instruments -> {
-                    Toast.makeText(this@MainActivity, "Инструменты", Toast.LENGTH_LONG).show()
-                    mainContent.toolbar.title = getString(R.string.instruments)
-
+                    Toast.makeText(this@MainActivity, R.string.materials, Toast.LENGTH_SHORT).show()
                 }
             }
             true
@@ -149,6 +155,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    //обработка нажатий на пункты бокового всплывающего меню
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.objects -> {
@@ -172,6 +179,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
+    //изменение статуса пользователя в боковом всплывающем меню
     fun uiUpdate(user: FirebaseUser?) {
         tvAccount.text = if (user == null) {
             resources.getString(R.string.not_reg)

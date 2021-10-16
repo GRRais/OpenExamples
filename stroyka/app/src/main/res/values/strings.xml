@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Стройка</string>
+
     <!-- Menu Drawing Strings-->
     <string name="stroyka">Стройка</string>
     <string name="objects">Объекты</string>
+    <string name="active_objects">Активные объекты</string>
     <string name="materials">Материалы</string>
     <string name="shipments">Отгрузки</string>
     <string name="requests">Заявки</string>
@@ -14,6 +16,7 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="not_reg">Войдите или зарегистрируйтесь!</string>
+
     <!-- Sign Dialog-->
     <string name="email_reset_password_was_sent">Reset Email was sent!</string>
     <string name="dialog_reset_email_message">Для восстановления пароля укажите ваш Email!</string>
@@ -26,9 +29,11 @@
     <string name="sign_in_error">Не удалось войти</string>
     <string name="send_verification_error">Не удалось отправить email для подтверждения!</string>
     <string name="send_verification_done">На вашу почту была отправлена ссылка для подтверждения вашего аккаунта!</string>
+
     <!-- Sign Dialog-->
     <string name="link_done">Email успешно соединен с Google аккаунтом</string>
     <string name="enter_to_g">У вас уже есть аккаунт с этим Email адресом, войдите по нему.</string>
+
     <!-- Edit Activity-->
     <string name="select_area">*Выберите район</string>
     <string name="select_village">*Выберите деревню</string>

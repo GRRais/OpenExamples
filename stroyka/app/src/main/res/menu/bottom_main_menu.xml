@@ -6,19 +6,24 @@
         android:icon="@drawable/ic_shipments"
         android:orderInCategory="100"
         />
+    <item android:title="Заявки"
+        android:id="@+id/id_requests"
+        android:icon="@drawable/ic_request"
+        android:orderInCategory="200"
+        />
     <item android:title="Объекты"
         android:id="@+id/id_objects"
         android:icon="@drawable/ic_objects"
-        android:orderInCategory="200"
+        android:orderInCategory="300"
+        />
+    <item android:title="Активные объекты"
+        android:id="@+id/id_active_objects"
+        android:icon="@drawable/ic_active_objects"
+        android:orderInCategory="400"
         />
     <item android:title="Материалы"
         android:id="@+id/id_materials"
         android:icon="@drawable/ic_material"
-        android:orderInCategory="300"
-        />
-    <item android:title="Инструменты"
-        android:id="@+id/id_instruments"
-        android:icon="@drawable/ic_instruments"
-        android:orderInCategory="400"
+        android:orderInCategory="500"
         />
 </menu>

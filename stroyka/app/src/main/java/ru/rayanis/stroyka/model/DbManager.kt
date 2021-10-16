@@ -31,19 +31,20 @@ class DbManager {
         }
     }
 
-    fun onActiveClick(objectStroy: ObjectStroy, listener: FinishWorkListener) {
-        if (objectStroy.isActive) {
-            removeFromActive(objectStroy, listener)
+
+    fun onActiveClick(objStroy: ObjectStroy, listener: FinishWorkListener) {
+        if (objStroy.isActive) {
+            removeFromActive(objStroy, listener)
         } else {
-            addToActive(objectStroy, listener)
+            addToActive(objStroy, listener)
         }
     }
 
     //добавление объекта в активные
-    private fun addToActive(objectStroy: ObjectStroy, listener: FinishWorkListener) {
-        objectStroy.key?.let {
+    private fun addToActive(objStroy: ObjectStroy, listener: FinishWorkListener) {
+        objStroy.key?.let {
             db.child(it)
-                .child(FAVS_NODE)
+                .child(ISACTIVE_NODE)
                 .setValue(true)
                 .addOnCompleteListener {
                     if (it.isSuccessful) listener.onFinish()
@@ -55,8 +56,7 @@ class DbManager {
     private fun removeFromActive(objectStroy: ObjectStroy, listener: FinishWorkListener) {
         objectStroy.key?.let {
             db.child(it)
-                .child(FAVS_NODE)
-                .child("active")
+                .child(ISACTIVE_NODE)
                 .removeValue()
                 .addOnCompleteListener {
                     if (it.isSuccessful) listener.onFinish()
@@ -67,13 +67,12 @@ class DbManager {
     //получить активные объекты с БД
     fun getActiveObjStroy(readDataCallback: ReadDataCallback?) {
         val query = db.orderByChild(auth.uid + "/isactive").equalTo(true)
-            .equalTo(auth.uid)
         readDataFromDb(query, readDataCallback)
     }
 
     //чтение всех объявлений с БД
     fun getAllObjectStroy(readDataCallback: ReadDataCallback?) {
-        val query = db.orderByChild(auth.uid + "/objstroy/area")
+        val query = db.orderByChild(auth.uid + "/objstroy")
         readDataFromDb(query, readDataCallback)
     }
 
@@ -85,7 +84,6 @@ class DbManager {
                 for (item in snapshot.children) {
                     val objStroy = item.children.iterator().next().child(OBJSTROY_NODE).getValue(ObjectStroy::class.java)
                     if (objStroy != null) objStroyArray.add(objStroy)
-
                 }
                 readDataCallback?.readData(objStroyArray)
             }
@@ -103,7 +101,7 @@ class DbManager {
 
     companion object {
         const val OBJSTROY_NODE = "objstroy"
-        const val FAVS_NODE = "isactive"
+        const val ISACTIVE_NODE = "isactive"
         const val MAIN_NODE = "main"
     }
 }

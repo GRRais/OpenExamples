@@ -8,7 +8,9 @@ import ru.rayanis.stroyka.model.ObjectStroy
 class FirebaseViewModel: ViewModel() {
     private val dbManager = DbManager()
     val liveObjStroyData = MutableLiveData<ArrayList<ObjectStroy>>()
-    fun loadAllObjectStroy() {
+
+    //загружаем все объекты строительства
+    fun loadAllObjStroy() {
         dbManager.getAllObjectStroy(object: DbManager.ReadDataCallback {
             override fun readData(list: ArrayList<ObjectStroy>) {
                 liveObjStroyData.value = list
@@ -16,23 +18,8 @@ class FirebaseViewModel: ViewModel() {
         })
     }
 
-    fun onActiveClick(objectStroy: ObjectStroy) {
-        dbManager.onActiveClick(objectStroy, object: DbManager.FinishWorkListener {
-            override fun onFinish() {
-                val updatedList = liveObjStroyData.value
-                val pos = updatedList?.indexOf(objectStroy)
-                if (pos != -1) {
-                    pos?.let{
-                        updatedList[pos] = updatedList[pos].copy(isActive = !objectStroy.isActive)
-                    }
-                }
-                updatedList?.remove(objectStroy)
-                liveObjStroyData.postValue(updatedList)
-            }
-        })
-    }
-
-    fun loadMyObjectStroy() {
+    //загружаем активные объекты строительства
+    fun loadActiveObjStroy() {
         dbManager.getActiveObjStroy(object: DbManager.ReadDataCallback {
             override fun readData(list: ArrayList<ObjectStroy>) {
                 liveObjStroyData.value = list
@@ -40,6 +27,24 @@ class FirebaseViewModel: ViewModel() {
         })
     }
 
+    //обработка нажатия на Добавить в активные (сердечко)
+    fun onActiveClick(objStroy: ObjectStroy) {
+        dbManager.onActiveClick(objStroy, object: DbManager.FinishWorkListener {
+            override fun onFinish() {
+                val updatedList = liveObjStroyData.value
+                val pos = updatedList?.indexOf(objStroy)
+                if (pos != -1) {
+                    pos?.let{
+                        updatedList[pos] = updatedList[pos].copy(isActive = !objStroy.isActive)
+                    }
+                }
+                updatedList?.remove(objStroy)
+                liveObjStroyData.postValue(updatedList)
+            }
+        })
+    }
+
+    //удаление объекта из базы данных
     fun deleteItem(objStroy: ObjectStroy) {
         dbManager.deleteObjStroy(objStroy, object: DbManager.FinishWorkListener {
             override fun onFinish() {
