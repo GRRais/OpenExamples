@@ -125,11 +125,11 @@
                 android:textColorHint="@color/grey_dark" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/b_create_edit_object"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onClickPublish"
-                android:text="Button" />
+                android:text="@string/create" />
 
         </LinearLayout>
     </ScrollView>

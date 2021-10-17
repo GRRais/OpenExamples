@@ -32,7 +32,7 @@ class EditObjectStroyAct : AppCompatActivity(), FragmentCloseInterface {
     var launcherSingleSelectImage: ActivityResultLauncher<Intent>? = null
     var editImagePos = 0
     private var isEditState = false
-    private var objectStroy: ObjectStroy? = null
+    private var objStroy: ObjectStroy? = null
 
     var isImagesPermissionGranted = false
 
@@ -44,23 +44,27 @@ class EditObjectStroyAct : AppCompatActivity(), FragmentCloseInterface {
         checkEditState()
     }
 
+    //проверяем, если editState
     private fun checkEditState() {
         isEditState = isEditState()
         if (isEditState) {
-            objectStroy = intent.getSerializableExtra(MainActivity.ADS_DATA) as ObjectStroy
-            if (objectStroy != null) fillViews(objectStroy!!)
+            objStroy = intent.getSerializableExtra(MainActivity.OBJSTR_DATA) as ObjectStroy
+            if (objStroy != null) fillViews(objStroy!!)
         }
     }
 
+    //проверяем, зашли для создания нового объявления или редактирования
     private fun isEditState(): Boolean {
         return intent.getBooleanExtra(MainActivity.EDIT_STATE, false)
     }
 
-    private fun fillViews(objectStroy: ObjectStroy) = with(b) {
-        tvArea.text = objectStroy.area
-        tvVillage.text = objectStroy.village
-        tvOrganization.text = objectStroy.organization
-        edDescription.setText(objectStroy.description)
+    //заполняем вьюшки данными объекта класса ObjectStroy
+    private fun fillViews(objStroy: ObjectStroy) = with(b) {
+        tvArea.text = objStroy.area
+        tvVillage.text = objStroy.village
+        tvOrganization.text = objStroy.organization
+        edDescription.setText(objStroy.description)
+        bCreateEditObject.text = getString(R.string.change)
     }
 
     override fun onRequestPermissionsResult(
@@ -95,8 +99,8 @@ class EditObjectStroyAct : AppCompatActivity(), FragmentCloseInterface {
         launcherSingleSelectImage = ImagePicker.getLauncherForSingleImage(this)
     }
 
-    //OnClicks
-    fun onClickSelectArea(view: View) {
+    //обработка нажатия кнопки Выбрать район
+    fun onClickSelectArea() {
         val listAreas = VillageHelper.getAllAreas(this)
         dialog.showSpinnerDialog(this, listAreas, b.tvArea)
         if (b.tvVillage.text.toString() != getString(R.string.select_village)) {
@@ -104,7 +108,8 @@ class EditObjectStroyAct : AppCompatActivity(), FragmentCloseInterface {
         }
     }
 
-    fun onClickSelectVillage(view: View){
+    //обработка нажатия кнопки Выбрать деревню
+    fun onClickSelectVillage(){
         val selectedArea = b.tvArea.text.toString()
         if (selectedArea != getString(R.string.select_area)) {
             val listVillage = VillageHelper.getAllVillages(selectedArea, this)
@@ -114,7 +119,8 @@ class EditObjectStroyAct : AppCompatActivity(), FragmentCloseInterface {
         }
     }
 
-    fun onClickGetImages(view: View) {
+    //обработка нажатия кнопки Добавить/изменить изображения
+    fun onClickGetImages() {
         if (imageAdapter.mainArray.size == 0) {
             ImagePicker.launcher(this, launcherMultiSelectImage, 3)
         } else {
@@ -123,14 +129,18 @@ class EditObjectStroyAct : AppCompatActivity(), FragmentCloseInterface {
         }
     }
 
-    fun onClickPublish(view: View) {
-        val objectStroyTemp = fillObjectStroy()
+    // обработка нажатия кнопки Опубликовать,
+    // выполняем проверку isEditState, если true -> редактируем объект,
+    // иначе публикуем новый
+    fun onClickPublish() {
+        val objStroyTemp = fillObjectStroy()
         if (isEditState) {
-            dbManager.publishObjectStroy(objectStroyTemp.copy(key = objectStroy?.key), onPublishFinish())
+            dbManager.publishObjectStroy(objStroyTemp.copy(key = objStroy?.key), onPublishFinish())
         } else {
-            dbManager.publishObjectStroy(objectStroyTemp, onPublishFinish())
+            dbManager.publishObjectStroy(objStroyTemp, onPublishFinish())
         }
     }
+
 
     private fun onPublishFinish(): DbManager.FinishWorkListener {
         return  object: DbManager.FinishWorkListener {
@@ -140,6 +150,7 @@ class EditObjectStroyAct : AppCompatActivity(), FragmentCloseInterface {
         }
     }
 
+    //заполнение экземпляра объекта класса ObjectStroy
     private fun fillObjectStroy(): ObjectStroy {
         val objectStroy: ObjectStroy
         b.apply {

@@ -57,20 +57,23 @@ class ObjStroyRcAdapter(val act: MainActivity): RecyclerView.Adapter<ObjStroyRcA
             }
         }
 
+
         private fun onClickEdit(objectStroy: ObjectStroy): View.OnClickListener {
             return View.OnClickListener {
                 val editIntent = Intent(act, EditObjectStroyAct::class.java).apply {
                     putExtra(MainActivity.EDIT_STATE, true)
-                    putExtra(MainActivity.ADS_DATA, objectStroy)
+                    putExtra(MainActivity.OBJSTR_DATA, objectStroy)
                 }
                 act.startActivity(editIntent)
             }
         }
 
+        //определяем, владелец созданного объекта зашел или нет
         private fun isOwner(objectStroy: ObjectStroy): Boolean {
             return objectStroy.uid == act.mAuth.uid
         }
 
+        //отображаем панель редактирования объекта, если зашел владелец, иначе скрываем
         private fun showEditPanel(isOwner: Boolean) {
             if (isOwner) {
                 b.editPanel.visibility = View.VISIBLE
