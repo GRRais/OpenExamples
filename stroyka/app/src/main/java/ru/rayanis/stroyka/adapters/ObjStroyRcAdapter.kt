@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.rayanis.stroyka.MainActivity
 import ru.rayanis.stroyka.R
-import ru.rayanis.stroyka.act.EditObjectStroyAct
+import ru.rayanis.stroyka.act.EditObjectsAct
 import ru.rayanis.stroyka.model.ObjectStroy
 import ru.rayanis.stroyka.databinding.ObjectListItemBinding
 
@@ -37,7 +37,6 @@ class ObjStroyRcAdapter(val act: MainActivity): RecyclerView.Adapter<ObjStroyRcA
 
     class ObjectHolder(val b: ObjectListItemBinding, val act: MainActivity): RecyclerView.ViewHolder(b.root) {
         fun setData(objStroy: ObjectStroy) = with(b) {
-            //tvTitle.text = objectStroy
             tvArea.text = objStroy.area
             tvVillage.text = objStroy.village
             tvOrganization.text = objStroy.organization
@@ -60,15 +59,15 @@ class ObjStroyRcAdapter(val act: MainActivity): RecyclerView.Adapter<ObjStroyRcA
 
         private fun onClickEdit(objectStroy: ObjectStroy): View.OnClickListener {
             return View.OnClickListener {
-                val editIntent = Intent(act, EditObjectStroyAct::class.java).apply {
+                val editIntent = Intent(act, EditObjectsAct::class.java).apply {
                     putExtra(MainActivity.EDIT_STATE, true)
-                    putExtra(MainActivity.OBJSTR_DATA, objectStroy)
+                    putExtra(MainActivity.OBJSTROY_DATA, objectStroy)
                 }
                 act.startActivity(editIntent)
             }
         }
 
-        //определяем, владелец созданного объекта зашел или нет
+        //определяем, владелец созданного объекта или нет
         private fun isOwner(objectStroy: ObjectStroy): Boolean {
             return objectStroy.uid == act.mAuth.uid
         }

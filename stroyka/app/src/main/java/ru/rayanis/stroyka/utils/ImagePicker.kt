@@ -13,7 +13,7 @@ import com.fxn.utility.PermUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.rayanis.stroyka.act.EditObjectStroyAct
+import ru.rayanis.stroyka.act.EditObjectsAct
 
 object ImagePicker {
     const val REQUEST_CODE_GET_IMAGES = 999
@@ -29,7 +29,7 @@ object ImagePicker {
         return options
     }
 
-    fun launcher(edAct: EditObjectStroyAct, launcher: ActivityResultLauncher<Intent>?, imageCounter: Int) {
+    fun launcher(edAct: EditObjectsAct, launcher: ActivityResultLauncher<Intent>?, imageCounter: Int) {
         PermUtil.checkForCamaraWritePermissions(edAct) {
             val intent = Intent(edAct, Pix::class.java).apply {
                 putExtra("options", getOptions(imageCounter))
@@ -38,7 +38,7 @@ object ImagePicker {
         }
     }
 
-    fun getLauncherForMultiSelectImages(edAct: EditObjectStroyAct): ActivityResultLauncher<Intent> {
+    fun getLauncherForMultiSelectImages(edAct: EditObjectsAct): ActivityResultLauncher<Intent> {
         return edAct.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result: ActivityResult ->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
@@ -61,7 +61,7 @@ object ImagePicker {
         }
     }
 
-    fun getLauncherForSingleImage(edAct: EditObjectStroyAct): ActivityResultLauncher<Intent> {
+    fun getLauncherForSingleImage(edAct: EditObjectsAct): ActivityResultLauncher<Intent> {
         return edAct.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 if (result.data != null) {

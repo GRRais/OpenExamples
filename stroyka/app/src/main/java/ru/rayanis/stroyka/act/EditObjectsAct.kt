@@ -12,19 +12,19 @@ import com.fxn.utility.PermUtil
 import ru.rayanis.stroyka.MainActivity
 import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.adapters.ImageAdapter
-import ru.rayanis.stroyka.model.ObjectStroy
-import ru.rayanis.stroyka.model.DbManager
 import ru.rayanis.stroyka.databinding.ActivityEditObjectsBinding
 import ru.rayanis.stroyka.dialogs.DialogSpinnerHelper
 import ru.rayanis.stroyka.frag.FragmentCloseInterface
 import ru.rayanis.stroyka.frag.ImageListFrag
+import ru.rayanis.stroyka.model.DbManager
+import ru.rayanis.stroyka.model.ObjectStroy
 import ru.rayanis.stroyka.utils.ImagePicker
 import ru.rayanis.stroyka.utils.VillageHelper
 
-class EditObjectStroyAct : AppCompatActivity(), FragmentCloseInterface {
+class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
 
     var chooseImageFrag: ImageListFrag? = null
-    lateinit var b : ActivityEditObjectsBinding
+    lateinit var b: ActivityEditObjectsBinding
     private val dialog = DialogSpinnerHelper()
     lateinit var imageAdapter: ImageAdapter
     private val dbManager = DbManager()
@@ -48,7 +48,7 @@ class EditObjectStroyAct : AppCompatActivity(), FragmentCloseInterface {
     private fun checkEditState() {
         isEditState = isEditState()
         if (isEditState) {
-            objStroy = intent.getSerializableExtra(MainActivity.OBJSTR_DATA) as ObjectStroy
+            objStroy = intent.getSerializableExtra(MainActivity.OBJSTROY_DATA) as ObjectStroy
             if (objStroy != null) fillViews(objStroy!!)
         }
     }

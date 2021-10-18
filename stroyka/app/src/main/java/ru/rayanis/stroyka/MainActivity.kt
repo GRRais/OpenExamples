@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import ru.rayanis.stroyka.act.CreateEditMaterialAct
-import ru.rayanis.stroyka.act.EditObjectStroyAct
+import ru.rayanis.stroyka.act.EditObjectsAct
 import ru.rayanis.stroyka.adapters.ObjStroyRcAdapter
 import ru.rayanis.stroyka.databinding.ActivityMainBinding
 import ru.rayanis.stroyka.dialoghelper.DialogConst
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //открытие
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.id_new_object) {
-            val i = Intent(this,EditObjectStroyAct::class.java)
+            val i = Intent(this, EditObjectsAct::class.java)
             startActivity(i)
         }
         if (item.itemId == R.id.id_new_edit_material) {
@@ -190,7 +190,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     companion object {
         const val EDIT_STATE = "edit_state"
-        const val OBJSTR_DATA = "objstroy_data"
+        const val OBJSTROY_DATA = "objstroy_data"
     }
 
     override fun onDeleteItem(objStroy: ObjectStroy) {
