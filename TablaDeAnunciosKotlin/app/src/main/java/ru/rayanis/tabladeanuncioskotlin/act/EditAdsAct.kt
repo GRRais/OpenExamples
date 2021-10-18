@@ -105,9 +105,9 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickPublish(view: View) {
-        ad = fillAd()
+        val adTemp = fillAd()
         if (isEditState) {
-            ad?.copy(key = ad?.key)?.let { dbManager.publishAd(it, onPublishFinish()) }
+            adTemp.copy(key = ad?.key).let { dbManager.publishAd(it, onPublishFinish()) }
         } else {
             uploadImages()
         }

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -100,7 +101,7 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
     }
 
     //обработка нажатия кнопки Выбрать район
-    fun onClickSelectArea() {
+    fun onClickSelectArea(view: View) {
         val listAreas = VillageHelper.getAllAreas(this)
         dialog.showSpinnerDialog(this, listAreas, b.tvArea)
         if (b.tvVillage.text.toString() != getString(R.string.select_village)) {
@@ -109,7 +110,7 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
     }
 
     //обработка нажатия кнопки Выбрать деревню
-    fun onClickSelectVillage(){
+    fun onClickSelectVillage(view: View){
         val selectedArea = b.tvArea.text.toString()
         if (selectedArea != getString(R.string.select_area)) {
             val listVillage = VillageHelper.getAllVillages(selectedArea, this)
@@ -120,7 +121,7 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
     }
 
     //обработка нажатия кнопки Добавить/изменить изображения
-    fun onClickGetImages() {
+    fun onClickGetImages(view: View) {
         if (imageAdapter.mainArray.size == 0) {
             ImagePicker.launcher(this, launcherMultiSelectImage, 3)
         } else {
@@ -132,10 +133,11 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
     // обработка нажатия кнопки Опубликовать,
     // выполняем проверку isEditState, если true -> редактируем объект,
     // иначе публикуем новый
-    fun onClickPublish() {
+    fun onClickPublish(view: View) {
         val objStroyTemp = fillObjectStroy()
         if (isEditState) {
-            dbManager.publishObjectStroy(objStroyTemp.copy(key = objStroy?.key), onPublishFinish())
+            Log.d("MyLog", "isEditState=${isEditState}")
+            objStroyTemp.copy(key = objStroy?.key).let { dbManager.publishObjectStroy(it, onPublishFinish()) }
         } else {
             dbManager.publishObjectStroy(objStroyTemp, onPublishFinish())
         }
