@@ -110,6 +110,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
             adTemp.copy(key = ad?.key).let { dbManager.publishAd(it, onPublishFinish()) }
         } else {
             uploadImages()
+           // dbManager.publishAd(adTemp, onPublishFinish())
         }
     }
 
@@ -125,21 +126,21 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         val ad: Ad
         b.apply {
             ad = Ad(
-                b.tvCountry.text.toString(),
-                b.tvCity.text.toString(),
-                b.editTel.text.toString(),
-                b.edIndex.text.toString(),
+                tvCountry.text.toString(),
+                tvCity.text.toString(),
+                editTel.text.toString(),
+                edIndex.text.toString(),
                 checkBoxWithSend.isChecked.toString(),
                 tvCat.text.toString(),
                 edTitle.text.toString(),
-                b.edPrice.text.toString(),
-                b.edDescription.text.toString(),
+                edPrice.text.toString(),
+                edDescription.text.toString(),
+                editEmail.text.toString(),
                 "empty",
                 "empty",
                 "empty",
                 dbManager.db.push().key,"0",
-                dbManager.auth.uid
-            )
+                dbManager.auth.uid)
             return ad
         }
     }

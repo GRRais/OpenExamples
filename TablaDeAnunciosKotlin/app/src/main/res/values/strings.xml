@@ -65,6 +65,8 @@
     <string name="tvCityD">Город:</string>
     <string name="tvIndexD">Индекс:</string>
     <string name="tvWithSendD">С отправкой:</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
 
 
 </resources>
