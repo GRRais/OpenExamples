@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onResume() {
         super.onResume()
-        b.mainContent.bNavView.selectedItemId = R.id.id_shipments
+        b.mainContent.bNavView.selectedItemId = R.id.id_objects
     }
 
     //открытие
