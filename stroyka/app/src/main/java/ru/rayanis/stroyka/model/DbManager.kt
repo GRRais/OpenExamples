@@ -31,7 +31,7 @@ class DbManager {
         }
     }
 
-
+    //обрабатываем нажантие на сердечко
     fun onActiveClick(objStroy: ObjectStroy, listener: FinishWorkListener) {
         if (objStroy.isActive) {
             removeFromActive(objStroy, listener)
@@ -82,8 +82,15 @@ class DbManager {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val objStroyArray = ArrayList<ObjectStroy>()
                 for (item in snapshot.children) {
-                    val objStroy = item.children.iterator().next().child(OBJSTROY_NODE).getValue(ObjectStroy::class.java)
-                    if (objStroy != null) objStroyArray.add(objStroy)
+                    var objStroy:ObjectStroy? = null
+                    item.children.forEach {
+                        if (objStroy == null) objStroy = it.child(OBJSTROY_NODE)
+                            .getValue(ObjectStroy::class.java)
+                    }
+                    val isActive = item.child(ISACTIVE_NODE).getValue(String::class.java)
+                    objStroy?.isActive = isActive != null
+
+                    if(objStroy != null) objStroyArray.add(objStroy!!)
                 }
                 readDataCallback?.readData(objStroyArray)
             }

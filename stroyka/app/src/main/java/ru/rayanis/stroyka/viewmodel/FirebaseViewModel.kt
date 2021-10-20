@@ -38,7 +38,6 @@ class FirebaseViewModel: ViewModel() {
                         updatedList[pos] = updatedList[pos].copy(isActive = !objStroy.isActive)
                     }
                 }
-                updatedList?.remove(objStroy)
                 liveObjStroyData.postValue(updatedList)
             }
         })

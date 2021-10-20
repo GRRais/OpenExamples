@@ -9,5 +9,5 @@ data class ObjectStroy (
     val description: String? = null,
     val key: String? = null,
     val uid: String? = null,
-    val isActive: Boolean = false
+    var isActive: Boolean = false
 ): Serializable
