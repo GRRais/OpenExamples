@@ -42,5 +42,6 @@
     <string name="description_hint">*Описание</string>
     <string name="create">Создать</string>
     <string name="change">Изменить</string>
+    <string name="no_active_objects">Нет активных объектов</string>
 
 </resources>

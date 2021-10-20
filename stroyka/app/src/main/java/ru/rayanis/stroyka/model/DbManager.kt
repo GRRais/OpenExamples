@@ -66,7 +66,7 @@ class DbManager {
 
     //получить активные объекты с БД
     fun getActiveObjStroy(readDataCallback: ReadDataCallback?) {
-        val query = db.orderByChild(auth.uid + "/isactive").equalTo(true)
+        val query = db.orderByChild("/isactive").equalTo(true)
         readDataFromDb(query, readDataCallback)
     }
 
@@ -87,7 +87,7 @@ class DbManager {
                         if (objStroy == null) objStroy = it.child(OBJSTROY_NODE)
                             .getValue(ObjectStroy::class.java)
                     }
-                    val isActive = item.child(ISACTIVE_NODE).getValue(String::class.java)
+                    val isActive = item.child(ISACTIVE_NODE).getValue(Boolean::class.java)
                     objStroy?.isActive = isActive != null
 
                     if(objStroy != null) objStroyArray.add(objStroy!!)

@@ -118,9 +118,7 @@ class DbManager {
                 }
                 readDataCallback?.readData(adArray)
             }
-
             override fun onCancelled(error: DatabaseError) {}
-
         })
     }
 
