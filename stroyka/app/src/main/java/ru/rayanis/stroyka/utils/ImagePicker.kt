@@ -15,7 +15,7 @@ import ru.rayanis.stroyka.act.EditObjectsAct
 
 object ImagePicker {
     const val REQUEST_CODE_GET_IMAGES = 999
-    const val REQUEST_CODE_GET_SINGLE_IMAGE = 998 
+    const val REQUEST_CODE_GET_SINGLE_IMAGE = 998
     const val MAX_IMAGE_COUNT = 3
     private fun getOptions(imageCounter: Int): Options {
         val options = Options().apply() {
