@@ -19,6 +19,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import ru.rayanis.stroyka.accounthelper.AccountHelper
 import ru.rayanis.stroyka.act.CreateEditMaterialAct
 import ru.rayanis.stroyka.act.EditObjectsAct
 import ru.rayanis.stroyka.adapters.ObjStroyRcAdapter
@@ -125,25 +126,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             when(item.itemId) {
                 R.id.id_shipments -> {
                     mainContent.toolbar.title = getString(R.string.shipments)
-                    Toast.makeText(this@MainActivity, R.string.shipments, Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this@MainActivity, R.string.shipments, Toast.LENGTH_SHORT).show()
                 }
                 R.id.id_requests -> {
                     mainContent.toolbar.title = getString(R.string.requests)
-                    Toast.makeText(this@MainActivity, R.string.requests, Toast.LENGTH_SHORT).show()
                 }
                 R.id.id_objects -> {
                     firebaseViewModel.loadAllObjStroy()
                     mainContent.toolbar.title = getString(R.string.objects)
-                    Toast.makeText(this@MainActivity, R.string.objects, Toast.LENGTH_SHORT).show()
                 }
                 R.id.id_active_objects -> {
                     firebaseViewModel.loadActiveObjStroy()
                     mainContent.toolbar.title = getString(R.string.active_objects)
-                    Toast.makeText(this@MainActivity, R.string.active_objects, Toast.LENGTH_SHORT).show()
                 }
                 R.id.id_materials -> {
                     mainContent.toolbar.title = getString(R.string.materials)
-                    Toast.makeText(this@MainActivity, R.string.materials, Toast.LENGTH_SHORT).show()
                 }
             }
             true
@@ -173,8 +170,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 dialogHelper.createSignDialog(DialogConst.SIGN_UP_STATE)
             }
             R.id.sign_out -> {
+                if (mAuth.currentUser?.isAnonymous == true) {
+                    b.drawerLayout.closeDrawer(GravityCompat.START)
+                    return true
+                }
                 uiUpdate(null)
-            mAuth.signOut()
+                mAuth.signOut()
+                dialogHelper.accHelper.signOutG()
             }
         }
         b.drawerLayout.closeDrawer(GravityCompat.START)
@@ -183,8 +185,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     //изменение статуса пользователя в боковом всплывающем меню
     fun uiUpdate(user: FirebaseUser?) {
-        tvAccount.text = if (user == null) {
-            resources.getString(R.string.not_reg)
+        if (user == null) {
+            dialogHelper.accHelper.signInAnonymously(object: AccountHelper.Listener {
+                override fun onComplete() {
+                    tvAccount.setText(R.string.guest)
+                }
+            })
         } else {
             user.email
         }

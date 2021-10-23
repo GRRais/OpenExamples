@@ -8,8 +8,8 @@ import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.accounthelper.AccountHelper
 import ru.rayanis.stroyka.databinding.SignDialogBinding
 
-class DialogHelper(act: MainActivity) {
-    private val act = act
+class DialogHelper(val act: MainActivity) {
+
     val accHelper = AccountHelper(act)
 
     fun createSignDialog(index: Int){
@@ -30,7 +30,7 @@ class DialogHelper(act: MainActivity) {
         }
 
         b.btGoogleSignIn.setOnClickListener {
-            accHelper.signInWithGoogle()
+            //accHelper.signInFirebaseWithGoogle()
             dialog.dismiss()
         }
 

@@ -48,6 +48,7 @@ class ObjStroyRcAdapter(val act: MainActivity): RecyclerView.Adapter<ObjStroyRcA
             }
             showEditPanel(isOwner(objStroy))
             ibActive.setOnClickListener {
+                if (act.mAuth.currentUser?.isAnonymous == false)
                 act.onActiveClicked(objStroy)
             }
             ibEditObject.setOnClickListener(onClickEdit(objStroy))

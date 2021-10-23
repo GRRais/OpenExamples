@@ -7,9 +7,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.fxn.pix.Options
-import com.fxn.pix.Pix
-import com.fxn.utility.PermUtil
+import io.ak1.pix.models.Options
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,10 +15,12 @@ import ru.rayanis.stroyka.act.EditObjectsAct
 
 object ImagePicker {
     const val REQUEST_CODE_GET_IMAGES = 999
-    const val REQUEST_CODE_GET_SINGLE_IMAGE = 998
+    const val REQUEST_CODE_GET_SINGLE_IMAGE = 998 
     const val MAX_IMAGE_COUNT = 3
     private fun getOptions(imageCounter: Int): Options {
-        val options = Options.init()
+        val options = Options().apply() {
+            isFrontFacing
+        }
             .setCount(imageCounter)                                                   //Number of images to restict selection count
             .setFrontfacing(false)                                          //Span count for gallery min 1 & max 5
             .setMode(Options.Mode.Picture)                                     //Option to select only pictures or videos or both
