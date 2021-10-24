@@ -1,15 +1,19 @@
 package ru.rayanis.stroyka.utils
 
+import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Log
 import android.widget.ImageView
+import androidx.core.net.toUri
 import androidx.exifinterface.media.ExifInterface
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.io.InputStream
 
 object ImageManager {
 
@@ -17,29 +21,29 @@ object ImageManager {
     private const val WIDTH = 0
     private const val HEIGHT = 1
 
-    fun getImageSize(uri: String): List<Int>{
+    //получаем размеры изображения
+    fun getImageSize(uri: Uri, act: Activity): List<Int>{
+        val inStream = act .contentResolver.openInputStream(uri)
+//        val fTemp = File(act.cacheDir, "temp.tmp")
+//        if (inStream != null) {
+//            fTemp.copyInStreamToFile(inStream)
+//        }
         val options = BitmapFactory.Options().apply {
             inJustDecodeBounds = true
         }
-        BitmapFactory.decodeFile(uri, options)
-        return if (imageRotation(uri) == 90)
-            listOf(options.outHeight, options.outWidth)
-        else listOf(options.outWidth, options.outHeight)
+        BitmapFactory.decodeStream(inStream, null, options)
+        return listOf(options.outWidth, options.outHeight)
 
     }
-     private fun imageRotation(uri: String): Int {
-         val rotation: Int
-         val imageFile = File(uri)
-         val exif = ExifInterface(imageFile.absolutePath)
-         val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
-         rotation = if (orientation == ExifInterface.ORIENTATION_ROTATE_90 || orientation == ExifInterface.ORIENTATION_ROTATE_270) {
-             90
-         } else {
-             0
-         }
-         return rotation
-     }
 
+    //копируем изображение из потока в файл
+    private fun File.copyInStreamToFile(inStream: InputStream) {
+        this.outputStream().use {
+            out -> inStream.copyTo(out)
+        }
+    }
+
+    //получаем тип файла, портретный или альбомный
     fun chooseScaleType(im: ImageView, bitmap: Bitmap) {
         if (bitmap.width > bitmap.height) {
             im.scaleType = ImageView.ScaleType.CENTER_CROP
@@ -48,11 +52,12 @@ object ImageManager {
         }
     }
 
-    suspend fun imageResize(uris: List<String>): List<Bitmap> = withContext(Dispatchers.IO) {
+    //сжимаем изображение, если больше ширина или высота больше MAX_IMAGE_SIZE
+    suspend fun imageResize(uris: ArrayList<Uri>, act: Activity): List<Bitmap> = withContext(Dispatchers.IO) {
         val tempList = ArrayList<List<Int>>()
         val bitmapList = ArrayList<Bitmap>()
         for (n in uris.indices){
-            val size = getImageSize(uris[n])
+            val size = getImageSize(uris[n], act)
             val imageRatio = size[WIDTH].toFloat() / size[HEIGHT].toFloat()
 
             if (imageRatio > 1){
@@ -71,15 +76,11 @@ object ImageManager {
         }
 
         for (i in uris.indices) {
-            val e = kotlin.runCatching {
+            kotlin.runCatching {
                 bitmapList.add(
-                    Picasso.get().load(File(uris[i])).resize(tempList[i][WIDTH], tempList[i][HEIGHT])
-                        .get()
-                )
+                    Picasso.get().load(uris[i]).resize(tempList[i][WIDTH], tempList[i][HEIGHT])
+                        .get())
             }
-
-            Log.d("MyLog", "Bitmap load done: ${e.isSuccess}")
-
         }
         return@withContext bitmapList
     }

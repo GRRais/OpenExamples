@@ -186,13 +186,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //изменение статуса пользователя в боковом всплывающем меню
     fun uiUpdate(user: FirebaseUser?) {
         if (user == null) {
-            dialogHelper.accHelper.signInAnonymously(object: AccountHelper.Listener {
+            dialogHelper.accHelper.signInAnonymously(object : AccountHelper.Listener {
                 override fun onComplete() {
                     tvAccount.setText(R.string.guest)
                 }
             })
-        } else {
-            user.email
+        } else if (user.isAnonymous) {
+            tvAccount.setText(R.string.guest)
+        } else if (!user.isAnonymous) {
+            tvAccount.text = user.email
         }
     }
 
