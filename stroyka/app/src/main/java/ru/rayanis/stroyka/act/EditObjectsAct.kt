@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.tasks.OnCompleteListener
 import ru.rayanis.stroyka.MainActivity
 import ru.rayanis.stroyka.R
 import ru.rayanis.stroyka.adapters.ImageAdapter
@@ -18,6 +19,7 @@ import ru.rayanis.stroyka.model.DbManager
 import ru.rayanis.stroyka.model.ObjectStroy
 import ru.rayanis.stroyka.utils.ImagePicker
 import ru.rayanis.stroyka.utils.VillageHelper
+import java.io.ByteArrayOutputStream
 
 class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
 
@@ -107,7 +109,8 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
             Log.d("MyLog", "isEditState=${isEditState}")
             objStroyTemp.copy(key = objStroy?.key).let { dbManager.publishObjectStroy(it, onPublishFinish()) }
         } else {
-            dbManager.publishObjectStroy(objStroyTemp, onPublishFinish())
+            //dbManager.publishObjectStroy(objStroyTemp, onPublishFinish())
+            uploadImages(objStroyTemp)
         }
     }
 
@@ -122,17 +125,18 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
 
     //заполнение экземпляра объекта класса ObjectStroy
     private fun fillObjectStroy(): ObjectStroy {
-        val objectStroy: ObjectStroy
+        val objStroy: ObjectStroy
         b.apply {
-            objectStroy = ObjectStroy(
+            objStroy = ObjectStroy(
                 tvArea.text.toString(),
                 tvVillage.text.toString(),
                 tvOrganization.text.toString(),
                 edDescription.text.toString(),
+                "empty",
                 dbManager.db.push().key,
                 dbManager.auth.uid
             )
-            return objectStroy
+            return objStroy
         }
     }
 
@@ -142,6 +146,7 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
         chooseImageFrag = null
     }
 
+    //открываем фрагмент с выбранными картинками
     fun openChooseImageFrag(newList: ArrayList<Uri>?) {
         chooseImageFrag = ImageListFrag(this)
         if (newList != null) chooseImageFrag?.resizeSelectedImages(newList, true, this)
@@ -149,6 +154,30 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
         val fm = supportFragmentManager.beginTransaction()
         fm.replace(R.id.place_holder, chooseImageFrag!!)
         fm.commit()
+    }
 
+    private fun uploadImages(objStroyTemp: ObjectStroy) {
+        val byteArray = prepareImageByteArray(imageAdapter.mainArray[0])
+        uploadImage(byteArray) {
+            dbManager.publishObjectStroy(objStroyTemp.copy(mainImage = it.result.toString()), onPublishFinish())
+        }
+    }
+
+    //подготавливаем изображение изменяя размер и превращая в ByteArray
+    private fun prepareImageByteArray(bitmap: Bitmap): ByteArray {
+        val outStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, outStream)
+        return outStream.toByteArray()
+    }
+
+    //загружаем изображение и выдает ссылку, получив ссылку запускает интерфейс который передаем
+    private fun uploadImage(byteArray: ByteArray, listener: OnCompleteListener<Uri>) {
+        val imStorageRef = dbManager.dbStorage
+            .child(dbManager.auth.uid!!)
+            .child("image_${System.currentTimeMillis()}")
+        val upTask = imStorageRef.putBytes(byteArray)
+        upTask.continueWithTask {
+            task -> imStorageRef.downloadUrl
+        }.addOnCompleteListener(listener)
     }
 }
