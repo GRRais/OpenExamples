@@ -60,8 +60,8 @@ class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface): Fra
         adapter.updateAdapter(bitmapList, true)
     }
 
-    override fun onDetach() {
-        super.onDetach()
+    private fun onClose() {
+        activity?.supportFragmentManager?.beginTransaction()?.remove(this@ImageListFrag)?.commit()
         fragCloseInterface.onFragClose(adapter.mainArray)
         job?.cancel()
     }
@@ -83,7 +83,8 @@ class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface): Fra
         if (adapter.mainArray.size > 2) addImageItem?.isVisible = false
 
         b.tb.setNavigationOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+            onClose()
+            /*activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()*/
         }
 
         deleteItem.setOnMenuItemClickListener {
@@ -112,6 +113,5 @@ class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface): Fra
             adapter.mainArray[pos] = bitmapList[0]
             adapter.notifyItemChanged(pos)
         }
-
     }
 }
