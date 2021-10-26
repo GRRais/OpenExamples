@@ -110,7 +110,6 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
             adTemp.copy(key = ad?.key).let { dbManager.publishAd(it, onPublishFinish()) }
         } else {
             uploadImages()
-           // dbManager.publishAd(adTemp, onPublishFinish())
         }
     }
 

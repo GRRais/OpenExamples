@@ -29,10 +29,9 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
     lateinit var imageAdapter: ImageAdapter
     private val dbManager = DbManager()
     var editImagePos = 0
+    private var imageIndex = 0
     private var isEditState = false
     private var objStroy: ObjectStroy? = null
-
-    var isImagesPermissionGranted = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,13 +103,12 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
     // выполняем проверку isEditState, если true -> редактируем объект,
     // иначе публикуем новый
     fun onClickPublish(view: View) {
-        val objStroyTemp = fillObjectStroy()
+        val objStroy = fillObjectStroy()
         if (isEditState) {
             Log.d("MyLog", "isEditState=${isEditState}")
-            objStroyTemp.copy(key = objStroy?.key).let { dbManager.publishObjectStroy(it, onPublishFinish()) }
+            objStroy.copy(key = objStroy.key).let { dbManager.publishObjectStroy(it, onPublishFinish()) }
         } else {
-            //dbManager.publishObjectStroy(objStroyTemp, onPublishFinish())
-            uploadImages(objStroyTemp)
+            uploadImages()
         }
     }
 
@@ -156,10 +154,31 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
         fm.commit()
     }
 
-    private fun uploadImages(objStroyTemp: ObjectStroy) {
-        val byteArray = prepareImageByteArray(imageAdapter.mainArray[0])
+    //загружаем картинки, если они есть в EditObjStroy
+    private fun uploadImages() {
+        if (imageAdapter.mainArray.size == imageIndex) {
+            dbManager.publishObjectStroy(objStroy!!, onPublishFinish())
+            return
+        }
+        //загружаем картинку в storage
+        val byteArray = prepareImageByteArray(imageAdapter.mainArray[imageIndex])
         uploadImage(byteArray) {
-            dbManager.publishObjectStroy(objStroyTemp.copy(mainImage = it.result.toString()), onPublishFinish())
+            nextImage(it.result.toString())
+        }
+    }
+
+    private fun nextImage(uri: String) {
+        setImageUriToObjStroy(uri)
+        imageIndex++
+        uploadImages()
+    }
+
+    //записываем ссылки на картинки в objStroy
+    private fun setImageUriToObjStroy(uri: String) {
+        when(imageIndex) {
+            0 -> objStroy = objStroy?.copy(mainImage = uri)
+            1 -> objStroy = objStroy?.copy(image2 = uri)
+            2 -> objStroy = objStroy?.copy(image3 = uri)
         }
     }
 
