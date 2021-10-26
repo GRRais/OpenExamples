@@ -103,10 +103,9 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
     // выполняем проверку isEditState, если true -> редактируем объект,
     // иначе публикуем новый
     fun onClickPublish(view: View) {
-        val objStroy = fillObjectStroy()
+        objStroy = fillObjectStroy()
         if (isEditState) {
-            Log.d("MyLog", "isEditState=${isEditState}")
-            objStroy.copy(key = objStroy.key).let { dbManager.publishObjectStroy(it, onPublishFinish()) }
+            objStroy?.copy(key = objStroy?.key)?.let { dbManager.publishObjectStroy(it, onPublishFinish()) }
         } else {
             uploadImages()
         }
@@ -130,6 +129,8 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
                 tvVillage.text.toString(),
                 tvOrganization.text.toString(),
                 edDescription.text.toString(),
+                "empty",
+                "empty",
                 "empty",
                 dbManager.db.push().key,
                 dbManager.auth.uid
