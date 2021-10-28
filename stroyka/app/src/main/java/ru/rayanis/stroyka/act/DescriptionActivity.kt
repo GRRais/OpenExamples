@@ -3,6 +3,7 @@ package ru.rayanis.stroyka.act
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.viewpager2.widget.ViewPager2
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
@@ -29,6 +30,7 @@ class DescriptionActivity : AppCompatActivity() {
             viewPager2.adapter = adapter
         }
         getIntentFromMainAct()
+        imageChangeCounter()
     }
 
     //получение из интента objStroy
@@ -38,7 +40,7 @@ class DescriptionActivity : AppCompatActivity() {
     }
 
     private fun updateUI(objStroy: ObjectStroy) {
-        fillImageArray(objStroy)
+        ImageManager.fillImageArray(objStroy, adapter)
         fillTextViews(objStroy)
     }
 
@@ -49,12 +51,13 @@ class DescriptionActivity : AppCompatActivity() {
         tvOrganization.text = objStroy.organization
     }
 
-    //заполняем массив картинками
-    private fun fillImageArray(objStroy: ObjectStroy) {
-        val listUris = listOf(objStroy.mainImage, objStroy.image2, objStroy.image3)
-        CoroutineScope(Dispatchers.Main).launch {
-            val bitmapList = ImageManager.getBitmapFromUris(listUris)
-            adapter.update(bitmapList as ArrayList<Bitmap>)
-        }
+    private fun imageChangeCounter() {
+        b.viewPager2.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                val imageCounter = "${position+1}/${b.viewPager2.adapter?.itemCount}"
+                b.tvImageCounter.text = imageCounter
+            }
+        })
     }
 }

@@ -17,6 +17,7 @@ import ru.rayanis.stroyka.frag.FragmentCloseInterface
 import ru.rayanis.stroyka.frag.ImageListFrag
 import ru.rayanis.stroyka.model.DbManager
 import ru.rayanis.stroyka.model.ObjectStroy
+import ru.rayanis.stroyka.utils.ImageManager
 import ru.rayanis.stroyka.utils.ImagePicker
 import ru.rayanis.stroyka.utils.VillageHelper
 import java.io.ByteArrayOutputStream
@@ -62,6 +63,7 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
         tvOrganization.text = objStroy.organization
         edDescription.setText(objStroy.description)
         bCreateEditObject.text = getString(R.string.change)
+        ImageManager.fillImageArray(objStroy, imageAdapter)
     }
 
     private fun init(){
