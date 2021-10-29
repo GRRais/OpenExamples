@@ -73,8 +73,9 @@ class DbManager {
     }
 
     //чтение всех объявлений с БД
-    fun getAllObjectStroy(readDataCallback: ReadDataCallback?) {
-        val query = db.orderByChild(auth.uid + "/objstroy")
+    fun getAllObjectStroy(lastTime: String, readDataCallback: ReadDataCallback?) {
+        val query = db.orderByChild(auth.uid + "/objstroy/time")
+            .startAfter(lastTime).limitToFirst(ADS_LIMIT)
         readDataFromDb(query, readDataCallback)
     }
 
@@ -112,5 +113,6 @@ class DbManager {
         const val OBJSTROY_NODE = "objstroy"
         const val ISACTIVE_NODE = "isactive"
         const val MAIN_NODE = "main"
+        const val ADS_LIMIT = 2
     }
 }

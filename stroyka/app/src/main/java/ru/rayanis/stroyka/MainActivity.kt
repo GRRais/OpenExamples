@@ -2,23 +2,31 @@ package ru.rayanis.stroyka
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 import ru.rayanis.stroyka.accounthelper.AccountHelper
 import ru.rayanis.stroyka.act.CreateEditMaterialAct
 import ru.rayanis.stroyka.act.EditObjectsAct
@@ -32,10 +40,12 @@ import ru.rayanis.stroyka.viewmodel.FirebaseViewModel
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ObjStroyRcAdapter.Listener {
     private lateinit var tvAccount: TextView
+    private lateinit var imAccount: ImageView
     private lateinit var b: ActivityMainBinding
     private val dialogHelper = DialogHelper(this)
     val mAuth = Firebase.auth
     val adapter = ObjStroyRcAdapter(this)
+    lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
     private val firebaseViewModel: FirebaseViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +58,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         initViewModel()
         firebaseViewModel.loadAllObjStroy()
         bottomMenuOnClick()
+        scrollListener()
     }
 
     override fun onResume() {
@@ -73,14 +84,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onActivityResult(
-        requestCode: Int,
-        resultCode: Int,
-        data: Intent?
-    ) {
-        if (requestCode == GoogleAccConst.GOOGLE_SIGN_IN_REQUEST_CODE) {
-           // Log.d("MyLog", "Sign in result")
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+    //инициализируем лаунчер, и создается колбэк который ожидает результат
+    private fun onActivityResult() {
+        googleSignInLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
             try {
                 val account = task.getResult(ApiException::class.java)
                 if (account != null) {
@@ -90,7 +98,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Log.d("MyLog", "Api error: ${e.message}")
             }
         }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onStart() {
@@ -107,6 +114,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun init() {
         setSupportActionBar(b.mainContent.toolbar)
+        onActivityResult()
+        navViewSettings()
         val toggle = ActionBarDrawerToggle(
             this,
             b.drawerLayout,
@@ -118,6 +127,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         b.navView.setNavigationItemSelectedListener(this)
         tvAccount = b.navView.getHeaderView(0).findViewById(R.id.tvAccountEmail)
+        imAccount = b.navView.getHeaderView(0).findViewById(R.id.imAccountImage)
     }
 
     //обработка нажатий на кнопки нижнего меню
@@ -189,18 +199,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             dialogHelper.accHelper.signInAnonymously(object : AccountHelper.Listener {
                 override fun onComplete() {
                     tvAccount.setText(R.string.guest)
+                    imAccount.setImageResource(R.drawable.ic_image_def)
                 }
             })
         } else if (user.isAnonymous) {
             tvAccount.setText(R.string.guest)
+            imAccount.setImageResource(R.drawable.ic_image_def)
         } else if (!user.isAnonymous) {
             tvAccount.text = user.email
+            Picasso.get().load(user.photoUrl).into(imAccount)
         }
-    }
-
-    companion object {
-        const val EDIT_STATE = "edit_state"
-        const val OBJSTROY_DATA = "objstroy_data"
     }
 
     override fun onDeleteItem(objStroy: ObjectStroy) {
@@ -209,5 +217,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onActiveClicked(objStroy: ObjectStroy) {
         firebaseViewModel.onActiveClick(objStroy)
+    }
+
+    private fun navViewSettings() = with(b){
+        val menu = navView.menu
+        val objCat = menu.findItem(R.id.objCat)
+        val spanObjCat = SpannableString(objCat.title)
+        spanObjCat.setSpan(ForegroundColorSpan(
+            ContextCompat.getColor(this@MainActivity, R.color.color_red))
+            , 0, objCat.title.length, 0)
+        objCat.title = spanObjCat
+
+        val accCat = menu.findItem(R.id.accCat)
+        val spanAccCat = SpannableString(accCat.title)
+        spanAccCat.setSpan(ForegroundColorSpan(
+            ContextCompat.getColor(this@MainActivity, R.color.color_red))
+            , 0, accCat.title.length, 0)
+        accCat.title = spanAccCat
+    }
+
+    private fun scrollListener() = with(b.mainContent) {
+        rcView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recView, newState)
+                if (!recView.canScrollVertically(SCROLL_DOWN)
+                     && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    Log.d("MyLog", "Cannot scroll down")
+                }
+            }
+        })
+    }
+
+    companion object {
+        const val EDIT_STATE = "edit_state"
+        const val OBJSTROY_DATA = "objstroy_data"
+        const val SCROLL_DOWN = 1
     }
 }

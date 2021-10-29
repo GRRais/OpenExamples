@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:title="@string/stroyka">
+    <item android:title="@string/stroyka" android:id="@+id/objCat">
         <menu>
             <item
                 android:title="@string/objects"
@@ -16,7 +16,7 @@
         </menu>
     </item>
 
-    <item android:title="@string/account_category">
+    <item android:title="@string/account_category" android:id="@+id/accCat">
         <menu>
             <item
                 android:title="@string/sign_up"

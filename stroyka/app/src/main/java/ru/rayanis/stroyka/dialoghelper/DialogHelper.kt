@@ -30,7 +30,7 @@ class DialogHelper(val act: MainActivity) {
         }
 
         b.btGoogleSignIn.setOnClickListener {
-            //accHelper.signInFirebaseWithGoogle()
+            accHelper.signInWithGoogle()
             dialog.dismiss()
         }
 

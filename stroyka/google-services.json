@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "394627424121",
+    "firebase_url": "https://stroyka-9b94c-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "stroyka-9b94c",
+    "storage_bucket": "stroyka-9b94c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:394627424121:android:9f5fa1a313c4e6c29819a8",
+        "android_client_info": {
+          "package_name": "ru.rayanis.stroyka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "394627424121-2huf4eda5lkl913o0o08cvksdsnnkbrj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.rayanis.stroyka",
+            "certificate_hash": "4f16d1e015535766bce8b1fc06e71f664b513403"
+          }
+        },
+        {
+          "client_id": "394627424121-vbrsolbp0uhsblfp24fh5c0o2mmhvegc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.rayanis.stroyka",
+            "certificate_hash": "0f23c3db3f1c8963198f75384e3668ca30da5244"
+          }
+        },
+        {
+          "client_id": "394627424121-24vf19dgunbbk4aqnt9fglb6pr6lvi05.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU1TKnuABxpc3WuwaHhWISkBpMUZ9jVFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "394627424121-24vf19dgunbbk4aqnt9fglb6pr6lvi05.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

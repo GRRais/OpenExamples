@@ -135,10 +135,10 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
                 "empty",
                 "empty",
                 dbManager.db.push().key,
-                dbManager.auth.uid
-            )
-            return objStroy
+                dbManager.auth.uid,
+                System.currentTimeMillis().toString())
         }
+        return objStroy
     }
 
     override fun onFragClose(list: ArrayList<Bitmap>) {
