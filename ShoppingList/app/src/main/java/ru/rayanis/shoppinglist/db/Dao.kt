@@ -11,6 +11,11 @@ interface Dao {
     @Query("SELECT * FROM note_list")
     fun getAllNotes(): Flow<List<NoteItem>>
 
+    @Query("SELECT * FROM note_list WHERE id IS :id")
+    fun deleteNote(id: Int)
+
     @Insert
     suspend fun insertNote(note: NoteItem)
+
+
 }
