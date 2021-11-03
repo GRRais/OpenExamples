@@ -32,7 +32,6 @@
                 android:ems="10"
                 android:hint="@string/title_hint"
                 android:inputType="textPersonName"
-                android:text="Name"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

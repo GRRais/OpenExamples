@@ -68,7 +68,12 @@ class NoteFragment : BaseFragment(), NoteAdapter.Listener {
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
-                mainViewModel.insertNote(it.data?.getSerializableExtra(NEW_NOTE_KEY) as NoteItem)
+                val editState = it.data?.getStringExtra(EDIT_STATE_KEY)
+                if (EDIT_STATE_KEY == "update") {
+                    mainViewModel.updateNote(it.data?.getSerializableExtra(NEW_NOTE_KEY) as NoteItem)
+                } else {
+                    mainViewModel.insertNote(it.data?.getSerializableExtra(NEW_NOTE_KEY) as NoteItem)
+                }
             }
         }
     }
@@ -86,6 +91,7 @@ class NoteFragment : BaseFragment(), NoteAdapter.Listener {
 
     companion object {
         const val NEW_NOTE_KEY = "title_key"
+        const val EDIT_STATE_KEY = "edit_state_key"
         @JvmStatic
         fun newInstance() = NoteFragment()
     }
