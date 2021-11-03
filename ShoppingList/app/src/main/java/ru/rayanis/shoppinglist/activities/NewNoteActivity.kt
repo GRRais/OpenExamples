@@ -14,11 +14,26 @@ import java.util.*
 
 class NewNoteActivity : AppCompatActivity() {
     private lateinit var b: ActivityNewNoteBinding
+    private var note: NoteItem? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         b = ActivityNewNoteBinding.inflate(layoutInflater)
         setContentView(b.root)
         actionBarSettings()
+        getNote()
+    }
+
+    private fun getNote() {
+        note = intent.getSerializableExtra(NoteFragment.NEW_NOTE_KEY) as NoteItem
+        fillNote()
+    }
+
+    private fun fillNote() = with(b) {
+        if (note != null) {
+            edTitle.setText(note?.title)
+            edDescription.setText(note?.content)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -41,6 +56,10 @@ class NewNoteActivity : AppCompatActivity() {
         }
         setResult(RESULT_OK, i)
         finish()
+    }
+
+    private fun updateNote() {
+        note.copy(title = )
     }
 
     private fun createNewNote(): NoteItem {

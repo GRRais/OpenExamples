@@ -73,13 +73,20 @@ class NoteFragment : BaseFragment(), NoteAdapter.Listener {
         }
     }
 
+    override fun deleteItem(id: Int) {
+        mainViewModel.deleteNote(id)
+    }
+
+    override fun onClickItem(note: NoteItem) {
+        val intent = Intent(activity, NewNoteActivity::class.java).apply {
+            putExtra(NEW_NOTE_KEY, note)
+        }
+        editLauncher.launch(intent)
+    }
+
     companion object {
         const val NEW_NOTE_KEY = "title_key"
         @JvmStatic
         fun newInstance() = NoteFragment()
-    }
-
-    override fun deleteItem(id: Int) {
-        mainViewModel.deleteNote(id)
     }
 }
