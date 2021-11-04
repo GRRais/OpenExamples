@@ -47,6 +47,8 @@ class NewNoteActivity : AppCompatActivity() {
                 setMainResult()
         } else if (item.itemId == android.R.id.home) {
             finish()
+        } else if (item.itemId == R.id.id_bold) {
+            setBoldForSelectedText()
         }
         return super.onOptionsItemSelected(item)
     }
