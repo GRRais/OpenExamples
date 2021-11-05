@@ -8,4 +8,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="picker_red">#FF0808</color>
+    <color name="picker_green">#37CD00</color>
+    <color name="picker_blue">#004DE3</color>
+    <color name="picker_black">#333333</color>
+    <color name="picker_yellow">#FFDC00</color>
+    <color name="picker_orange">#FD5D18</color>
 </resources>

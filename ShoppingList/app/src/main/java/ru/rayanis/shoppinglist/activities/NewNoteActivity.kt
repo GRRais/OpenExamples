@@ -1,7 +1,10 @@
 package ru.rayanis.shoppinglist.activities
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Spannable
+import android.text.style.StyleSpan
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +12,7 @@ import ru.rayanis.shoppinglist.R
 import ru.rayanis.shoppinglist.databinding.ActivityNewNoteBinding
 import ru.rayanis.shoppinglist.entities.NoteItem
 import ru.rayanis.shoppinglist.fragments.NoteFragment
+import ru.rayanis.shoppinglist.utils.HtmlManager
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,7 +38,7 @@ class NewNoteActivity : AppCompatActivity() {
 
     private fun fillNote() = with(b) {
             edTitle.setText(note?.title)
-            edDescription.setText(note?.content)
+            edDescription.setText(HtmlManager.getFromHtml(note?.content!!).trim())
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -51,6 +55,23 @@ class NewNoteActivity : AppCompatActivity() {
             setBoldForSelectedText()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setBoldForSelectedText() = with(b) {
+        val startPos = edDescription.selectionStart
+        val endPos = edDescription.selectionEnd
+
+        val styles = edDescription.text.getSpans(startPos, endPos, StyleSpan::class.java)
+        var boldStyle: StyleSpan? = null
+        if (styles.isNotEmpty()) {
+            edDescription.text.removeSpan(styles[0])
+        } else {
+            boldStyle = StyleSpan(Typeface.BOLD)
+        }
+
+        edDescription.text.setSpan(boldStyle, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        edDescription.text.trim()
+        edDescription.setSelection(startPos)
     }
 
     private fun setMainResult() {
@@ -72,14 +93,15 @@ class NewNoteActivity : AppCompatActivity() {
     private fun updateNote(): NoteItem? = with(b) {
         return note?.copy(
             title = edTitle.text.toString(),
-            content = edDescription.text.toString())
+            content = HtmlManager.toHtml(edDescription.text)
+        )
     }
 
     private fun createNewNote(): NoteItem {
         return NoteItem(
             null,
             b.edTitle.text.toString(),
-            b.edDescription.text.toString(),
+            HtmlManager.toHtml(b.edDescription.text),
             getCurrentTime(),
             ""
         )
