@@ -1,18 +1,25 @@
 package ru.rayanis.shoppinglist.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
+import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import ru.rayanis.shoppinglist.R
 import ru.rayanis.shoppinglist.databinding.ActivityNewNoteBinding
 import ru.rayanis.shoppinglist.entities.NoteItem
 import ru.rayanis.shoppinglist.fragments.NoteFragment
 import ru.rayanis.shoppinglist.utils.HtmlManager
+import ru.rayanis.shoppinglist.utils.MyTouchListener
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -26,6 +33,22 @@ class NewNoteActivity : AppCompatActivity() {
         setContentView(b.root)
         actionBarSettings()
         getNote()
+        init()
+        onClickColorPicker()
+    }
+
+    private fun onClickColorPicker() = with(b) {
+        ibRed.setOnClickListener { setColorForSelectedText(R.color.picker_red) }
+        ibGreen.setOnClickListener { setColorForSelectedText(R.color.picker_green) }
+        ibOrange.setOnClickListener { setColorForSelectedText(R.color.picker_orange) }
+        ibYellow.setOnClickListener { setColorForSelectedText(R.color.picker_yellow) }
+        ibBlue.setOnClickListener { setColorForSelectedText(R.color.picker_blue) }
+        ibBlack.setOnClickListener { setColorForSelectedText(R.color.picker_black) }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun init() {
+        b.colorPicker.setOnTouchListener(MyTouchListener())
     }
 
     private fun getNote() {
@@ -53,6 +76,12 @@ class NewNoteActivity : AppCompatActivity() {
             finish()
         } else if (item.itemId == R.id.id_bold) {
             setBoldForSelectedText()
+        } else if (item.itemId == R.id.id_color) {
+            if (b.colorPicker.isShown) {
+                closeColorPicker()
+            } else {
+                openColorPicker()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -61,7 +90,7 @@ class NewNoteActivity : AppCompatActivity() {
         val startPos = edDescription.selectionStart
         val endPos = edDescription.selectionEnd
 
-        val styles = edDescription.text.getSpans(startPos, endPos, StyleSpan::class.java)
+        val styles = edDescription.text.getSpans(startPos, endPos, ForegroundColorSpan::class.java)
         var boldStyle: StyleSpan? = null
         if (styles.isNotEmpty()) {
             edDescription.text.removeSpan(styles[0])
@@ -70,6 +99,21 @@ class NewNoteActivity : AppCompatActivity() {
         }
 
         edDescription.text.setSpan(boldStyle, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        edDescription.text.trim()
+        edDescription.setSelection(startPos)
+    }
+
+    private fun setColorForSelectedText(colorId: Int) = with(b) {
+        val startPos = edDescription.selectionStart
+        val endPos = edDescription.selectionEnd
+
+        val styles = edDescription.text.getSpans(startPos, endPos, StyleSpan::class.java)
+        if (styles.isNotEmpty()) edDescription.text.removeSpan(styles[0])
+
+        edDescription.text.setSpan(
+            ForegroundColorSpan(
+                ContextCompat.getColor(this@NewNoteActivity, colorId)),
+            startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         edDescription.text.trim()
         edDescription.setSelection(startPos)
     }
@@ -115,5 +159,28 @@ class NewNoteActivity : AppCompatActivity() {
     private fun actionBarSettings() {
         val ab = supportActionBar
         ab?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun openColorPicker() {
+        b.colorPicker.visibility = View.VISIBLE
+        val openAnim = AnimationUtils.loadAnimation(this, R.anim.open_color_picker)
+        b.colorPicker.startAnimation(openAnim)
+    }
+
+    private fun closeColorPicker() {
+        val openAnim = AnimationUtils.loadAnimation(this, R.anim.close_color_picker)
+        openAnim.setAnimationListener(object: Animation.AnimationListener{
+            override fun onAnimationStart(animation: Animation?) {
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                b.colorPicker.visibility = View.GONE
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {
+            }
+
+        })
+        b.colorPicker.startAnimation(openAnim)
     }
 }
