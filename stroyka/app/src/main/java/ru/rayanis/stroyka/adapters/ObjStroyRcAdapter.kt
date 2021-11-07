@@ -31,10 +31,13 @@ class ObjStroyRcAdapter(val act: MainActivity): RecyclerView.Adapter<ObjStroyRcA
     }
 
     fun updateAdapter(newList: List<ObjectStroy>) {
-        val diffResult = DiffUtil.calculateDiff(DiffUtilHelper(objectStroyArray, newList))
+        val tempArray = ArrayList<ObjectStroy>()
+        tempArray.addAll(objectStroyArray)
+        tempArray.addAll(newList)
+        val diffResult = DiffUtil.calculateDiff(DiffUtilHelper(objectStroyArray, tempArray))
         diffResult.dispatchUpdatesTo(this)
         objectStroyArray.clear()
-        objectStroyArray.addAll(newList)
+        objectStroyArray.addAll(tempArray)
     }
 
     class ObjectHolder(val b: ObjectListItemBinding, val act: MainActivity): RecyclerView.ViewHolder(b.root) {

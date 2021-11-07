@@ -10,8 +10,8 @@ class FirebaseViewModel: ViewModel() {
     val liveObjStroyData = MutableLiveData<ArrayList<ObjectStroy>>()
 
     //загружаем все объекты строительства
-    fun loadAllObjStroy() {
-        dbManager.getAllObjectStroy(object: DbManager.ReadDataCallback {
+    fun loadAllObjStroy(lastTime: String) {
+        dbManager.getAllObjectStroy(lastTime, object: DbManager.ReadDataCallback {
             override fun readData(list: ArrayList<ObjectStroy>) {
                 liveObjStroyData.value = list
             }

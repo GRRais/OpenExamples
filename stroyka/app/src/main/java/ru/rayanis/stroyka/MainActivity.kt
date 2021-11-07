@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         init()
         initRecyclerView()
         initViewModel()
-        firebaseViewModel.loadAllObjStroy()
         bottomMenuOnClick()
         scrollListener()
     }
@@ -142,7 +141,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     mainContent.toolbar.title = getString(R.string.requests)
                 }
                 R.id.id_objects -> {
-                    firebaseViewModel.loadAllObjStroy()
+                    firebaseViewModel.loadAllObjStroy("0")
                     mainContent.toolbar.title = getString(R.string.objects)
                 }
                 R.id.id_active_objects -> {
@@ -243,6 +242,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 if (!recView.canScrollVertically(SCROLL_DOWN)
                      && newState == RecyclerView.SCROLL_STATE_IDLE) {
                     Log.d("MyLog", "Cannot scroll down")
+                    val objStroyList = firebaseViewModel.liveObjStroyData.value!!
+                    if (objStroyList.isNotEmpty()) {
+                        objStroyList[objStroyList.size - 1].time?.let {
+                            firebaseViewModel.loadAllObjStroy(
+                                it
+                            )
+                        }
+                    }
                 }
             }
         })
