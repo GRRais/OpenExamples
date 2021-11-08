@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val adapter = ObjStroyRcAdapter(this)
     lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
     private val firebaseViewModel: FirebaseViewModel by viewModels()
+    private var clearUpdate: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,8 +107,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun initViewModel() {
         firebaseViewModel.liveObjStroyData.observe(this, {
-            adapter.updateAdapter(it)
-            b.mainContent.tvEmpty.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+            if (!clearUpdate) {
+                adapter.updateAdapter(it)
+            } else {
+                adapter.updateAdapterWithClear(it)
+            }
+            b.mainContent.tvEmpty.visibility = if (adapter.itemCount == 0) View.VISIBLE else View.GONE
         })
     }
 
@@ -132,6 +137,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //обработка нажатий на кнопки нижнего меню
     private fun bottomMenuOnClick() = with(b) {
         mainContent.bNavView.setOnItemSelectedListener { item ->
+            clearUpdate = true
             when(item.itemId) {
                 R.id.id_shipments -> {
                     mainContent.toolbar.title = getString(R.string.shipments)
@@ -165,6 +171,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     //обработка нажатий на пункты бокового всплывающего меню
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        clearUpdate = true
         when (item.itemId) {
             R.id.objects -> {
                 Toast.makeText(this, "Pressed objects", Toast.LENGTH_LONG).show()
@@ -241,7 +248,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 super.onScrollStateChanged(recView, newState)
                 if (!recView.canScrollVertically(SCROLL_DOWN)
                      && newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    Log.d("MyLog", "Cannot scroll down")
+                    clearUpdate = false
                     val objStroyList = firebaseViewModel.liveObjStroyData.value!!
                     if (objStroyList.isNotEmpty()) {
                         objStroyList[objStroyList.size - 1].time?.let {

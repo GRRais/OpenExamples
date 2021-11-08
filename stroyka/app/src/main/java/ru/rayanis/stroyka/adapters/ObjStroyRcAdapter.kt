@@ -40,6 +40,14 @@ class ObjStroyRcAdapter(val act: MainActivity): RecyclerView.Adapter<ObjStroyRcA
         objectStroyArray.addAll(tempArray)
     }
 
+    fun updateAdapterWithClear(newList: List<ObjectStroy>) {
+
+        val diffResult = DiffUtil.calculateDiff(DiffUtilHelper(objectStroyArray, newList))
+        diffResult.dispatchUpdatesTo(this)
+        objectStroyArray.clear()
+        objectStroyArray.addAll(newList)
+    }
+
     class ObjectHolder(val b: ObjectListItemBinding, val act: MainActivity): RecyclerView.ViewHolder(b.root) {
         fun setData(objStroy: ObjectStroy) = with(b) {
             tvArea.text = objStroy.area
