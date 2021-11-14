@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.rayanis.stroyka.R
-import ru.rayanis.stroyka.utils.VillageHelper
+import ru.rayanis.stroyka.utils.ObjectHelper
 
 class DialogSpinnerHelper {
     fun showSpinnerDialog(context: Context, list: ArrayList<String>, tvSelection: TextView) {
@@ -33,7 +33,7 @@ class DialogSpinnerHelper {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                val tempList = VillageHelper.filterListData(list, newText)
+                val tempList = ObjectHelper.filterListData(list, newText)
                 adapter.updateAdapter(tempList)
                 return true
             }

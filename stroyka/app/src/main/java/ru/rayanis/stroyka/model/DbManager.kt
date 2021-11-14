@@ -21,9 +21,13 @@ class DbManager {
             .child(OBJSTROY_NODE)
             .setValue(objectStroy)
             .addOnCompleteListener {
+                val objStroyFilter = ObjectStroyFilter(
+                    objectStroy.time,
+                    "${objectStroy.organization}_${objectStroy.time}"
+                )
                 db.child(objectStroy.key ?: "empty")
                     .child(FILTER_NODE)
-                    .setValue(objectStroy)
+                    .setValue(objStroyFilter)
                     .addOnCompleteListener {
                         finishListener.onFinish()
                     }
@@ -115,9 +119,9 @@ class DbManager {
     }
 
     companion object {
-        const val OBJSTROY_NODE = "objstroy"
-        const val FILTER_NODE = "adFilter"
-        const val ISACTIVE_NODE = "isactive"
+        const val OBJSTROY_NODE = "objStroy"
+        const val FILTER_NODE = "objStroyFilter"
+        const val ISACTIVE_NODE = "isActive"
         const val MAIN_NODE = "main"
         const val ADS_LIMIT = 2
     }

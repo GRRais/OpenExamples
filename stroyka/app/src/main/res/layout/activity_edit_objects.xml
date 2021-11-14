@@ -106,7 +106,7 @@
                 android:layout_margin="5dp"
                 android:background="@android:drawable/editbox_background_normal"
                 android:gravity="center"
-                android:onClick="onClickSelectVillage"
+                android:onClick="onClickSelectOrganization"
                 android:padding="10dp"
                 android:text="@string/select_organization"
                 android:textColor="@color/black" />

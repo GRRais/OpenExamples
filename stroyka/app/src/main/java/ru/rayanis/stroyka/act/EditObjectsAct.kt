@@ -3,7 +3,6 @@ package ru.rayanis.stroyka.act
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +18,7 @@ import ru.rayanis.stroyka.model.DbManager
 import ru.rayanis.stroyka.model.ObjectStroy
 import ru.rayanis.stroyka.utils.ImageManager
 import ru.rayanis.stroyka.utils.ImagePicker
-import ru.rayanis.stroyka.utils.VillageHelper
+import ru.rayanis.stroyka.utils.ObjectHelper
 import java.io.ByteArrayOutputStream
 
 class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
@@ -73,7 +72,7 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
 
     //обработка нажатия кнопки Выбрать район
     fun onClickSelectArea(view: View) {
-        val listAreas = VillageHelper.getAllAreas(this)
+        val listAreas = ObjectHelper.getAllAreas(this)
         dialog.showSpinnerDialog(this, listAreas, b.tvArea)
         if (b.tvVillage.text.toString() != getString(R.string.select_village)) {
             b.tvVillage.text = getString(R.string.select_village)
@@ -84,10 +83,19 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
     fun onClickSelectVillage(view: View){
         val selectedArea = b.tvArea.text.toString()
         if (selectedArea != getString(R.string.select_area)) {
-            val listVillage = VillageHelper.getAllVillages(selectedArea, this)
+            val listVillage = ObjectHelper.getAllVillages(selectedArea, this)
             dialog.showSpinnerDialog(this, listVillage, b.tvVillage)
         } else {
             Toast.makeText(this, "No area selected", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    //обработка нажатия кнопки Выбрать организацию
+    fun onClickSelectOrganization(view: View) {
+        val listOrganizations = ObjectHelper.getAllOrganizations(this)
+        dialog.showSpinnerDialog(this, listOrganizations, b.tvOrganization)
+        if (b.tvVillage.text.toString() != getString(R.string.select_organization)) {
+            b.tvVillage.text = getString(R.string.select_village)
         }
     }
 
