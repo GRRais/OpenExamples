@@ -84,7 +84,7 @@ class DbManager {
     //чтение всех объявлений с БД
     fun getAllObjectStroy(lastTime: String, readDataCallback: ReadDataCallback?) {
         val query = db.orderByChild(auth.uid + "/objstroy/time")
-            .startAfter(lastTime).limitToFirst(ADS_LIMIT)
+            .startAfter(lastTime).limitToFirst(OBJSTROY_LIMIT)
         readDataFromDb(query, readDataCallback)
     }
 
@@ -123,6 +123,6 @@ class DbManager {
         const val FILTER_NODE = "objStroyFilter"
         const val ISACTIVE_NODE = "isActive"
         const val MAIN_NODE = "main"
-        const val ADS_LIMIT = 2
+        const val OBJSTROY_LIMIT = 2
     }
 }

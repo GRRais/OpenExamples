@@ -39,7 +39,7 @@ class ImageListFrag(private val fragCloseInterface: FragmentCloseInterface): Fra
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         b = ListImageFragBinding.inflate(inflater)
         return b.root
     }

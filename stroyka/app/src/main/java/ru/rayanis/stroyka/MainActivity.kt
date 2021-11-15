@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         init()
         initRecyclerView()
         initViewModel()
+        firebaseViewModel.loadAllObjStroy("0")
         bottomMenuOnClick()
         scrollListener()
     }
@@ -248,14 +249,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 super.onScrollStateChanged(recView, newState)
                 if (!recView.canScrollVertically(SCROLL_DOWN)
                      && newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    clearUpdate = false
-                    val objStroyList = firebaseViewModel.liveObjStroyData.value!!
+                         val objStroyList = firebaseViewModel.liveObjStroyData.value!!
                     if (objStroyList.isNotEmpty()) {
-                        objStroyList[objStroyList.size - 1].time?.let {
-                            firebaseViewModel.loadAllObjStroy(
-                                it
-                            )
-                        }
+                        objStroyList[objStroyList.size - 1]
+                            .let { firebaseViewModel.loadAllObjStroy(it.time) }
                     }
                 }
             }
