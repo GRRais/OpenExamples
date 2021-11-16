@@ -15,7 +15,7 @@ import ru.rayanis.stroyka.model.ObjectStroy
 import ru.rayanis.stroyka.databinding.ObjectListItemBinding
 
 class ObjStroyRcAdapter(val act: MainActivity): RecyclerView.Adapter<ObjStroyRcAdapter.ObjectHolder>() {
-    val objectStroyArray = ArrayList<ObjectStroy>()
+    val objStroyArray = ArrayList<ObjectStroy>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ObjectHolder {
         val b = ObjectListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -23,29 +23,28 @@ class ObjStroyRcAdapter(val act: MainActivity): RecyclerView.Adapter<ObjStroyRcA
     }
 
     override fun onBindViewHolder(holder: ObjectHolder, position: Int) {
-        holder.setData(objectStroyArray[position])
+        holder.setData(objStroyArray[position])
     }
 
     override fun getItemCount(): Int {
-        return objectStroyArray.size
+        return objStroyArray.size
     }
 
     fun updateAdapter(newList: List<ObjectStroy>) {
         val tempArray = ArrayList<ObjectStroy>()
-        tempArray.addAll(objectStroyArray)
+        tempArray.addAll(objStroyArray)
         tempArray.addAll(newList)
-        val diffResult = DiffUtil.calculateDiff(DiffUtilHelper(objectStroyArray, tempArray))
+        val diffResult = DiffUtil.calculateDiff(DiffUtilHelper(objStroyArray, tempArray))
         diffResult.dispatchUpdatesTo(this)
-        objectStroyArray.clear()
-        objectStroyArray.addAll(tempArray)
+        objStroyArray.clear()
+        objStroyArray.addAll(tempArray)
     }
 
     fun updateAdapterWithClear(newList: List<ObjectStroy>) {
-
-        val diffResult = DiffUtil.calculateDiff(DiffUtilHelper(objectStroyArray, newList))
+        val diffResult = DiffUtil.calculateDiff(DiffUtilHelper(objStroyArray, newList))
         diffResult.dispatchUpdatesTo(this)
-        objectStroyArray.clear()
-        objectStroyArray.addAll(newList)
+        objStroyArray.clear()
+        objStroyArray.addAll(newList)
     }
 
     class ObjectHolder(val b: ObjectListItemBinding, val act: MainActivity): RecyclerView.ViewHolder(b.root) {

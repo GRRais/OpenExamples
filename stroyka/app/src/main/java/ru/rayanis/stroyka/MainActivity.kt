@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val adapter = ObjStroyRcAdapter(this)
     lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
     private val firebaseViewModel: FirebaseViewModel by viewModels()
-     private var clearUpdate: Boolean = true
+    private var clearUpdate: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         init()
         initRecyclerView()
         initViewModel()
-        firebaseViewModel.loadAllObjStroy("0")
         bottomMenuOnClick()
         scrollListener()
     }
@@ -249,6 +248,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 super.onScrollStateChanged(recView, newState)
                 if (!recView.canScrollVertically(SCROLL_DOWN)
                      && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                     clearUpdate = false
                          val objStroyList = firebaseViewModel.liveObjStroyData.value!!
                     if (objStroyList.isNotEmpty()) {
                         objStroyList[objStroyList.size - 1]
