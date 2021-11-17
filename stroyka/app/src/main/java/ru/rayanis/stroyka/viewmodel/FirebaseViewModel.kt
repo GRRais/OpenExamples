@@ -11,7 +11,7 @@ class FirebaseViewModel: ViewModel() {
 
     //загружаем все объекты строительства
     fun loadAllObjStroy(lastTime: String) {
-        dbManager.getAllObjectStroy(lastTime, object: DbManager.ReadDataCallback {
+        dbManager.getAllObjStroy(lastTime, object: DbManager.ReadDataCallback {
             override fun readData(list: ArrayList<ObjectStroy>) {
                 liveObjStroyData.value = list
             }

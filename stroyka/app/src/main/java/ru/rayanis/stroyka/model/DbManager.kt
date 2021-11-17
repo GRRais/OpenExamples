@@ -15,17 +15,16 @@ class DbManager {
     val auth = Firebase.auth
 
     //добавление объекта в БД
-    fun publishObjectStroy(objectStroy: ObjectStroy, finishListener: FinishWorkListener) {
-        if (auth.uid != null) db.child(objectStroy.key ?: "empty")
+    fun publishObjectStroy(objStroy: ObjectStroy, finishListener: FinishWorkListener) {
+        if (auth.uid != null) db.child(objStroy.key ?: "empty")
             .child(auth.uid!!)
             .child(OBJSTROY_NODE)
-            .setValue(objectStroy)
+            .setValue(objStroy)
             .addOnCompleteListener {
-                val objStroyFilter = ObjectStroyFilter(
-                    objectStroy.time,
-                    "${objectStroy.organization}_${objectStroy.time}"
+                val objStroyFilter = ObjectStroyFilter(objStroy.time,
+                    "${objStroy.organization}_${objStroy.time}"
                 )
-                db.child(objectStroy.key ?: "empty")
+                db.child(objStroy.key ?: "empty")
                     .child(FILTER_NODE)
                     .setValue(objStroyFilter)
                     .addOnCompleteListener {
@@ -82,9 +81,16 @@ class DbManager {
     }
 
     //чтение всех объявлений с БД
-    fun getAllObjectStroy(lastTime: String, readDataCallback: ReadDataCallback?) {
-        val query = db.orderByChild(auth.uid + "/objstroy/time")
+    fun getAllObjStroy(lastTime: String, readDataCallback: ReadDataCallback?) {
+        val query = db.orderByChild( "/objStroyFilter/time")
             .startAfter(lastTime).limitToFirst(OBJSTROY_LIMIT)
+        readDataFromDb(query, readDataCallback)
+    }
+
+    //чтение всех объявлений с БД
+    fun getAllObjStroyFromOrg(lastOrgTime: String, readDataCallback: ReadDataCallback?) {
+        val query = db.orderByChild( "/objStroyFilter/orgTime")
+            .startAfter(lastOrgTime).limitToFirst(OBJSTROY_LIMIT)
         readDataFromDb(query, readDataCallback)
     }
 
