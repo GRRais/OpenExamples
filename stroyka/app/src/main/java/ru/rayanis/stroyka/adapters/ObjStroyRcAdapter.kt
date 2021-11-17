@@ -60,7 +60,7 @@ class ObjStroyRcAdapter(val act: MainActivity): RecyclerView.Adapter<ObjStroyRcA
             mainOnClick(objStroy)
         }
 
-        //обрабатываем слушатели нажатий
+        //обрабатываем слушателей нажатий
         private fun mainOnClick(objStroy: ObjectStroy) = with(b) {
             ibActive.setOnClickListener {
                 if (act.mAuth.currentUser?.isAnonymous == false)

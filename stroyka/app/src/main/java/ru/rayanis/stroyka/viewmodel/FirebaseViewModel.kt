@@ -18,6 +18,15 @@ class FirebaseViewModel: ViewModel() {
         })
     }
 
+//    //загружаем все объекты строительства
+//    fun loadAllObjStroyFromOrg(lastOrgTime: String) {
+//        dbManager.getAllObjStroyFromOrg(lastOrgTime, object: DbManager.ReadDataCallback {
+//            override fun readData(list: ArrayList<ObjectStroy>) {
+//                liveObjStroyData.value = list
+//            }
+//        })
+//    }
+
     //загружаем активные объекты строительства
     fun loadActiveObjStroy() {
         dbManager.getActiveObjStroy(object: DbManager.ReadDataCallback {

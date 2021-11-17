@@ -36,12 +36,12 @@ class DbManager {
     //удаление объекта из БД
     fun deleteObjStroy(objectStroy: ObjectStroy, listener: FinishWorkListener) {
         if (objectStroy.key == null || objectStroy.uid == null) return
-        db.child(objectStroy.key).child(objectStroy.uid).removeValue().addOnCompleteListener {
+        db.child(objectStroy.key).removeValue().addOnCompleteListener {
             if (it.isSuccessful) listener.onFinish()
         }
     }
 
-    //обрабатываем нажантие на сердечко
+    //обрабатываем нажатие на сердечко
     fun onActiveClick(objStroy: ObjectStroy, listener: FinishWorkListener) {
         if (objStroy.isActive) {
             removeFromActive(objStroy, listener)
@@ -87,12 +87,12 @@ class DbManager {
         readDataFromDb(query, readDataCallback)
     }
 
-    //чтение всех объявлений с БД
-    fun getAllObjStroyFromOrg(lastOrgTime: String, readDataCallback: ReadDataCallback?) {
-        val query = db.orderByChild( "/objStroyFilter/orgTime")
-            .startAfter(lastOrgTime).limitToFirst(OBJSTROY_LIMIT)
-        readDataFromDb(query, readDataCallback)
-    }
+//    //чтение всех объявлений с БД
+//    fun getAllObjStroyFromOrg(lastOrgTime: String, readDataCallback: ReadDataCallback?) {
+//        val query = db.orderByChild( "/objStroyFilter/orgTime")
+//            .startAfter(lastOrgTime).limitToFirst(OBJSTROY_LIMIT)
+//        readDataFromDb(query, readDataCallback)
+//    }
 
     //чтение объектов с БД
     private fun readDataFromDb(query: Query, readDataCallback: ReadDataCallback?) {
