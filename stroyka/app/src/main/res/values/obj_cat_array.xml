@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category">
+        <item>Ферма</item>
+        <item>Ферма 800+</item>
+        <item>Реконструкция коровника</item>
+        <item>Сенажная траншея</item>
+        <item>Склад</item>
+        <item>Гараж</item>
+        <item>АЗС</item>
+        <item>Молокопровод</item>
+        <item>Другое</item>
+    </string-array>
+</resources>
