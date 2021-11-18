@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="category">
+    <string-array name="obj_stroy_cat">
         <item>Ферма</item>
         <item>Ферма 800+</item>
         <item>Реконструкция коровника</item>

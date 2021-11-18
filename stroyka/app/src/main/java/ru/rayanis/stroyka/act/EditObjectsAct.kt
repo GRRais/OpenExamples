@@ -99,6 +99,11 @@ class EditObjectsAct: AppCompatActivity(), FragmentCloseInterface {
         }
     }
 
+    fun onClickSelectCat(view: View) {
+        val listCat = resources.getStringArray(R.array.obj_stroy_cat).toMutableList() as ArrayList
+        dialog.showSpinnerDialog(this, listCat, b.tvCat)
+    }
+
     //обработка нажатия кнопки Добавить/изменить изображения
     fun onClickGetImages(view: View) {
         if (imageAdapter.mainArray.size == 0) {

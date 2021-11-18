@@ -36,6 +36,7 @@
     <string name="enter_to_g">У вас уже есть аккаунт с этим Email адресом, войдите по нему.</string>
 
     <!-- Edit Activity-->
+    <string name="select_cat">*Выберите тип объекта</string>
     <string name="select_area">*Выберите район</string>
     <string name="select_village">*Выберите деревню</string>
     <string name="select_organization">*Выберите организацию</string>
