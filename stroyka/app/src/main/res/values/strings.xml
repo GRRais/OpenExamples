@@ -47,8 +47,8 @@
     <string name="no_active_objects">Нет активных объектов</string>
 
     <!-- Description-->
-    <string name="area">Район</string>
-    <string name="village">Деревня</string>
-    <string name="organization">Организация</string>
+    <string name="area">Район:</string>
+    <string name="village">Деревня:</string>
+    <string name="organization">Организация:</string>
 
 </resources>
