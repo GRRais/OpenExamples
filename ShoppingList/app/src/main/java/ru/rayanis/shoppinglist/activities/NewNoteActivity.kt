@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -35,6 +36,7 @@ class NewNoteActivity : AppCompatActivity() {
         getNote()
         init()
         onClickColorPicker()
+        actionMenuCallBack()
     }
 
     private fun onClickColorPicker() = with(b) {
@@ -182,5 +184,28 @@ class NewNoteActivity : AppCompatActivity() {
 
         })
         b.colorPicker.startAnimation(openAnim)
+    }
+
+    private fun actionMenuCallBack() {
+        val actionCallback = object : ActionMode.Callback {
+            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                menu?.clear()
+                return true
+            }
+
+            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                menu?.clear()
+                return true
+            }
+
+            override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+                return true
+            }
+
+            override fun onDestroyActionMode(mode: ActionMode?) {
+
+            }
+        }
+        b.edDescription.customSelectionActionModeCallback = actionCallback
     }
 }
