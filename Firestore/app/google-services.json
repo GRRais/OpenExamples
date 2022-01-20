@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "220232751987",
+    "project_id": "firestore-adb20",
+    "storage_bucket": "firestore-adb20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220232751987:android:3d6bd1a8dc51320e894306",
+        "android_client_info": {
+          "package_name": "ru.rayanis.firestore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "220232751987-h4l6j8rak17fq8990ofn3lvk87hde0ca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDr80HP9dZ4z3vHnJOXgxCM3IrZEaYBqyw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "220232751987-h4l6j8rak17fq8990ofn3lvk87hde0ca.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
