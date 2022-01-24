@@ -3,7 +3,9 @@ package ru.rayanis.firestore
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,11 +25,114 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         b.btnUploadData.setOnClickListener {
-            val firstName = b.etFirstName.text.toString()
-            val lastName = b.etLastName.text.toString()
-            val age = b.etAge.text.toString()
-            val person = Person(firstName, lastName, age)
+            val person = getOldPerson()
             savePerson(person)
+        }
+
+        b.btnRetrieveData.setOnClickListener {
+            retrievePerson()
+        }
+
+        b.btnUpdatePerson.setOnClickListener {
+            val oldPerson = getOldPerson()
+            val newPersonMap = getNewPersonMap()
+            updatePerson(oldPerson, newPersonMap)
+        }
+    }
+
+    private fun getOldPerson(): Person {
+        val firstName = b.etFirstName.text.toString()
+        val lastName = b.etLastName.text.toString()
+        val age = b.etAge.text.toString().toInt()
+        return Person(firstName, lastName, age)
+    }
+
+    private fun getNewPersonMap(): Map<String, Any> {
+        val firstName = b.etNewFirstName.text.toString()
+        val lastName = b.etNewLastName.text.toString()
+        val age = b.etNewAge.text.toString()
+        val map = mutableMapOf<String, Any>()
+        if (firstName.isNotEmpty()) {
+            map["firstName"] = firstName
+        }
+        if (lastName.isNotEmpty()) {
+            map["lastName"] = lastName
+        }
+        if (age.isNotEmpty()) {
+            map["age"] = age.toInt()
+        }
+        return map
+    }
+
+    private fun updatePerson(person: Person, newPersonMap: Map<String, Any>) = CoroutineScope(Dispatchers.IO)
+        .launch {
+            val personQuery = personCollectionRef
+                .whereEqualTo("firstName", person.firstName)
+                .whereEqualTo("lastName", person.lastName)
+                .whereEqualTo("age", person.age)
+                .get()
+                .await()
+            if (personQuery.documents.isNotEmpty()) {
+                for (document in personQuery) {
+                    try {
+                        personCollectionRef.document(document.id).set(
+                            newPersonMap,
+                            SetOptions.merge()
+                        ).await()
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(this@MainActivity, e.message,
+                                Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@MainActivity, "No person matched the query",
+                        Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
+    private fun subscribeToRealtimeUpdates() {
+        personCollectionRef.addSnapshotListener { querySnapshot, firebaseFireStoreException ->
+            firebaseFireStoreException?.let {
+                Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                return@addSnapshotListener
+            }
+            querySnapshot?.let {
+                val sb = StringBuilder()
+                for (document in it) {
+                    val person = document.toObject<Person>()
+                    sb.append("$person\n")
+                }
+                b.tvPersons.text = sb.toString()
+            }
+        }
+    }
+
+    private fun retrievePerson() = CoroutineScope(Dispatchers.IO).launch {
+        val fromAge = b.etFrom.text.toString().toInt()
+        val toAge = b.etTo.text.toString().toInt()
+        try {
+            val querySnapshot = personCollectionRef
+                .whereGreaterThan("age", fromAge)
+                .whereLessThan("age", toAge)
+                .orderBy("age")
+                .get()
+                .await()
+            val sb = StringBuilder()
+            for (document in querySnapshot.documents) {
+                val person = document.toObject<Person>()
+                sb.append("$person\n")
+            }
+            withContext(Dispatchers.Main) {
+                b.tvPersons.text = sb.toString()
+            }
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
+            }
         }
     }
 

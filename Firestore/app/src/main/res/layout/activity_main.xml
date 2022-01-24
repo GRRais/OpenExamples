@@ -16,39 +16,147 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/etFirstName"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:ems="10"
-            android:hint="First Name"
-            android:inputType="textPersonName" />
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/etLastName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:ems="10"
-            android:hint=" Last Name"
-            android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/etFirstName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="First Name"
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
 
-        <EditText
-            android:id="@+id/etAge"
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/etNewFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="New First Name"
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:ems="10"
-            android:hint="Age"
-            android:inputType="number|textPersonName" />
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etLastName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="Last Name"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/etNewLastName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="New Last Name"
+                android:inputType="textPersonName" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="Age"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/etNewAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="New Age"
+                android:inputType="textPersonName" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnUploadData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="save to database" />
+
+            <Button
+                android:id="@+id/btnUpdatePerson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="update person" />
+        </LinearLayout>
 
         <Button
-            android:id="@+id/btnUploadData"
+            android:id="@+id/btnRetrieveData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="save to database" />
+            android:text="retrieve data" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etFrom"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="From"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/etTo"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp"
+                android:ems="10"
+                android:hint="To"
+                android:inputType="textPersonName" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvPersons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="person data"
+            android:textSize="16sp" />
     </LinearLayout>
 
 
