@@ -59,7 +59,8 @@
                 android:layout_marginTop="5dp"
                 android:ems="10"
                 android:hint="Last Name"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
 
             <EditText
                 android:id="@+id/etNewLastName"
@@ -69,7 +70,8 @@
                 android:layout_marginTop="5dp"
                 android:ems="10"
                 android:hint="New Last Name"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -86,7 +88,8 @@
                 android:layout_marginTop="5dp"
                 android:ems="10"
                 android:hint="Age"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
 
             <EditText
                 android:id="@+id/etNewAge"
@@ -96,7 +99,8 @@
                 android:layout_marginTop="5dp"
                 android:ems="10"
                 android:hint="New Age"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -120,13 +124,31 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:text="update person" />
+
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnRetrieveData"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="retrieve data" />
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnRetrieveData"
+                android:layout_width="182dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="retrieve data" />
+
+            <Button
+                android:id="@+id/btnDeletePerson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="delete person" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -139,7 +161,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="From"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <EditText
                 android:id="@+id/etTo"
@@ -148,7 +171,8 @@
                 android:layout_marginStart="120dp"
                 android:ems="10"
                 android:hint="To"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
 
         <TextView
