@@ -44,6 +44,14 @@ class MainActivity : AppCompatActivity() {
             val person = getOldPerson()
             deletePerson(person)
         }
+
+        b.btnBatchWrite.setOnClickListener {
+            changeName("7Ws4U4dFk7W1BaGBIgM4", "Elon", "Musk")
+        }
+
+        b.btnTransaction.setOnClickListener {
+            birthday("7Ws4U4dFk7W1BaGBIgM4")
+        }
     }
 
     private fun getOldPerson(): Person {
@@ -81,9 +89,9 @@ class MainActivity : AppCompatActivity() {
                 if (personQuery.documents.isNotEmpty()) {
                     for (document in personQuery) {
                         try {
-                            //personCollectionRef.document(document.id).delete().await()
-                            personCollectionRef.document(document.id).update(mapOf(
-                                "firstName" to FieldValue.delete()))
+                            personCollectionRef.document(document.id).delete().await()
+//                            personCollectionRef.document(document.id).update(mapOf(
+//                                "firstName" to FieldValue.delete()))
                         } catch (e: Exception) {
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(this@MainActivity, e.message,
@@ -128,6 +136,44 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+    private  fun  birthday(personId: String) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            Firebase.firestore.runTransaction { transaction ->
+                val personRef = personCollectionRef.document(personId)
+                val person = transaction.get(personRef)
+                val newAge = person["age"] as Long + 1
+                transaction.update(personRef, "age", newAge)
+                null
+            }.await()
+        } catch(e: Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(
+                    this@MainActivity, e.message,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
+
+    private fun changeName(
+        personId: String,
+        newFirstName: String,
+        newLastName: String
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            Firebase.firestore.runBatch { batch ->
+                val personRef = personCollectionRef.document(personId)
+                batch.update(personRef, "firstName", newFirstName)
+                batch.update(personRef, "lastName", newLastName)
+            }.await()
+        } catch(e: Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(this@MainActivity, e.message,
+                    Toast.LENGTH_LONG).show()
+            }
+        }
+    }
 
     private fun subscribeToRealtimeUpdates() {
         personCollectionRef.addSnapshotListener { querySnapshot, firebaseFireStoreException ->
