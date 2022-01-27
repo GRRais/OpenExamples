@@ -15,17 +15,15 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Row(
+            Column(
                 modifier = Modifier
-                    .width(300.dp)
-                    .fillMaxHeight(0.7f)
-                    .background(Color.Green) ,
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
+                    .fillMaxHeight(0.5f)
+                    .background(Color.Green)
+                    .width(600.dp)
+//                    .requiredWidth(300.dp)
             ) {
                 Text(text = "Привет")
                 Text(text = "Мир")
-                Text(text = "Снова")
             }
         }
     }
