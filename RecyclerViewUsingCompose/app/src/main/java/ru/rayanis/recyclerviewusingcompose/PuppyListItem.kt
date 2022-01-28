@@ -24,7 +24,6 @@ fun PuppyListItem(puppy: Puppy) {
             .padding(horizontal = 8.dp , vertical = 8.dp)
             .fillMaxWidth() ,
         elevation = 2.dp ,
-        backgroundColor = Color.White ,
         shape = RoundedCornerShape(corner = CornerSize(16.dp))
     ) {
         Row {
