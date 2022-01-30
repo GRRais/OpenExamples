@@ -23,7 +23,7 @@ fun PuppyListItem(puppy: Puppy, navigateToProfile: (Puppy) -> (Unit)) {
     Card(
         modifier = Modifier
             .padding(horizontal = 8.dp , vertical = 8.dp)
-            .fillMaxWidth() ,
+            .fillMaxWidth(),
         elevation = 2.dp ,
         shape = RoundedCornerShape(corner = CornerSize(16.dp))
     ) {

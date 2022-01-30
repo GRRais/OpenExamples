@@ -1,6 +1,5 @@
-package ru.rayanis.recyclerviewusingcompose
+package ru.rayanis.issuedproducts
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -10,17 +9,15 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ru.rayanis.recyclerviewusingcompose.data.Puppy
+import ru.rayanis.issuedproducts.data.Product
 
 @Composable
-fun ProfileScreen(puppy: Puppy) {
+fun DetailsScreen(product: Product) {
+
     val scrollState = rememberScrollState()
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -31,11 +28,8 @@ fun ProfileScreen(puppy: Puppy) {
                         .fillMaxSize()
                         .verticalScroll(scrollState)
                 ) {
-                    ProfileHeader(
-                        puppy,
-                        this@BoxWithConstraints.maxHeight
-                    )
-                    ProfileContent(puppy , this@BoxWithConstraints.maxHeight)
+                    DetailsContent(product)
+
                 }
             }
         }
@@ -43,42 +37,30 @@ fun ProfileScreen(puppy: Puppy) {
 }
 
 @Composable
-private fun ProfileHeader(
-    puppy: Puppy ,
-    containerHeight: Dp
-) {
-    Image(
-        modifier = Modifier
-            .heightIn(max = containerHeight / 2)
-            .fillMaxWidth(),
-        painter = painterResource(id = puppy.puppyImageId),
-        contentScale = ContentScale.Crop,
-        contentDescription = null
-    )
-}
-
-@Composable
-private fun ProfileContent(
-    puppy: Puppy,
-    containerHeght: Dp
+private fun DetailsContent(
+    product: Product
 ) {
     Column() {
-        Title(puppy)
-        ProfileProperty(stringResource(R.string.sex), puppy.sex)
-        ProfileProperty(stringResource(R.string.age), puppy.age.toString())
-        ProfileProperty(stringResource(R.string.personality), puppy.description)
-
-        Spacer(Modifier.height((containerHeght - 320.dp).coerceAtLeast(0.dp)))
+        Title(product)
+        DetailsProperty(stringResource(R.string.title) , product.title)
+        DetailsProperty(stringResource(R.string.destination) , product.destination)
+        DetailsProperty(stringResource(R.string.date) , product.date.toString())
+        DetailsProperty(stringResource(R.string.quantity) , product.quantity.toString())
+        DetailsProperty(stringResource(R.string.productCost) , product.productCost.toString())
+        DetailsProperty(stringResource(R.string.description) , product.description)
+        DetailsProperty(stringResource(R.string.quantPersons) , product.quantPersons.toString())
+        Divider(modifier = Modifier.padding(bottom = 4.dp))
     }
+
 }
 
 @Composable
 private fun Title(
-    puppy: Puppy
+    product: Product
 ) {
     Column(modifier = Modifier.padding(16.dp)) {
         Text(
-            text = puppy.title,
+            text = product.title,
             style = MaterialTheme.typography.h5,
             fontWeight = FontWeight.Bold
         )
@@ -86,9 +68,8 @@ private fun Title(
 }
 
 @Composable
-private fun ProfileProperty(label:String, value: String) {
+private fun DetailsProperty(label: String, value: String) {
     Column(modifier = Modifier.padding(16.dp)) {
-        Divider(modifier = Modifier.padding(bottom = 4.dp))
         Text(
             text = label,
             modifier = Modifier.height(24.dp),
@@ -102,4 +83,3 @@ private fun ProfileProperty(label:String, value: String) {
         )
     }
 }
-

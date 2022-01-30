@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">IssuedProducts</string>
+
+    <!--    DetailsScreen Strings-->
+    <string name="title">Название</string>
+    <string name="destination">Куда</string>
+    <string name="date">Дата</string>
+    <string name="quantity">Количество</string>
+    <string name="productCost">Стоимость</string>
+    <string name="description">Описание</string>
+    <string name="quantPersons">Количество человек</string>
+</resources>
