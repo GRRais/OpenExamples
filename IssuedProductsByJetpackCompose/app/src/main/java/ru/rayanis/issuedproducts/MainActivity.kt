@@ -34,7 +34,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             IssuedProductsTheme {
-                MyApp()
+                MyApp {
+                    startActivity(DetailsActivity.newIntent(this, it))
+                }
             }
         }
     }
