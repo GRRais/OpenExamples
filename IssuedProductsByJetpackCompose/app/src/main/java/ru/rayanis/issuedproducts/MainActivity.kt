@@ -1,5 +1,7 @@
 package ru.rayanis.issuedproducts
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -13,10 +15,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
@@ -35,7 +39,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             IssuedProductsTheme {
                 MyApp {
-                    startActivity(DetailsActivity.newIntent(this, it))
+                    //startActivity(DetailsActivity.newIntent(this, it))
                 }
             }
         }
@@ -45,6 +49,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyApp(navigateToDetails: (Product) -> Unit) {
+    val context = LocalContext.current
     Scaffold(
         topBar = {
 //                 Snackbar()
@@ -52,7 +57,9 @@ fun MyApp(navigateToDetails: (Product) -> Unit) {
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    startActivity(DetailsActivity.newIntent(context, product = Product()))
+                },
                 backgroundColor = Color.Red,
                 content = {
                     Icon(

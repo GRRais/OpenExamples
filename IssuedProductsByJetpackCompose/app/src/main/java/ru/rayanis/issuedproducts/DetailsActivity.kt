@@ -6,6 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Scaffold
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.ui.Modifier
 import ru.rayanis.issuedproducts.data.Product
 import ru.rayanis.issuedproducts.ui.theme.IssuedProductsTheme
 
@@ -18,8 +22,14 @@ class DetailsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            IssuedProductsTheme {
-                DetailsScreen(product = product)
+            val scaffoldState = rememberScaffoldState()
+            Scaffold(
+                modifier = Modifier.fillMaxSize(),
+                scaffoldState = scaffoldState
+            ) {
+                IssuedProductsTheme {
+                    DetailsScreen(product = product)
+                }
             }
         }
     }

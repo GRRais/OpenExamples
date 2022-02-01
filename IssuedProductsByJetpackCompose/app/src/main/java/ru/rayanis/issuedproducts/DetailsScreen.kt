@@ -3,15 +3,11 @@ package ru.rayanis.issuedproducts
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import ru.rayanis.issuedproducts.data.Product
 
@@ -19,6 +15,7 @@ import ru.rayanis.issuedproducts.data.Product
 fun DetailsScreen(product: Product) {
 
     val scrollState = rememberScrollState()
+
 
     Column(modifier = Modifier.fillMaxSize()) {
         BoxWithConstraints {
@@ -29,7 +26,6 @@ fun DetailsScreen(product: Product) {
                         .verticalScroll(scrollState)
                 ) {
                     DetailsContent(product)
-
                 }
             }
         }
@@ -59,27 +55,26 @@ private fun Title(
     product: Product
 ) {
     Column(modifier = Modifier.padding(16.dp)) {
-        Text(
-            text = product.title,
-            style = MaterialTheme.typography.h5,
-            fontWeight = FontWeight.Bold
-        )
+        TextField(
+            value = product.title,
+            label = {
+                Text("Название изделия")
+            },
+            onValueChange = {
+                it
+            })
     }
 }
 
 @Composable
 private fun DetailsProperty(label: String, value: String) {
     Column(modifier = Modifier.padding(16.dp)) {
-        Text(
-            text = label,
-            modifier = Modifier.height(24.dp),
-            style = MaterialTheme.typography.caption,
-        )
-        Text(
-            text = value,
-            modifier = Modifier.height(24.dp),
-            style = MaterialTheme.typography.body1,
-            overflow = TextOverflow.Visible
-        )
+        TextField(
+            value = value,
+            label = {
+                Text(text = label)},
+            onValueChange = {
+                it
+            })
     }
 }

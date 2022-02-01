@@ -15,11 +15,11 @@ fun ProductHomeContent(navigateToDetails: (Product) -> Unit) {
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     ) {
-        items(
-            items = products,
-            itemContent = {
-                ProductListItem(product = it, navigateToDetails)
-            }
-            )
+//        items(
+//            items = products,
+//            itemContent = {
+//                ProductListItem(product = it, navigateToDetails)
+//            }
+//            )
     }
 }
