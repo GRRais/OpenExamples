@@ -1,10 +1,8 @@
 package ru.rayanis.issuedproducts.data
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import java.io.Serializable
 import java.util.*
 
-@Parcelize
 data class Product(
     val id: Int,
     val title: String = "",
@@ -15,4 +13,4 @@ data class Product(
     val description: String = "",
     val quantPersons: Int = 0,
     val list: MutableList<UsedMaterial>
-): Parcelable
+): Serializable

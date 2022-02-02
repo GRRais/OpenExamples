@@ -3,48 +3,40 @@ package ru.rayanis.issuedproducts
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import ru.rayanis.issuedproducts.ui.theme.IssuedProductsTheme
 
 class MainActivity : ComponentActivity() {
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             IssuedProductsTheme {
-                Scaffold(
-                    topBar = {
-//                 Snackbar()
-////            TopAppBar(title = { Text("Title") })
-                    },
-                    floatingActionButton = {
-                        FloatingActionButton(
-                            onClick = {
-
-                            },
-                            backgroundColor = Color.Red,
-                            content = {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_add),
-                                    contentDescription = null,
-                                    tint = Color.White
-                                )
-                            }
-                        )
-                    },
-                    content = {
-                        ProductHomeContent(navigateToDetails = navigateToDetails)
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController ,
+                    startDestination = "productsScreen"
+                ) {
+                    composable("productsScreen") {
+                        ProductsScreen(navController)
                     }
+                }
             }
         }
     }
@@ -54,27 +46,32 @@ class MainActivity : ComponentActivity() {
 fun ProductsScreen(
     navController: NavController
 ) {
-    Scaffold(
-        topBar = {
-//                 Snackbar()
-////            TopAppBar(title = { Text("Title") })
+    Column(
+        modifier = Modifier
+            .padding(end = 8.dp, bottom = 8.dp)
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.End,
+    ) {
+        FloatingActionButton(onClick = {
+            navController.navigate("profile")
         },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                },
-                backgroundColor = Color.Red,
-                content = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_add),
-                        contentDescription = null,
-                        tint = Color.White
-                    )
-                }
-            )
-        },
-        content = {
-            navController.navigate()
-        }
-    )
+            content = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_add),
+                    contentDescription = null,
+                    tint = Color.White
+                )
+            }
+        )
+    }
 }
+
+@Composable
+fun ProfileScreen(
+    navController:NavController,
+
+) {
+
+}
+

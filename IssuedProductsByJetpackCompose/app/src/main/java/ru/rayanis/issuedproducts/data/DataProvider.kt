@@ -1,17 +1,13 @@
 package ru.rayanis.issuedproducts.data
 
-import android.app.Activity
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import ru.rayanis.issuedproducts.MainActivity
-import java.lang.Exception
 
 object DataProvider {
 

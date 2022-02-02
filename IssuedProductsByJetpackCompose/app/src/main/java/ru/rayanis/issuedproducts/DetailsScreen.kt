@@ -9,10 +9,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ru.rayanis.issuedproducts.data.Product
 
 @Composable
-fun DetailsScreen(product: Product) {
+fun DetailsScreen(
+    navController: NavController,
+    product: Product
+) {
 
     val scrollState = rememberScrollState()
 
@@ -40,7 +44,7 @@ private fun DetailsContent(
         Title(product)
         DetailsProperty(stringResource(R.string.title) , product.title)
         DetailsProperty(stringResource(R.string.destination) , product.destination)
-        DetailsProperty(stringResource(R.string.date) , product.date.toString())
+//        DetailsProperty(stringResource(R.string.date) , product.date)
         DetailsProperty(stringResource(R.string.quantity) , product.quantity.toString())
         DetailsProperty(stringResource(R.string.productCost) , product.productCost.toString())
         DetailsProperty(stringResource(R.string.description) , product.description)
