@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -61,13 +62,7 @@ class MainActivity : ComponentActivity() {
                         route = "details",
                         )
                     {
-                        val product: Product
-                        DetailsScreen(
-                            navController = navController,
-                            title = product.title.toString(),
-                            userId = userId,
-                            created = timestamp
-                        )
+                        ProfileScreen()
                     }
                 }
             }
@@ -100,7 +95,49 @@ fun ProductsScreen(
     }
 }
 
+@Composable
+fun ProfileScreen() {
+    Column() {
+        Title()
+        DetailsProperty(stringResource(R.string.title))
+        DetailsProperty(stringResource(R.string.destination))
+//        DetailsProperty(stringResource(R.string.date) , product.date)
+        DetailsProperty(stringResource(R.string.quantity))
+        DetailsProperty(stringResource(R.string.productCost))
+        DetailsProperty(stringResource(R.string.description))
+        DetailsProperty(stringResource(R.string.quantPersons))
+        Divider(modifier = Modifier.padding(bottom = 4.dp))
+    }
+}
 
+@Composable
+private fun Title(
+//    product: Product
+) {
+    Column(modifier = Modifier.padding(16.dp)) {
+        TextField(
+            value = "product.title",
+            label = {
+                Text("Название изделия")
+            },
+            onValueChange = {
+                it
+            })
+    }
+}
+
+@Composable
+private fun DetailsProperty(label: String, value: String = "") {
+    Column(modifier = Modifier.padding(16.dp)) {
+        TextField(
+            value = value,
+            label = {
+                Text(text = label)},
+            onValueChange = {
+                it
+            })
+    }
+}
 
 //@Composable
 //fun MyApp(navigateToDetails: (Product) -> Unit) {

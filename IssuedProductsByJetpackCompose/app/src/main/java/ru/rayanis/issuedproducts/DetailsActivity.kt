@@ -28,7 +28,7 @@ class DetailsActivity : ComponentActivity() {
                 scaffoldState = scaffoldState
             ) {
                 IssuedProductsTheme {
-                    DetailsScreen(product = product)
+//                    DetailsScreen(product = product)
                 }
             }
         }
