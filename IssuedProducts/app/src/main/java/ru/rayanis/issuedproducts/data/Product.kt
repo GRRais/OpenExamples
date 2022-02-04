@@ -9,7 +9,7 @@ data class Product(
     val id: Int,
     val title: String = "",
     val destination: String = "",
-    val date: Date,
+    val date: String,
     val quantity: Int = 0,
     val productCost: Int = 0,
     val description: String = "",

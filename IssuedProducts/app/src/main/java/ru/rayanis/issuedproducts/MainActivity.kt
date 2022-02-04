@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -91,32 +92,46 @@ fun LoginScreen(
 fun DetailsScreen(
     navController: NavController
 ) {
+
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Details Screen: ", textAlign = TextAlign.Center)
-        DetailsProperty()
-        DetailsProperty()
-        Button(onClick = {
-            navController.navigate("post/true")
-        }) {
-            Text("Go to Post Screen")
+        Row(modifier = Modifier.padding(10.dp)) {
+            Button(onClick = {
+                navController.navigate("mainScreen")
+            }) {
+                Text("Добавить")
+            }
+            Button(onClick = {
+                //TODO
+            }) {
+                Text("Рассчитать")
+            }
         }
+        Text("Карточка изделия ", textAlign = TextAlign.Center)
+        var title = remember {
+            DetailsProperty(stringResource(id = R.string.title))
+        }
+        DetailsProperty(stringResource(id = R.string.destination))
+        DetailsProperty(stringResource(id = R.string.date))
+        DetailsProperty(stringResource(id = R.string.quantity))
+        DetailsProperty(stringResource(id = R.string.productCost))
+        DetailsProperty(stringResource(id = R.string.description))
+        DetailsProperty(stringResource(id = R.string.quantPersons))
     }
 }
 
 @Composable
-private fun DetailsProperty( value: String = "") {
+private fun DetailsProperty( label: String) {
     var text by remember {
         mutableStateOf("")
     }
-    Column(modifier = Modifier.padding(16.dp)) {
-        TextField(
+    Column(modifier = Modifier.padding(6.dp)) {
+        OutlinedTextField(
             value = text,
-            label = {
-                Text(text = "label")},
+            label = {Text(text = label)},
             onValueChange = {
                 text = it
             })
@@ -132,31 +147,6 @@ fun PostScreen(
         contentAlignment = Alignment.Center
     ) {
         Text(text = "Post Screen, $showOnlyPostsByUser")
-    }
-}
-
-@Composable
-fun ProductsScreen(
-    navController: NavController
-) {
-    Column(
-        modifier = Modifier
-            .padding(end = 8.dp, bottom = 8.dp)
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Bottom,
-        horizontalAlignment = Alignment.End,
-    ) {
-        FloatingActionButton(onClick = {
-            navController.navigate("profile")
-        },
-            content = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_add),
-                    contentDescription = null,
-                    tint = Color.White
-                )
-            }
-        )
     }
 }
 
