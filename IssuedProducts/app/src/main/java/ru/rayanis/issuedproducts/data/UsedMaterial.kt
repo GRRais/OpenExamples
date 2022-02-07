@@ -6,7 +6,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class UsedMaterial(
-    val id: Int,
     val nameMaterial: Material,
     val quantityMaterial: Float = 0f,
     val unit: Material,
