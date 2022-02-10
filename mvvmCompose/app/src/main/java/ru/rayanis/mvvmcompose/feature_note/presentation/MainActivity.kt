@@ -1,4 +1,4 @@
-package ru.rayanis.mvvmcompose
+package ru.rayanis.mvvmcompose.feature_note.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
