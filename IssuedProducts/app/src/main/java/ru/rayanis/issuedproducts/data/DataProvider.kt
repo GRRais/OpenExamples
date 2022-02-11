@@ -13,14 +13,7 @@ object DataProvider {
 
     val issuedProductsRef = Firebase.firestore.collection("issuedProducts")
 
-//    private fun getOldPerson(): Product {
-//        val firstName = b.etFirstName.text.toString()
-//        val lastName = b.etLastName.text.toString()
-//        val age = b.etAge.text.toString().toInt()
-//        return Product(firstName, lastName, age)
-//    }
-
-    private fun saveProducts(activity: ComponentActivity, product: Product) =
+    fun saveProducts(activity: ComponentActivity, product: Product) =
         CoroutineScope(Dispatchers.IO).launch {
         try {
             issuedProductsRef.add(product)

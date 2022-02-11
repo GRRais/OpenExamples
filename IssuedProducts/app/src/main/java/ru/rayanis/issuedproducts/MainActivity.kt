@@ -1,7 +1,6 @@
 package ru.rayanis.issuedproducts
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -17,24 +16,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import ru.rayanis.issuedproducts.data.DataProvider
 import ru.rayanis.issuedproducts.data.Product
 import ru.rayanis.issuedproducts.ui.theme.IssuedProductsTheme
 
 class MainActivity : ComponentActivity() {
-
-    val issuedProductsRef = Firebase.firestore.collection("issuedProducts")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +44,7 @@ class MainActivity : ComponentActivity() {
                         route = "details",
                     ) {
                        // val
-                        DetailsScreen(
+                        DetailsScreen(this@MainActivity,
                             navController = navController
                         )
                     }
@@ -90,8 +81,17 @@ fun LoginScreen(
 
 @Composable
 fun DetailsScreen(
+    activity: ComponentActivity,
     navController: NavController
 ) {
+
+    var title by remember { mutableStateOf("") }
+    var destination by remember { mutableStateOf("") }
+    var date by remember { mutableStateOf("") }
+    var quantity by remember { mutableStateOf("") }
+    var productCost by remember { mutableStateOf("") }
+    var description by remember { mutableStateOf("") }
+    var quantPerson by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -102,6 +102,8 @@ fun DetailsScreen(
             modifier = Modifier.padding(10.dp),
             horizontalArrangement = Arrangement.SpaceEvenly) {
             Button(onClick = {
+                val product = Product(title, destination, date, quantity, productCost, description, quantPerson)
+                DataProvider.saveProducts(activity, product)
                 navController.navigate("mainScreen")
             }) {
                 Text("Добавить")
@@ -113,15 +115,49 @@ fun DetailsScreen(
             }
         }
         Text("Карточка изделия ", textAlign = TextAlign.Center)
-//        var title = remember {
-//            DetailsProperty(stringResource(id = R.string.title))
-//        }
-        DetailsProperty(stringResource(id = R.string.destination))
-        DetailsProperty(stringResource(id = R.string.date))
-        DetailsProperty(stringResource(id = R.string.quantity))
-        DetailsProperty(stringResource(id = R.string.productCost))
-        DetailsProperty(stringResource(id = R.string.description))
-        DetailsProperty(stringResource(id = R.string.quantPersons))
+
+        OutlinedTextField(
+            value = title,
+            label = { Text(text = stringResource(id = R.string.title)) },
+            onValueChange = {
+                title = it
+            })
+        OutlinedTextField(
+            value = destination,
+            label = { Text(text = stringResource(id = R.string.destination)) },
+            onValueChange = {
+                destination = it
+            })
+        OutlinedTextField(
+            value = date,
+            label = { Text(text = stringResource(id = R.string.date)) },
+            onValueChange = {
+                date = it
+            })
+        OutlinedTextField(
+            value = quantity,
+            label = { Text(text = stringResource(id = R.string.quantity)) },
+            onValueChange = {
+                quantity = it
+            })
+        OutlinedTextField(
+            value = productCost,
+            label = { Text(text = stringResource(id = R.string.productCost)) },
+            onValueChange = {
+                productCost = it
+            })
+        OutlinedTextField(
+            value = description,
+            label = { Text(text = stringResource(id = R.string.description)) },
+            onValueChange = {
+                description = it
+            })
+        OutlinedTextField(
+            value = quantPerson,
+            label = { Text(text = stringResource(id = R.string.quantPersons)) },
+            onValueChange = {
+                quantPerson = it
+            })
 
         val message = remember{mutableStateOf("")}
         Column {
@@ -137,17 +173,17 @@ fun DetailsScreen(
 
 @Composable
 fun DetailsProperty( label: String) {
-val product = Product()
-    var text by remember {
+//val product = Product()
+    var title by remember {
         mutableStateOf("")
     }
     Column(modifier = Modifier.padding(6.dp)) {
 
         OutlinedTextField(
-            value = text ,
-            label = { Text(text = label) } ,
+            value = title,
+            label = { Text(text = label) },
             onValueChange = {
-                text = it
+                title = it
             })
 
     }

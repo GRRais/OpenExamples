@@ -9,9 +9,9 @@ data class Product(
     var title: String = "" ,
     val destination: String = "" ,
     val date: String ,
-    val quantity: Int = 0 ,
-    val productCost: Int = 0 ,
+    val quantity: String ,
+    val productCost: String ,
     val description: String = "" ,
-    val quantPersons: Int = 0 ,
+    val quantPersons: String ,
 //    val list: MutableList<UsedMaterial>
 ):Parcelable
