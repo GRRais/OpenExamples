@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:234575813707:android:e9ad56390c9501ce9d81ce",
+        "mobilesdk_app_id": "1:234575813707:android:eec5fd9b469c71379d81ce",
         "android_client_info": {
-          "package_name": "ru.rayanis.ru"
+          "package_name": "ru.rayanis.issuedproducts"
         }
       },
       "oauth_client": [
