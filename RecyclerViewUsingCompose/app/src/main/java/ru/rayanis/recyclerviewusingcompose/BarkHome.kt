@@ -14,7 +14,7 @@ import ru.rayanis.recyclerviewusingcompose.data.Puppy
 @Composable
 fun BarkHomeContent(navigateToProfile: (Puppy) -> Unit) {
     val puppies = remember { DataProvider.puppyList }
-    LazyRow(
+    LazyColumn(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     ) {
         items(
