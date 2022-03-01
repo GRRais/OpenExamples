@@ -30,8 +30,6 @@ import ru.rayanis.issuedproducts.ui.theme.IssuedProductsTheme
 
 class MainActivity : ComponentActivity() {
 
-    val issuedProductsRef = Firebase.firestore.collection("issuedProducts")
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

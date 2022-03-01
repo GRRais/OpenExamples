@@ -23,6 +23,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ColorBox(modifier: Modifier = Modifier) {
     val color = mutableStateOf(Color.Yellow)
+
     Box(modifier = Modifier
         .background(color.value)
         .clickable {
