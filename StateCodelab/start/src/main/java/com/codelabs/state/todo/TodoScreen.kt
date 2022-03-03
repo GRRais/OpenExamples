@@ -29,6 +29,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -61,6 +62,10 @@ fun TodoScreen(
                     modifier = Modifier.fillParentMaxWidth()
                 )
             }
+        }
+
+        TodoItemInputBackground(elevate = true, modifier = Modifier.fillMaxWidth()) {
+            TodoItemInput(onItemComplete = onAddItem)
         }
 
         // For quick testing, a random item generator button
@@ -101,6 +106,28 @@ fun TodoRow(
             tint = LocalContentColor.current.copy(alpha = iconAlpha),
             contentDescription = stringResource(id = todo.icon.contentDescription)
         )
+    }
+}
+
+
+@Composable
+fun TodoItemInput(onItemComplete: (TodoItem) -> Unit) {
+    // onItemComplete is an event will fire when an item is completed by the user
+    Column {
+        Row(Modifier
+            .padding(horizontal = 16.dp)
+            .padding(top = 16.dp)
+        ) {
+            TodoInputTextField(Modifier
+                .weight(1f)
+                .padding(end = 8.dp)
+            )
+            TodoEditButton(
+                onClick = { /* todo */ },
+                text = "Add",
+                modifier = Modifier.align(Alignment.CenterVertically)
+            )
+        }
     }
 }
 
