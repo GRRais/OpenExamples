@@ -17,15 +17,13 @@
 package com.codelabs.state.todo
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.Icon
+import androidx.compose.material.LocalContentColor
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -112,29 +110,50 @@ fun TodoRow(
 
 @Composable
 fun TodoItemInput(onItemComplete: (TodoItem) -> Unit) {
-    // onItemComplete is an event will fire when an item is completed by the user
+    val (text, setText) = remember { mutableStateOf("") }
+    val (icon, setIcon) = remember { mutableStateOf(TodoIcon.Default)}
+    val iconsVisible = text.isNotBlank()
+    val submit = {
+        onItemComplete(TodoItem(text, icon))
+        setIcon(TodoIcon.Default)
+        setText("")
+    }
     Column {
         Row(Modifier
             .padding(horizontal = 16.dp)
             .padding(top = 16.dp)
         ) {
-            TodoInputTextField(Modifier
-                .weight(1f)
-                .padding(end = 8.dp)
+            TodoInputText(
+                text = text,
+                onTextChange = setText,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(end = 8.dp),
+                onImeAction = submit // pass the submit callback to TodoInputText
             )
             TodoEditButton(
-                onClick = { /* todo */ },
+                onClick = submit, // pass the submit callback to TodoEditButton
                 text = "Add",
-                modifier = Modifier.align(Alignment.CenterVertically)
+                modifier = Modifier.align(Alignment.CenterVertically),
+                enabled = text.isNotBlank()
             )
+        }
+        if (iconsVisible) {
+            AnimatedIconRow(icon, setIcon, Modifier.padding(top = 8.dp))
+        } else {
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
 
 @Composable
-fun TodoInputTextField(modifier: Modifier) {
-    val (text, setText) = remember { mutableStateOf("") }
-    TodoInputText(text, setText, modifier)
+fun TodoInputTextField(
+    text: String,
+    onTextChange: (String) -> Unit,
+    modifier: Modifier
+) {
+
+    TodoInputText(text, onTextChange, modifier)
 }
 
 private fun randomTint(): Float {
