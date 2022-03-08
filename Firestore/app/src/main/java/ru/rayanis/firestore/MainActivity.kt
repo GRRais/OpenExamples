@@ -15,7 +15,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import ru.rayanis.firestore.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class  MainActivity : AppCompatActivity() {
     private val personCollectionRef = Firebase.firestore.collection("persons")
     private lateinit var b: ActivityMainBinding
 
