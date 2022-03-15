@@ -52,6 +52,7 @@ fun TodoScreen(
 ) {
     Column {
 
+<<<<<<< Updated upstream
         val enableTopSection = currentlyEditing == null
         TodoItemInputBackground(elevate = enableTopSection) {
             if (enableTopSection) {
@@ -65,10 +66,25 @@ fun TodoScreen(
                         .align(Alignment.CenterVertically)
                         .padding(16.dp)
                         .fillMaxWidth()
+=======
+        TodoItemInputBackground(elevate = true, modifier = Modifier.fillMaxWidth()) {
+            TodoItemEntryInput(onItemComplete = onAddItem)
+        }
+        LazyColumn(
+            modifier = Modifier.weight(1f),
+            contentPadding = PaddingValues(top = 8.dp)
+        ) {
+            items(items = items) {
+                TodoRow(
+                    todo = it,
+                    onItemClicked = { onRemoveItem(it) },
+                    modifier = Modifier.fillParentMaxWidth()
+>>>>>>> Stashed changes
                 )
             }
         }
 
+<<<<<<< Updated upstream
         LazyColumn(
             modifier = Modifier.weight(1f) ,
             contentPadding = PaddingValues(top = 8.dp)
@@ -91,6 +107,8 @@ fun TodoScreen(
             }
         }
 
+=======
+>>>>>>> Stashed changes
         // For quick testing, a random item generator button
         Button(
             onClick = { onAddItem(generateRandomTodoItem()) } ,
@@ -169,9 +187,15 @@ fun TodoItemInlineEditor(
 
 @Composable
 fun TodoItemEntryInput(onItemComplete: (TodoItem) -> Unit) {
+<<<<<<< Updated upstream
     val (text, onTextChange) = remember { mutableStateOf("") }
     val (icon, onIconChange) = remember { mutableStateOf(TodoIcon.Default)}
 
+=======
+    val (text, setText) = remember { mutableStateOf("") }
+    val (icon, setIcon) = remember { mutableStateOf(TodoIcon.Default)}
+    val iconsVisible = text.isNotBlank()
+>>>>>>> Stashed changes
     val submit = {
         if (text.isNotBlank()) {
             onItemComplete(TodoItem(text, icon))
@@ -189,10 +213,22 @@ fun TodoItemEntryInput(onItemComplete: (TodoItem) -> Unit) {
     ) {
         TodoEditButton(onClick = submit, text = "Add", enabled = text.isNotBlank())
     }
+<<<<<<< Updated upstream
+=======
+    TodoItemInput(
+        text = text,
+        onTextChange = setText,
+        icon = icon,
+        onIconChange = setIcon,
+        submit = submit,
+        iconsVisible = iconsVisible
+    )
+>>>>>>> Stashed changes
 }
 
 @Composable
 fun TodoItemInput(
+<<<<<<< Updated upstream
     text: String ,
     onTextChange: (String) -> Unit ,
     icon: TodoIcon ,
@@ -200,6 +236,14 @@ fun TodoItemInput(
     submit: () -> Unit ,
     iconsVisible: Boolean ,
     buttonSlot: @Composable () -> Unit
+=======
+    text: String,
+    onTextChange: (String) -> Unit,
+    icon: TodoIcon,
+    onIconChange: (TodoIcon) -> Unit,
+    submit: () -> Unit,
+    iconsVisible: Boolean
+>>>>>>> Stashed changes
 ) {
     Column {
         Row(
@@ -208,8 +252,13 @@ fun TodoItemInput(
                 .padding(top = 16.dp)
         ) {
             TodoInputText(
+<<<<<<< Updated upstream
                 text = text ,
                 onTextChange = onTextChange ,
+=======
+                text = text,
+                onTextChange = onTextChange,
+>>>>>>> Stashed changes
                 modifier = Modifier
                     .weight(1f)
                     .padding(end = 8.dp) ,
@@ -221,14 +270,21 @@ fun TodoItemInput(
         }
 
         if (iconsVisible) {
+<<<<<<< Updated upstream
             AnimatedIconRow(icon , onIconChange , Modifier.padding(top = 8.dp))
+=======
+            AnimatedIconRow(icon, onIconChange, Modifier.padding(top = 8.dp))
+>>>>>>> Stashed changes
         } else {
             Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 private fun randomTint(): Float {
     return Random.nextFloat().coerceIn(0.3f , 0.9f)
 }

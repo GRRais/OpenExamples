@@ -1,0 +1,12 @@
+package ru.rayanis.mvvmtodoapp.data
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+class Todo(
+    val title: String,
+    val description: String?,
+    val isDone: Boolean,
+    @PrimaryKey val id: Int
+)

@@ -16,14 +16,19 @@
 
 package com.codelabs.state.todo
 
+<<<<<<< Updated upstream
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+=======
+import androidx.compose.runtime.mutableStateListOf
+>>>>>>> Stashed changes
 import androidx.lifecycle.ViewModel
 
 class TodoViewModel : ViewModel() {
 
+<<<<<<< Updated upstream
     // private state
     private var currentEditPosition by mutableStateOf(-1)
 
@@ -35,11 +40,18 @@ class TodoViewModel : ViewModel() {
     val currentEditItem: TodoItem?
         get() = todoItems.getOrNull(currentEditPosition)
 
+=======
+    // state: todoItems
+    var todoItems = mutableStateListOf<TodoItem>()
+        private set
+
+>>>>>>> Stashed changes
     // event: addItem
     fun addItem(item: TodoItem) {
         todoItems.add(item)
     }
 
+<<<<<<< Updated upstream
     // event: onEditItemSelected
     fun onEditItemSelected(item: TodoItem) {
         currentEditPosition = todoItems.indexOf(item)
@@ -64,5 +76,10 @@ class TodoViewModel : ViewModel() {
     fun removeItem(item: TodoItem) {
         todoItems.remove(item)
         onEditDone() // don't keep the editor open when removing items
+=======
+    // event: removeItem
+    fun removeItem(item: TodoItem) {
+        todoItems.remove(item)
+>>>>>>> Stashed changes
     }
 }
