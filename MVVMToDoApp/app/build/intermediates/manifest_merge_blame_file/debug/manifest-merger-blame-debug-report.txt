@@ -1,0 +1,117 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="ru.rayanis.mvvmtodoapp"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="32" />
+9-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml
+10
+11    <application
+11-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml:5:5-23:19
+12        android:allowBackup="true"
+12-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml:6:9-35
+13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+13-->[androidx.core:core:1.8.0-alpha05] C:\Users\Zulfat\.gradle\caches\transforms-3\e563b74722a83ff5f3ba79d859d65ff7\transformed\core-1.8.0-alpha05\AndroidManifest.xml:24:18-86
+14        android:debuggable="true"
+15        android:icon="@mipmap/ic_launcher"
+15-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml:7:9-43
+16        android:label="@string/app_name"
+16-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml:8:9-41
+17        android:roundIcon="@mipmap/ic_launcher_round"
+17-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml:9:9-54
+18        android:supportsRtl="true"
+18-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml:10:9-35
+19        android:testOnly="true"
+20        android:theme="@style/Theme.MVVMToDoApp" >
+20-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml:11:9-49
+21        <activity
+21-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml:12:9-22:20
+22            android:name="ru.rayanis.mvvmtodoapp.MainActivity"
+22-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml:13:13-41
+23            android:exported="true"
+23-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml:14:13-36
+24            android:label="@string/app_name"
+24-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml:15:13-45
+25            android:theme="@style/Theme.MVVMToDoApp" >
+25-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml:16:13-53
+26            <intent-filter>
+26-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml:17:13-21:29
+27                <action android:name="android.intent.action.MAIN" />
+27-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml:18:17-69
+27-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml:18:25-66
+28
+29                <category android:name="android.intent.category.LAUNCHER" />
+29-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml:20:17-77
+29-->C:\Users\Zulfat\Documents\GitHub\OpenExamples\MVVMToDoApp\app\src\main\AndroidManifest.xml:20:27-74
+30            </intent-filter>
+31        </activity>
+32        <activity
+32-->[androidx.compose.ui:ui-tooling:1.1.1] C:\Users\Zulfat\.gradle\caches\transforms-3\19189397f4ab12d89d3b184db8c10b4d\transformed\ui-tooling-1.1.1\AndroidManifest.xml:25:9-27:39
+33            android:name="androidx.compose.ui.tooling.PreviewActivity"
+33-->[androidx.compose.ui:ui-tooling:1.1.1] C:\Users\Zulfat\.gradle\caches\transforms-3\19189397f4ab12d89d3b184db8c10b4d\transformed\ui-tooling-1.1.1\AndroidManifest.xml:26:13-71
+34            android:exported="true" />
+34-->[androidx.compose.ui:ui-tooling:1.1.1] C:\Users\Zulfat\.gradle\caches\transforms-3\19189397f4ab12d89d3b184db8c10b4d\transformed\ui-tooling-1.1.1\AndroidManifest.xml:27:13-36
+35
+36        <service
+36-->[androidx.room:room-runtime:2.4.2] C:\Users\Zulfat\.gradle\caches\transforms-3\5778dc7d4d204154041731f4bfbdaf35\transformed\room-runtime-2.4.2\AndroidManifest.xml:25:9-28:40
+37            android:name="androidx.room.MultiInstanceInvalidationService"
+37-->[androidx.room:room-runtime:2.4.2] C:\Users\Zulfat\.gradle\caches\transforms-3\5778dc7d4d204154041731f4bfbdaf35\transformed\room-runtime-2.4.2\AndroidManifest.xml:26:13-74
+38            android:directBootAware="true"
+38-->[androidx.room:room-runtime:2.4.2] C:\Users\Zulfat\.gradle\caches\transforms-3\5778dc7d4d204154041731f4bfbdaf35\transformed\room-runtime-2.4.2\AndroidManifest.xml:27:13-43
+39            android:exported="false" />
+39-->[androidx.room:room-runtime:2.4.2] C:\Users\Zulfat\.gradle\caches\transforms-3\5778dc7d4d204154041731f4bfbdaf35\transformed\room-runtime-2.4.2\AndroidManifest.xml:28:13-37
+40
+41        <provider
+41-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Zulfat\.gradle\caches\transforms-3\fc3f2f908fb5d65fd1ff64a33e2c9517\transformed\emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
+42            android:name="androidx.startup.InitializationProvider"
+42-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Zulfat\.gradle\caches\transforms-3\fc3f2f908fb5d65fd1ff64a33e2c9517\transformed\emoji2-1.0.0\AndroidManifest.xml:27:13-67
+43            android:authorities="ru.rayanis.mvvmtodoapp.androidx-startup"
+43-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Zulfat\.gradle\caches\transforms-3\fc3f2f908fb5d65fd1ff64a33e2c9517\transformed\emoji2-1.0.0\AndroidManifest.xml:28:13-68
+44            android:exported="false" >
+44-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Zulfat\.gradle\caches\transforms-3\fc3f2f908fb5d65fd1ff64a33e2c9517\transformed\emoji2-1.0.0\AndroidManifest.xml:29:13-37
+45            <meta-data
+45-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Zulfat\.gradle\caches\transforms-3\fc3f2f908fb5d65fd1ff64a33e2c9517\transformed\emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
+46                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+46-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Zulfat\.gradle\caches\transforms-3\fc3f2f908fb5d65fd1ff64a33e2c9517\transformed\emoji2-1.0.0\AndroidManifest.xml:32:17-75
+47                android:value="androidx.startup" />
+47-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Zulfat\.gradle\caches\transforms-3\fc3f2f908fb5d65fd1ff64a33e2c9517\transformed\emoji2-1.0.0\AndroidManifest.xml:33:17-49
+48            <meta-data
+48-->[androidx.profileinstaller:profileinstaller:1.1.0] C:\Users\Zulfat\.gradle\caches\transforms-3\575e22d4a8af7a0f13e8902d20444557\transformed\profileinstaller-1.1.0\AndroidManifest.xml:31:13-33:52
+49                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+49-->[androidx.profileinstaller:profileinstaller:1.1.0] C:\Users\Zulfat\.gradle\caches\transforms-3\575e22d4a8af7a0f13e8902d20444557\transformed\profileinstaller-1.1.0\AndroidManifest.xml:32:17-85
+50                android:value="androidx.startup" />
+50-->[androidx.profileinstaller:profileinstaller:1.1.0] C:\Users\Zulfat\.gradle\caches\transforms-3\575e22d4a8af7a0f13e8902d20444557\transformed\profileinstaller-1.1.0\AndroidManifest.xml:33:17-49
+51            <meta-data
+51-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Zulfat\.gradle\caches\transforms-3\539e4da3d0a55b35f11bfbe5fe45e4b2\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
+52                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+52-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Zulfat\.gradle\caches\transforms-3\539e4da3d0a55b35f11bfbe5fe45e4b2\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
+53                android:value="androidx.startup" />
+53-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Zulfat\.gradle\caches\transforms-3\539e4da3d0a55b35f11bfbe5fe45e4b2\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
+54        </provider>
+55
+56        <receiver
+56-->[androidx.profileinstaller:profileinstaller:1.1.0] C:\Users\Zulfat\.gradle\caches\transforms-3\575e22d4a8af7a0f13e8902d20444557\transformed\profileinstaller-1.1.0\AndroidManifest.xml:36:9-45:20
+57            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+57-->[androidx.profileinstaller:profileinstaller:1.1.0] C:\Users\Zulfat\.gradle\caches\transforms-3\575e22d4a8af7a0f13e8902d20444557\transformed\profileinstaller-1.1.0\AndroidManifest.xml:37:13-76
+58            android:directBootAware="false"
+58-->[androidx.profileinstaller:profileinstaller:1.1.0] C:\Users\Zulfat\.gradle\caches\transforms-3\575e22d4a8af7a0f13e8902d20444557\transformed\profileinstaller-1.1.0\AndroidManifest.xml:38:13-44
+59            android:enabled="true"
+59-->[androidx.profileinstaller:profileinstaller:1.1.0] C:\Users\Zulfat\.gradle\caches\transforms-3\575e22d4a8af7a0f13e8902d20444557\transformed\profileinstaller-1.1.0\AndroidManifest.xml:39:13-35
+60            android:exported="true"
+60-->[androidx.profileinstaller:profileinstaller:1.1.0] C:\Users\Zulfat\.gradle\caches\transforms-3\575e22d4a8af7a0f13e8902d20444557\transformed\profileinstaller-1.1.0\AndroidManifest.xml:40:13-36
+61            android:permission="android.permission.DUMP" >
+61-->[androidx.profileinstaller:profileinstaller:1.1.0] C:\Users\Zulfat\.gradle\caches\transforms-3\575e22d4a8af7a0f13e8902d20444557\transformed\profileinstaller-1.1.0\AndroidManifest.xml:41:13-57
+62            <intent-filter>
+62-->[androidx.profileinstaller:profileinstaller:1.1.0] C:\Users\Zulfat\.gradle\caches\transforms-3\575e22d4a8af7a0f13e8902d20444557\transformed\profileinstaller-1.1.0\AndroidManifest.xml:42:13-44:29
+63                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+63-->[androidx.profileinstaller:profileinstaller:1.1.0] C:\Users\Zulfat\.gradle\caches\transforms-3\575e22d4a8af7a0f13e8902d20444557\transformed\profileinstaller-1.1.0\AndroidManifest.xml:43:17-91
+63-->[androidx.profileinstaller:profileinstaller:1.1.0] C:\Users\Zulfat\.gradle\caches\transforms-3\575e22d4a8af7a0f13e8902d20444557\transformed\profileinstaller-1.1.0\AndroidManifest.xml:43:25-88
+64            </intent-filter>
+65        </receiver>
+66    </application>
+67
+68</manifest>
