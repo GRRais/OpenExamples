@@ -6,7 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import javax.inject.Inject
 
-class MainApp: Application() {
+class MainApp : Application() {
 
     lateinit var appComponent: AppComponent
 
@@ -17,10 +17,10 @@ class MainApp: Application() {
 }
 
 val Context.appComponent: AppComponent
-get() = when(this) {
-    is MainApp -> appComponent
-    else -> this.applicationContext.appComponent
-}
+    get() = when (this) {
+        is MainApp -> appComponent
+        else -> this.applicationContext.appComponent
+    }
 
 class MainActivity : Activity() {
 
