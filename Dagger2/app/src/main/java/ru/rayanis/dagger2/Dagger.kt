@@ -6,7 +6,8 @@ import dagger.Provides
 
 @Component(modules = [AppModule::class])
 interface AppComponent {
-    fun computer(): Computer
+    val computer: Computer
+    fun inject(activity: MainActivity)
 }
 
 @Module
