@@ -62,8 +62,8 @@ class NewNoteActivity : AppCompatActivity() {
     }
 
     private fun fillNote() = with(b) {
-            edTitle.setText(note?.title)
-            edDescription.setText(HtmlManager.getFromHtml(note?.content!!).trim())
+        edTitle.setText(note?.title)
+        edDescription.setText(HtmlManager.getFromHtml(note?.content!!).trim())
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -73,7 +73,7 @@ class NewNoteActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.id_save) {
-                setMainResult()
+            setMainResult()
         } else if (item.itemId == android.R.id.home) {
             finish()
         } else if (item.itemId == R.id.id_bold) {
@@ -92,7 +92,7 @@ class NewNoteActivity : AppCompatActivity() {
         val startPos = edDescription.selectionStart
         val endPos = edDescription.selectionEnd
 
-        val styles = edDescription.text.getSpans(startPos, endPos, ForegroundColorSpan::class.java)
+        val styles = edDescription.text.getSpans(startPos, endPos, StyleSpan::class.java)
         var boldStyle: StyleSpan? = null
         if (styles.isNotEmpty()) {
             edDescription.text.removeSpan(styles[0])
@@ -114,8 +114,10 @@ class NewNoteActivity : AppCompatActivity() {
 
         edDescription.text.setSpan(
             ForegroundColorSpan(
-                ContextCompat.getColor(this@NewNoteActivity, colorId)),
-            startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                ContextCompat.getColor(this@NewNoteActivity, colorId)
+            ),
+            startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         edDescription.text.trim()
         edDescription.setSelection(startPos)
     }
@@ -143,6 +145,7 @@ class NewNoteActivity : AppCompatActivity() {
         )
     }
 
+    //заполняет NoteItem
     private fun createNewNote(): NoteItem {
         return NoteItem(
             null,
@@ -153,6 +156,7 @@ class NewNoteActivity : AppCompatActivity() {
         )
     }
 
+    //выдает текущее время
     private fun getCurrentTime(): String {
         val formatter = SimpleDateFormat("hh:mm:ss - dd/mm/yy", Locale.getDefault())
         return formatter.format(Calendar.getInstance().time)
@@ -171,7 +175,7 @@ class NewNoteActivity : AppCompatActivity() {
 
     private fun closeColorPicker() {
         val openAnim = AnimationUtils.loadAnimation(this, R.anim.close_color_picker)
-        openAnim.setAnimationListener(object: Animation.AnimationListener{
+        openAnim.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) {
             }
 

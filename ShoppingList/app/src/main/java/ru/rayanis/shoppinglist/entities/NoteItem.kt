@@ -5,16 +5,16 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
-@Entity (tableName = "note_list")
+@Entity(tableName = "note_list")
 data class NoteItem(
-    @PrimaryKey (autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     val id: Int?,
-    @ColumnInfo (name = "title")
+    @ColumnInfo(name = "title")
     val title: String,
-    @ColumnInfo (name = "content")
+    @ColumnInfo(name = "content")
     val content: String,
-    @ColumnInfo (name = "time")
+    @ColumnInfo(name = "time")
     val time: String,
-    @ColumnInfo (name = "category")
+    @ColumnInfo(name = "category")
     val category: String
-): Serializable
+) : Serializable

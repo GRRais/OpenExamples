@@ -12,7 +12,7 @@
     <item android:title="Bold"
         android:id="@+id/id_bold"
         android:icon="@drawable/ic_bold"
-        android:orderInCategory="12"
+        android:orderInCategory="2"
         app:showAsAction="ifRoom"
         />
 

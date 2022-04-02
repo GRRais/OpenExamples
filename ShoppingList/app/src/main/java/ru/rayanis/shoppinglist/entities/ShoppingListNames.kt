@@ -5,23 +5,23 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
-@Entity (tableName = "shopping_list_names")
+@Entity(tableName = "shopping_list_names")
 data class ShoppingListNames(
-    @PrimaryKey (autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     val id: Int?,
 
-    @ColumnInfo (name = "name")
+    @ColumnInfo(name = "name")
     val name: String,
 
-    @ColumnInfo (name = "time")
+    @ColumnInfo(name = "time")
     val time: String,
 
-    @ColumnInfo (name = "allItemCounter")
+    @ColumnInfo(name = "allItemCounter")
     val allItemCounter: Int,
 
-    @ColumnInfo (name = "checkedItemsCounter")
+    @ColumnInfo(name = "checkedItemsCounter")
     val checkedItemsCounter: Int,
 
-    @ColumnInfo (name = "itemsIds")
+    @ColumnInfo(name = "itemsIds")
     val itemsIds: String
-): Serializable
+) : Serializable

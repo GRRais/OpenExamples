@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setBottomNavListener() {
         b.bNav.setOnItemSelectedListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.settings -> {}
                 R.id.notes -> {
                     FragmentManager.setFragment(NoteFragment.newInstance(), this)

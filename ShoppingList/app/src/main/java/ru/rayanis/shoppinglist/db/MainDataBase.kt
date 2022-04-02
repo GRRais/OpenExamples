@@ -9,13 +9,15 @@ import ru.rayanis.shoppinglist.entities.NoteItem
 import ru.rayanis.shoppinglist.entities.ShoppingListItem
 import ru.rayanis.shoppinglist.entities.ShoppingListNames
 
-@Database (entities = [
-    LibraryItem::class,
-    NoteItem::class,
-    ShoppingListItem::class,
-    ShoppingListNames::class],
-    version = 1)
-abstract class MainDataBase: RoomDatabase() {
+@Database(
+    entities = [
+        LibraryItem::class,
+        NoteItem::class,
+        ShoppingListItem::class,
+        ShoppingListNames::class],
+    version = 1
+)
+abstract class MainDataBase : RoomDatabase() {
 
     abstract fun getDao(): Dao
 

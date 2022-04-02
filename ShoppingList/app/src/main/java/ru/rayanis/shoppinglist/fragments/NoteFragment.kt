@@ -20,7 +20,7 @@ import ru.rayanis.shoppinglist.entities.NoteItem
 
 class NoteFragment : BaseFragment(), NoteAdapter.Listener {
     private lateinit var b: FragmentNoteBinding
-    private lateinit var editLauncher:ActivityResultLauncher<Intent>
+    private lateinit var editLauncher: ActivityResultLauncher<Intent>
     private lateinit var adapter: NoteAdapter
 
     private val mainViewModel: MainViewModel by activityViewModels {
@@ -92,6 +92,7 @@ class NoteFragment : BaseFragment(), NoteAdapter.Listener {
     companion object {
         const val NEW_NOTE_KEY = "title_key"
         const val EDIT_STATE_KEY = "edit_state_key"
+
         @JvmStatic
         fun newInstance() = NoteFragment()
     }
