@@ -8,6 +8,7 @@ import ru.rayanis.shoppinglist.databinding.ActivityMainBinding
 import ru.rayanis.shoppinglist.dialogs.NewListDialog
 import ru.rayanis.shoppinglist.fragments.FragmentManager
 import ru.rayanis.shoppinglist.fragments.NoteFragment
+import ru.rayanis.shoppinglist.fragments.ShopListNamesFragment
 
 class MainActivity : AppCompatActivity(), NewListDialog.Listener {
 
@@ -27,10 +28,11 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
                 R.id.notes -> {
                     FragmentManager.setFragment(NoteFragment.newInstance(), this)
                 }
-                R.id.shop_list -> {}
+                R.id.shop_list -> {
+                    FragmentManager.setFragment(ShopListNamesFragment.newInstance(), this)
+                }
                 R.id.new_item -> {
-                    //FragmentManager.currentFrag?.onClickNew()
-                    NewListDialog.showDialog(this, this)
+                    FragmentManager.currentFrag?.onClickNew()
                 }
             }
             true
