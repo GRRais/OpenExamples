@@ -2,12 +2,14 @@ package ru.rayanis.shoppinglist.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import ru.rayanis.shoppinglist.R
 import ru.rayanis.shoppinglist.databinding.ActivityMainBinding
+import ru.rayanis.shoppinglist.dialogs.NewListDialog
 import ru.rayanis.shoppinglist.fragments.FragmentManager
 import ru.rayanis.shoppinglist.fragments.NoteFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NewListDialog.Listener {
 
     lateinit var b: ActivityMainBinding
 
@@ -27,10 +29,15 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.shop_list -> {}
                 R.id.new_item -> {
-                    FragmentManager.currentFrag?.onClickNew()
+                    //FragmentManager.currentFrag?.onClickNew()
+                    NewListDialog.showDialog(this, this)
                 }
             }
             true
         }
+    }
+
+    override fun onClick(name: String) {
+        Log.d("MyLog", "Name: $name")
     }
 }

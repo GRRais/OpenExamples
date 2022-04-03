@@ -4,11 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Github/OpenExamples/ShoppingList/app/src/main/res/layout/activity_new_note.xml" value="0.2871376811594203" />
+<<<<<<< Updated upstream
         <entry key="..\:/Users/Rayan/Documents/GitHub/OpenExamples/ShoppingList/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Rayan/Documents/GitHub/OpenExamples/ShoppingList/app/src/main/res/layout/activity_new_note.xml" value="0.25" />
         <entry key="..\:/Users/Rayan/Documents/GitHub/OpenExamples/ShoppingList/app/src/main/res/layout/note_list_item.xml" value="0.25" />
         <entry key="..\:/Users/Rayan/Documents/GitHub/OpenExamples/ShoppingList/app/src/main/res/menu/bottom_menu.xml" value="0.25" />
         <entry key="..\:/Users/Rayan/Documents/GitHub/OpenExamples/ShoppingList/app/src/main/res/menu/new_note_menu.xml" value="0.25" />
+=======
+        <entry key="..\:/Github/OpenExamples/ShoppingList/app/src/main/res/layout/new_list_dialog.xml" value="0.33179487179487177" />
+>>>>>>> Stashed changes
       </map>
     </option>
   </component>
